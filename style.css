@@ -7,7 +7,7 @@ body{
 .grid-container {
     display: grid;
     grid-template-columns: 1fr 1fr 1fr 1fr;
-    grid-template-rows: 1fr 3fr 3fr 3fr 2fr;
+    grid-template-rows: .5fr 3fr 3fr 3fr 2fr;
       
     grid-template-areas: "logo . menu menu" "hi hi hi hi" "what what what what" "projects projects projects projects""contact contact contact contact" ;
   }
@@ -22,7 +22,7 @@ body{
         }
   
         .logo img{
-            margin-top:50px;
+            
             object-fit: contain;
         }
 
