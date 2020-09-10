@@ -18,11 +18,11 @@ body{
       display: flex;
       justify-content: center;
       justify-items: center;
-        margin-top:50px;
+        
         }
   
         .logo img{
-
+            margin-top:50px;
             object-fit: contain;
         }
 
