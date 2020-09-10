@@ -35,6 +35,7 @@ header.header{
     align-items: center;
     padding:10px;
        background:#fafafa;
+       z-index: 1;
     }
 
   .menu { 
@@ -45,7 +46,7 @@ header.header{
           text-align: center;
           align-items: center;
           justify-content: center;
-          
+          margin-right: 5%;
           
         }
         .menu a{
@@ -154,26 +155,33 @@ header.header{
               ". headline headline ."
               "p1 p2 p3 p4"
               ". . . .";
-              justify-content: space-between;
+              justify-items: stretch;
+              
         }
 
       .headline { grid-area: headline;
       display: flex;
 justify-content: center; }
 
-      .p1 { grid-area: p1; }
+      .p1 { grid-area: p1; 
+            display: flex;
+            justify-content: center; 
+background-color: gray;
+}}
 
       .p2 { grid-area: p2;
-            display: flex;
-            justify-content: center;  }
+            
+      }
 
       .p3 { grid-area: p3;
-            display: flex;
-            justify-content: center;
+            
+            
              }
 
-      .p4 { grid-area: p4; }
-
+      .p4 { grid-area: p4; 
+display: flex;
+            justify-content: center;
+            background-color: #fff; }
 
   .contact { 
          grid-area: contact;
