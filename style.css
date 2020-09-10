@@ -148,13 +148,13 @@ header.header{
         .pContainer{
 
             display: grid;
-            grid-template-columns: 1fr 1fr 1fr 1fr;
+            grid-template-columns: 1fr 1fr 1fr;
             grid-template-rows: 1fr 1fr 1fr;
             gap: 1px 1px;
             grid-template-areas:
-              ". headline headline ."
-              "p1 p2 p3 p4"
-              ". . . .";
+              ". headline ."
+              "p1 p2 p3"
+              ". . .";
               justify-items: stretch;
               
         }
@@ -167,19 +167,17 @@ justify-content: center; }
             display: flex;
             justify-content: center; 
 background-color: gray;
-}}
+}
 
-      .p2 { grid-area: p2;
+      .p2 { 
+            grid-area: p2;
             
-      }
+            }
 
-      .p3 { grid-area: p3;
-            
-            
-             }
 
-      .p4 { grid-area: p4; 
-display: flex;
+      .p3 { 
+            grid-area: p3; 
+            display: flex;
             justify-content: center;
             background-color: #fff; }
 
