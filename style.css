@@ -161,7 +161,8 @@ header.header{
 
       .headline { grid-area: headline;
       display: flex;
-justify-content: center; }
+justify-content: center;
+}
 
       .p1 { grid-area: p1; 
             display: flex;
@@ -171,7 +172,12 @@ background-color: gray;
 
       .p2 { 
             grid-area: p2;
+            justify-items: center;
+            align-items: center;
             
+            }
+            .p2 img{
+            width: 500px;
             }
 
 
