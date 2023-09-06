@@ -97,6 +97,11 @@ header.header{
             animation: fadein 2s;
             padding:150px 150px 150px 50px ;
       }
+       .oval-image {
+            border-radius: 50%;
+            overflow: hidden;
+      
+       }
       @keyframes fadein {
             from { opacity: 0; }
             to   { opacity: 1; }
