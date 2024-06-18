@@ -19,7 +19,7 @@
           "options": {
             "outputPath": "docs",
             "index": "src/index.html",
-            "baseHref": "/avihyb.github.io/",
+            "baseHref": "/avihyb.github.io",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
