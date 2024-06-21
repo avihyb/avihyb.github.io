@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "myapp": {
+    "website": {
       "projectType": "application",
       "schematics": {
         "@schematics/angular:component": {
@@ -17,14 +17,14 @@
         "build": {
           "builder": "@angular-devkit/build-angular:application",
           "options": {
-            "outputPath": "dist/myapp",
+            "outputPath": "dist/website",
             "index": "src/index.html",
             "browser": "src/main.ts",
             "polyfills": [
               "zone.js"
             ],
             "tsConfig": "tsconfig.app.json",
-            "inlineStyleLanguage": "css",
+            "inlineStyleLanguage": "scss",
             "assets": [
               {
                 "glob": "**/*",
@@ -32,14 +32,9 @@
               }
             ],
             "styles": [
-              "src/style.css",
-              "node_modules/bootstrap/dist/css/bootstrap.min.css"
-              
+              "src/styles.scss"
             ],
-            "scripts": [
-
-              "node_modules/jquery/dist/jquery.min.js"
-            ]
+            "scripts": []
           },
           "configurations": {
             "production": {
@@ -69,10 +64,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "buildTarget": "myapp:build:production"
+              "buildTarget": "website:build:production"
             },
             "development": {
-              "buildTarget": "myapp:build:development"
+              "buildTarget": "website:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -105,6 +100,6 @@
     }
   },
   "cli": {
-    "analytics": "e276fe8e-790a-430f-bf31-90dde9bf8158"
+    "analytics": "96a75c96-8a51-447a-b5a8-8a6b69b9f82b"
   }
 }

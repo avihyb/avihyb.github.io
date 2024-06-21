@@ -1,23 +1,13 @@
 import { Component } from '@angular/core';
-import { HeaderComponent } from './header/header.component';
-import { IntroComponent } from './intro/intro.component';
-import { SkillsComponent } from './skills/skills.component';
-import { ProjectsComponent } from './projects/projects.component';
-import { ContactComponent } from './contact/contact.component';
+import { RouterOutlet } from '@angular/router';
 
 @Component({
-  standalone: true,
   selector: 'app-root',
+  standalone: true,
+  imports: [RouterOutlet],
   templateUrl: './app.component.html',
-  styleUrls: ['./app.component.css'],
-  imports: [
-    HeaderComponent,
-    IntroComponent,
-    SkillsComponent,
-    ProjectsComponent,
-    ContactComponent
-  ]
+  styleUrl: './app.component.scss'
 })
 export class AppComponent {
-  title = 'angular-avi-page';
+  title = 'website';
 }
