@@ -1,84 +1,212 @@
+/* Importing the global Roboto font */
 @import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
 
 body {
   margin: 0;
   padding: 0;
-  font-family: 'Roboto', sans-serif;
+  font-family: 'Roboto', sans-serif; // Ensure Roboto is used
   background: #f0f0f0; // Optional: Page background color
 }
 
-.main-container {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  height: 100vh; /* Adjust as needed */
-  background: linear-gradient(to right, #0a3143, #00231a);
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-  padding: 10px 5%;
-}
-
 .nav-container {
-  margin-bottom: 20px; /* Optional: Space between nav and content */
-}
-
-.nav-container ul {
-  list-style-type: none;
-  margin: 0;
-  padding: 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  background: #ffffff;
+  padding: 10px 5%;
+  z-index: 1000; /* Ensure the nav stays on top */
   display: flex;
+  justify-content: flex-end; /* Align menu items to the right */
+  
+  /* Media query for larger screens */
+  @media screen and (min-width: 768px) {
+    justify-content: flex-end; /* Full menu aligned to the right */
+    .menu {
+      display: flex; /* Show full menu on larger screens */
+    }
+    .menu-toggle {
+      display: none; /* Hide menu toggle on larger screens */
+    }
+  }
 }
 
-.nav-container ul li {
-  margin-right: 20px; /* Adjust spacing between navigation items */
-}
-
-.nav-container a {
-  position: relative;
+.menu-toggle {
   cursor: pointer;
-  font-size: 20px;
-  font-family: 'Roboto', sans-serif;
+  font-size: 24px; /* Adjust size of hamburger and x icons */
+  color: #000; /* Adjust icon color */
+  display: block; /* Show by default */
+}
+
+.menu {
+  list-style-type: none;
+  padding: 0;
+  margin: 0;
+  display: none; /* Hide full menu by default */
+  align-items: center;
+}
+
+.menu li {
+  margin-left: 20px;
+}
+
+.menu a {
   text-decoration: none;
-  color: white;
-  padding: 10px 20px; // Adjust padding as needed
-  transition: color 0.3s ease;
-}
-
-.nav-container a::before {
-  content: attr(data-icon);
-  font-family: 'FontAwesome';
-  padding-right: 8px;
+  color: #000; /* Adjust link color */
   font-size: 18px;
+  font-family: 'Roboto';
+  font-weight: bold;
 }
 
-.nav-container a:hover {
-  color: #ff9c00;
+.menu a:hover {
+  color: orange;
+  
+  transition: color 0.2s;
+  
+}
+
+.offcanvas-menu {
+  position: fixed;
+  top: 0;
+  left: -250px; /* Hide off-canvas menu initially */
+  width: 250px;
+  height: 100%;
+  background-color: #fff; /* Adjust background color */
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
+  transition: left 0.3s ease; /* Smooth transition effect */
+  z-index: 1000; /* Ensure the menu is on top of other content */
+
+  ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 20px 0;
+  }
+
+  li {
+    margin-bottom: 10px;
+  }
+
+  a {
+    display: block;
+    padding: 10px 20px;
+    text-decoration: none;
+    color: #000; /* Adjust link color */
+    font-size: 18px;
+    transition: background-color 0.3s ease; /* Smooth transition for background */
+    font-family: 'Roboto';
+    font-weight: bold;
+  }
+
+  a:hover {
+    background-color: #f0f0f0; /* Adjust hover background color */
+    
+  }
+  
+
+  &.open {
+    left: 0; /* Slide in the off-canvas menu */
+  }
 }
 
 .component-container {
+  margin-top: 60px; /* Adjust top margin */
   width: 100%;
   max-width: 1200px; /* Adjust max-width as needed */
   padding: 20px;
-  background-color: white; /* Optional: Background color for content area */
+  background-color: #ffffff; /* Optional: Background color for content area */
   border-radius: 8px;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  justify-content: center;
+  align-items: flex-start;
 }
 
 @media screen and (max-width: 768px) {
-  .main-container {
+  .nav-container {
     padding: 10px;
   }
 
-  .nav-container ul {
-    flex-direction: column;
-    align-items: center;
+  .menu-toggle {
+    display: block;
   }
 
-  .nav-container a {
-    margin-bottom: 10px; /* Space between nav items on small screens */
+  .menu {
+    display: none; /* Hide full menu on small screens */
   }
 
-  .component-container {
-    padding: 10px;
+  .offcanvas-menu {
+    left: -250px; /* Hide off-canvas menu by default */
   }
 }
+
+
+
+/* CSS */
+.button-57 {
+  position: relative;
+  overflow: hidden;
+  border: 2px solid #f7b234;
+  color: #18181a;
+  display: inline-block;
+  font-size: 15px;
+  line-height: 15px;
+  padding: 18px 18px 17px;
+  text-decoration: none;
+  cursor: pointer;
+  background: #fff;
+  user-select: none;
+  -webkit-user-select: none;
+  touch-action: manipulation;
+  border-radius: 15px;
+  font-family: 'Roboto';
+  font-weight: bold;
+}
+
+.button-57 span:first-child {
+  position: relative;
+  transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
+  z-index: 10;
+}
+
+.button-57 span:last-child {
+  color: white;
+  display: block;
+  position: absolute;
+  bottom: 0;
+  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
+  z-index: 100;
+  opacity: 0;
+  top: 50%;
+  left: 50%;
+  transform: translateY(225%) translateX(-50%);
+  height: 14px;
+  line-height: 13px;
+}
+
+.button-57:after {
+  content: "";
+  position: absolute;
+  bottom: -50%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgb(225, 153, 38);
+  transform-origin: bottom center;
+  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
+  transform: skewY(9.3deg) scaleY(0);
+  z-index: 50;
+  
+}
+
+.button-57:hover:after {
+  transform-origin: bottom center;
+  transform: skewY(9.3deg) scaleY(2);
+}
+
+.button-57:hover span:last-child {
+  transform: translateX(-50%) translateY(-100%);
+  opacity: 1;
+  transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
+}
+

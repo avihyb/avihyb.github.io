@@ -1,14 +1,31 @@
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
 <div class="main-container">
   <div class="nav-container">
+    <!-- Show menu toggle button only on small screens -->
+    <div class="menu-toggle" *ngIf="isSmallScreen" (click)="toggleMenu()">
+      <i *ngIf="!isMenuOpen" class="fas fa-bars"></i> <!-- Hamburger icon when menu is closed -->
+      <i *ngIf="isMenuOpen" class="fas fa-times"></i> <!-- X icon when menu is open -->
+    </div>
+
+    <!-- Show full menu on larger screens or when menu is open -->
+    <ul class="menu" *ngIf="!isSmallScreen || isMenuOpen">
+      <li><a routerLink="/home" (click)="closeMenu()">Home</a></li>
+      <li><a routerLink="/projects" (click)="closeMenu()">Projects</a></li>
+      <li><a routerLink="/resume" (click)="closeMenu()">About</a></li>
+      <li><button class="button-57" role="button" routerLink="/resume" (click)="closeMenu()">
+        <span class="text">Say Hello</span><span>Contact Info</span></button></li>
+    </ul>
+  </div>
+
+  <!-- Offcanvas menu for small screens -->
+  <div class="offcanvas-menu" [ngClass]="{'open': isMenuOpen && isSmallScreen}">
     <ul>
-      <a routerLink="/home" data-icon="&#xf015;">Home</a>
-      <a routerLink="/projects" data-icon="&#xf013;">Projects</a>
-      <a routerLink="" data-icon="&#xf007;">Resume</a>
+      <li><a routerLink="/home" (click)="closeMenu()">Home</a></li>
+      <li><a routerLink="/projects" (click)="closeMenu()">Projects</a></li>
+      <li><a routerLink="/resume" (click)="closeMenu()">Say Hello</a></li>
     </ul>
   </div>
 
   <div class="component-container">
     <router-outlet></router-outlet>
-
+  </div>
 </div>

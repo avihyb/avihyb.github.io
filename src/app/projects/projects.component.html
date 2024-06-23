@@ -1,1 +1,21 @@
-<p>projects works!</p>
+<!-- src/app/projects/projects.component.html -->
+<div class="projects-container">
+    <div *ngFor="let project of projects" class="project-card">
+      <img [src]="project.image" alt="{{ project.title }}">
+      <div class="project-details">
+        <h2>{{ project.title }}</h2>
+        <p *ngIf="!isDescriptionExpanded(project)">{{ project.description | truncate:100 }}</p>
+        <p *ngIf="isDescriptionExpanded(project)">{{ project.description }}</p>
+        <a href="#" (click)="toggleDescription($event, project)">
+          {{ isDescriptionExpanded(project) ? 'Read less' : 'Read more' }}
+        </a>
+        <div class="languages">
+          <ng-container *ngFor="let language of project.languages">
+            <i [class]="getLanguageIconClass(language)" class="language-icon"></i>
+          </ng-container>
+        </div>
+        <a [href]="project.url" target="_blank">Github Link</a>
+      </div>
+    </div>
+  </div>
+  
