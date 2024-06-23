@@ -1,0 +1,58 @@
+@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+
+body {
+  margin: 0;
+  padding: 0;
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font to the entire body */
+}
+
+.container {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start; /* Align items to the start of the flex container */
+  max-width: 800px; /* Adjust max-width as needed */
+  margin: 0 auto; /* Center the container horizontally */
+  padding: 20px;
+  font-family: 'Roboto', sans-serif; /* Apply Roboto font to all text within .container */
+}
+
+.header {
+  display: flex;
+  justify-content: space-between; /* Spacing items evenly */
+  align-items: center; /* Center items vertically within the header */
+  width: 100%; /* Ensure full width */
+}
+
+.header a {
+  text-decoration: none; /* Remove underline from links */
+  color: #333; /* Set text color to a dark gray */
+  font-size: 3rem;
+  font-weight: bold;
+}
+
+.photo {
+  margin-left: auto; /* Push the photo to the right */
+}
+
+.highlight {
+  font-weight: bold;
+}
+
+.social-icons {
+  display: flex;
+  justify-content: center; /* Center items horizontally */
+  margin-top: 20px; /* Add space between social icons and content */
+  width: 100%; /* Ensure icons take full width of container */
+}
+
+.social-icons a {
+  text-decoration: none; /* Remove underline from links */
+  color: #888; /* Set default color to gray */
+  font-size: 24px; /* Adjust icon size */
+  margin: 0 10px; /* Add spacing between icons */
+  transition: color 0.3s ease; /* Smooth transition for color change */
+}
+
+.social-icons a:hover {
+  color: #000; /* Change color to black on hover */
+}
