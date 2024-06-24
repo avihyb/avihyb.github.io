@@ -16,7 +16,7 @@ export class ContactComponent {
   constructor(private http: HttpClient) {}
 
   onSubmit() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycbz3hcyDO94Mb2aGGiDi6Mj7X7zuxFv8WI-iHhQTq8uiYdm1lOUTjwJhI35b6Hc5q0yr/exec'; // Replace with your Google Apps Script URL
+    const scriptURL = 'https://script.google.com/macros/s/AKfycby4BkFRUjVJfmRnZIvkAulB7Lvx9Ths3GFffBae7cQ/dev'; 
     const params = new HttpParams()
       .set('name', this.contact.name)
       .set('email', this.contact.email)
