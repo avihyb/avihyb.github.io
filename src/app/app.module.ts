@@ -8,18 +8,27 @@ import { CommonModule } from '@angular/common';
 import { ProjectsComponent } from './projects/projects.component';
 import { TruncatePipe } from './pipes/truncate.pipe';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { ContactComponent } from './contact/contact.component';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms'; // Import FormsModule and ReactiveFormsModule
+import { HttpClientModule } from '@angular/common/http';
+
 @NgModule({
   declarations: [
     AppComponent,
     ProjectsComponent,
     TruncatePipe,
-    ResumeComponent // Add ResumeComponent to declarations
+    ResumeComponent,
+    ContactComponent
   ],
   imports: [
     BrowserModule,
     CommonModule,
+    FormsModule, // Add FormsModule
+    ReactiveFormsModule, // Add ReactiveFormsModule
+    HttpClientModule, // Add HttpClientModule
     AppRoutingModule,
-    BrowserAnimationsModule
+    BrowserAnimationsModule,
+    
   ],
   bootstrap: [AppComponent],
   exports: [TruncatePipe]

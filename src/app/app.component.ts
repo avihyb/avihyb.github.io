@@ -6,6 +6,7 @@ import { Component, HostListener } from '@angular/core';
   styleUrls: ['./app.component.scss'] // Ensure styleUrls is correctly spelled
 })
 export class AppComponent {
+  [x: string]: any;
   isSmallScreen: boolean = false;
   isMenuOpen: boolean = false;
 

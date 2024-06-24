@@ -3,11 +3,12 @@ import { AppComponent } from './app.component';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ResumeComponent } from './resume/resume.component';
+import { ContactComponent } from './contact/contact.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent, HomeComponent, ProjectsComponent, ResumeComponent], // Declare both components
+      declarations: [AppComponent, HomeComponent, ProjectsComponent, ResumeComponent, ContactComponent], // Declare both components
       imports: [],
     }).compileComponents();
   });
@@ -21,7 +22,7 @@ describe('AppComponent', () => {
   it(`should have the 'website' title`, () => {
     const fixture = TestBed.createComponent(AppComponent);
     const app = fixture.componentInstance;
-    expect(app.title).toEqual('website');
+    expect(app['title']).toEqual('website');
   });
 
   it('should render title', () => {
