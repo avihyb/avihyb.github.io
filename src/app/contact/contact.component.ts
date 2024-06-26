@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
+import { NgForm } from '@angular/forms';
 
 @Component({
   selector: 'app-contact',
@@ -7,32 +7,39 @@ import { HttpClient, HttpParams, HttpHeaders } from '@angular/common/http';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
-  contact = {
-    name: '',
-    email: '',
-    message: ''
-  };
+  successMessage: string = '';
 
-  constructor(private http: HttpClient) {}
-
-  onSubmit() {
-    const scriptURL = 'https://script.google.com/macros/s/AKfycby4BkFRUjVJfmRnZIvkAulB7Lvx9Ths3GFffBae7cQ/dev'; 
-    const params = new HttpParams()
-      .set('name', this.contact.name)
-      .set('email', this.contact.email)
-      .set('message', this.contact.message);
-    const headers = new HttpHeaders()
-      .set('Content-Type', 'application/x-www-form-urlencoded');
-
-    this.http.post(scriptURL, params, { headers }).subscribe(
-      response => {
-        console.log('Contact form submitted', response);
-        alert('Form submitted successfully!');
-      },
-      error => {
-        console.error('Error submitting contact form', error);
-        alert('There was an error submitting the form.');
-      }
-    );
+  onSubmit(form: NgForm) {
+    if (form.valid) {
+      // Create a new FormData object to hold the form data
+      const formData = new FormData();
+      formData.append('email', form.value.email);
+      formData.append('message', form.value.message);
+      
+      // Use fetch API to submit the form data to Formspree
+      fetch('https://formspree.io/f/mgvwwdvj', {
+        method: 'POST',
+        body: formData,
+        headers: {
+          'Accept': 'application/json'
+        }
+      })
+      .then(response => response.json())
+      .then(data => {
+        if (data.ok) {
+          console.log('Form submitted successfully', data);
+          this.successMessage = 'Your message has been sent successfully.';
+          // Optionally, reset the form
+          form.resetForm();
+        } else {
+          console.error('Form submission error', data);
+          // Optionally, show an error message to the user
+        }
+      })
+      .catch(error => {
+        console.error('Form submission error', error);
+        // Optionally, show an error message to the user
+      });
+    }
   }
 }
