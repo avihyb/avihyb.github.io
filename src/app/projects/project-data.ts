@@ -2,6 +2,13 @@ import { Project } from './project.model';
 
 export const PROJECTS: Project[] = [
     {
+        title: 'Audio Deepfake Recognition',
+        description: 'Audio deepfake recognition using deep learning methods',
+        image: 'https://cdn.pixabay.com/photo/2016/03/31/15/24/audio-1293262_1280.png',
+        url: '',
+        languages: ['Python']
+    },
+    {
         title: 'Opearting Systems Final Project',
         description: 'MST in Graphs, Algorithms. Factory, Stratetgy, Pipeline (Active Object), Thread-Pool, Leader-Follower.',
         image: 'images/mst.png',
@@ -9,7 +16,7 @@ export const PROJECTS: Project[] = [
         languages: ['C++']
     },
     {
-        title: 'My Angular Project',
+        title: 'Frontend Project',
         description: 'Angular project which demonstrates the use of Angular components, services, and routing. The project also includes a custom Angular service that fetches data from a JSON file and displays it on the page. The project also includes a custom Angular component that displays a list of items and allows the user to add new items to the list. The project also includes a custom Angular component that displays a list of items and allows the user to delete items from the list. The project also includes a custom Angular component that displays a list of items and allows the user to edit items in the list.',
         image: 'images/websiteIntro.png',
         url: 'https://github.com/avihyb/avihyb.github.io',

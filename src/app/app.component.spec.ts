@@ -4,11 +4,12 @@ import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ResumeComponent } from './resume/resume.component';
 import { ContactComponent } from './contact/contact.component';
+import { FinalprojectComponent } from './finalproject/finalproject.component';
 
 describe('AppComponent', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      declarations: [AppComponent, HomeComponent, ProjectsComponent, ResumeComponent, ContactComponent], // Declare both components
+      declarations: [AppComponent, HomeComponent, ProjectsComponent, ResumeComponent, ContactComponent, FinalprojectComponent], // Declare both components
       imports: [],
     }).compileComponents();
   });

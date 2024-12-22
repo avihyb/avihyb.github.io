@@ -1,0 +1,89 @@
+.diary-container {
+    font-family: 'Roboto', sans-serif;
+    margin: 40px auto;
+    max-width: 900px;
+    line-height: 1.6;
+    color: #333;
+    position: relative;
+    padding: 20px;
+  }
+  
+  .diary-header {
+    text-align: center;
+    margin-bottom: 30px;
+  
+    h1 {
+      font-size: 2.5rem;
+      color: #4a90e2;
+    }
+  
+    .subtitle {
+      font-size: 1.2rem;
+      color: #555;
+    }
+  }
+  
+  .diary-entry {
+    margin-bottom: 40px;
+    position: relative;
+    padding-left: 60px; /* Space for the timeline line */
+  
+    &::before {
+      content: '';
+      position: absolute;
+      left: 20px;
+      top: 0;
+      width: 3px;
+      height: 100%;
+      background-color: #4a90e2; /* Timeline line color */
+      transform: translateX(-50%);
+      z-index: 0;
+    }
+  
+    h2 {
+      font-size: 1.8rem;
+      color: #333;
+      margin-bottom: 10px;
+      position: relative;
+      z-index: 2;
+    }
+  
+    .diary-content {
+      display: flex;
+      gap: 20px;
+      position: relative;
+      z-index: 2;
+      align-items: flex-start;
+  
+      p {
+        font-size: 1.1rem;
+        margin: 0;
+        padding: 15px;
+        background-color: #fff;
+        border-radius: 8px;
+        line-height: 1.5;
+        flex: 2;
+        z-index: 3;
+      }
+  
+      .diary-image {
+        position: relative;
+        width: 270px;
+        height: auto;
+        border-radius: 8px;
+        background: none;
+        z-index: 2;
+        transition: transform 0.3s ease-in-out; /* Smooth transition for the image */
+        margin-left: auto; /* Place image to the right */
+        transform: translateX(0);
+        object-fit: cover;
+        max-height: 250px; /* Set a max height */
+      }
+  
+      /* Image hover effect */
+      .diary-content:hover .diary-image {
+        transform: translateX(20px); /* Move image to the right when hovered */
+      }
+    }
+  }
+  
