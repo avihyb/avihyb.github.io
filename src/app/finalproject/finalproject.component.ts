@@ -1,12 +1,18 @@
-import { Component } from '@angular/core';
+import { Component, ElementRef, ViewChild } from '@angular/core';
 
 @Component({
   selector: 'app-finalproject',
   standalone: true,
-  imports: [],
   templateUrl: './finalproject.component.html',
-  styleUrl: './finalproject.component.scss'
+  styleUrls: ['./finalproject.component.scss']
 })
 export class FinalprojectComponent {
+  @ViewChild('scrollContainer') scrollContainer!: ElementRef;
 
+  scrollToSection(sectionId: string) {
+    const element = document.getElementById(sectionId);
+    if (element) {
+      element.scrollIntoView({ behavior: 'smooth' });
+    }
+  }
 }
