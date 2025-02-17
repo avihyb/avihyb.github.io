@@ -2,7 +2,14 @@ import { Project } from './project.model';
 
 export const PROJECTS: Project[] = [
     {
-        title: 'Audio Deepfake Recognition',
+        title: 'Subspace Clustering in High Dimensional Data',
+        description: 'Seminar presented about high dimensional challanges, advanced algorithms and PCA demonstration.',
+        image: 'https://towardsdatascience.com/wp-content/uploads/2022/02/1QinDfRawRskupf4mU5bYSA.png',
+        url: 'https://www.linkedin.com/posts/avihyb_subspace-clustering-of-high-dimensional-data-activity-7286773604476706817-drVh?utm_source=share&utm_medium=member_desktop&rcm=ACoAADFRtMUBDLQSWGE8lekGoSxijuVHfGko5mk',
+        languages: ['Python']
+    },
+    {
+        title: 'Audio Deepfake Recognition - in progress',
         description: 'Audio deepfake recognition using deep learning methods',
         image: 'https://cdn.pixabay.com/photo/2016/03/31/15/24/audio-1293262_1280.png',
         url: '',
