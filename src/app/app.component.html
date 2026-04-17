@@ -1,32 +1,25 @@
-<div class="main-container">
-  <div class="nav-container">
-    <!-- Show menu toggle button only on small screens -->
-    <div class="menu-toggle" *ngIf="isSmallScreen" (click)="toggleMenu()">
-      <i *ngIf="!isMenuOpen" class="fas fa-bars"></i> <!-- Hamburger icon when menu is closed -->
-      <i *ngIf="isMenuOpen" class="fas fa-times"></i> <!-- X icon when menu is open -->
-    </div>
-
-    <!-- Show full menu on larger screens or when menu is open -->
-    <ul class="menu" *ngIf="!isSmallScreen || isMenuOpen">
-      <li><a routerLink="/home" (click)="closeMenu()">Home</a></li>
-      <li><a routerLink="/projects" (click)="closeMenu()">Projects</a></li>
-      <li><a routerLink="/resume" (click)="closeMenu()">About</a></li>
-      <li><a routerLink="/finalproject" (click)="closeMenu()">Audio Deepfake Recognition</a></li>
-      <li><button class="button-57" role="button" routerLink="/contact" (click)="closeMenu()">
-        <span class="text">Say Hello</span><span>Contact Me</span></button></li>
-    </ul>
-  </div>
-
-  <!-- Offcanvas menu for small screens -->
-  <div class="offcanvas-menu" [ngClass]="{'open': isMenuOpen && isSmallScreen}">
-    <ul>
-      <li><a routerLink="/home" (click)="closeMenu()">Home</a></li>
-      <li><a routerLink="/projects" (click)="closeMenu()">Projects</a></li>
-      <li><a routerLink="/contact" (click)="closeMenu()">Say Hello</a></li>
-    </ul>
-  </div>
-
-  <div class="component-container">
+<div class="main-layout">
+  <div class="matrix-bg"></div>
+  <div class="content-area">
     <router-outlet></router-outlet>
   </div>
+
+  <nav class="mac-dock">
+    <a class="dock-item" routerLink="/home" routerLinkActive="active">
+      <i class="fas fa-home"></i>
+      <span class="tooltip">Home</span>
+    </a>
+    <a class="dock-item" routerLink="/projects" routerLinkActive="active">
+      <i class="fas fa-code-branch"></i>
+      <span class="tooltip">Projects</span>
+    </a>
+    <a class="dock-item" routerLink="/resume" routerLinkActive="active">
+      <i class="fas fa-user-tie"></i>
+      <span class="tooltip">About</span>
+    </a>
+    <a class="dock-item" routerLink="/contact" routerLinkActive="active">
+      <i class="fas fa-paper-plane"></i>
+      <span class="tooltip">Contact</span>
+    </a>
+  </nav>
 </div>

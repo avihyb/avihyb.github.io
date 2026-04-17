@@ -1,63 +1,163 @@
+.timeline-page {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 40px 20px 80px;
+  animation: fadeIn 0.5s ease;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(10px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.page-header {
+  text-align: center;
+  margin-bottom: 64px;
+
+  .page-title {
+    font-size: 40px;
+    font-weight: 800;
+    color: var(--text);
+    margin-bottom: 12px;
+  }
+
+  .page-subtitle {
+    font-size: 16px;
+    color: var(--text-dim);
+  }
+}
+
 .timeline-container {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  padding: 20px;
-  font-family: 'Roboto', sans-serif;
+  gap: 48px;
+  position: relative;
+
+  &::before {
+    content: '';
+    position: absolute;
+    left: 20px;
+    top: 10px;
+    bottom: 10px;
+    width: 2px;
+    background: linear-gradient(180deg, var(--accent) 0%, rgba(255, 215, 0, 0.05) 100%);
+    border-radius: 2px;
+  }
 }
 
-.timeline {
+.timeline-node {
   position: relative;
-  width: 80%;
-  margin: 20px 0;
-  padding: 20px;
-  border-radius: 8px;
-  background: #fff;
-  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+  padding-left: 60px;
   opacity: 0;
-  transform: translateY(50px);
-  transition: opacity 0.6s ease, transform 0.6s ease;
+  transform: translateY(30px);
+  animation: slideUp 0.6s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 
-  &.visible {
-    opacity: 1;
-    transform: translateY(0);
+  @for $i from 1 through 10 {
+    &:nth-child(#{$i}) {
+      animation-delay: #{$i * 0.1}s;
+    }
+  }
+
+  .timeline-indicator {
+    position: absolute;
+    left: 13px;
+    top: 32px;
+    width: 16px;
+    height: 16px;
+    background: var(--bg);
+    border: 3px solid var(--accent);
+    border-radius: 50%;
+    z-index: 2;
+    box-shadow: 0 0 10px var(--accent-glow);
+  }
+}
+
+@keyframes slideUp {
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.timeline-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  border-radius: 24px;
+  padding: 32px;
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  box-shadow: 0 16px 32px rgba(0, 0, 0, 0.3);
+  transition: transform 0.3s, box-shadow 0.3s;
+
+  &:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.4);
+    border-color: rgba(255, 215, 0, 0.15); /* Subtly glow accent on hover */
+  }
+}
+
+.timeline-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  flex-wrap: wrap;
+  gap: 16px;
+  margin-bottom: 20px;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding-bottom: 16px;
+
+  h2 {
+    margin: 0;
+    font-size: 24px;
+    font-weight: 700;
+    color: var(--text);
+  }
+
+  .date-badge {
+    background: rgba(255, 215, 0, 0.1);
+    color: var(--accent);
+    padding: 6px 14px;
+    border-radius: 20px;
+    font-size: 13px;
+    font-weight: 600;
+    border: 1px solid rgba(255, 215, 0, 0.2);
+  }
+}
+
+.timeline-content {
+  display: flex;
+  align-items: flex-start;
+  gap: 32px;
+
+  p {
+    margin: 0;
+    color: var(--text-dim);
+    line-height: 1.7;
+    font-size: 15px;
+    flex: 1;
+  }
+
+  .timeline-image {
+    width: 140px;
+    height: 140px;
+    border-radius: 16px;
+    object-fit: contain;
+    background: #fff;
+    padding: 12px;
+    border: 1px solid var(--glass-border);
+    box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+  }
+}
+
+@media (max-width: 768px) {
+  .timeline-content {
+    flex-direction: column-reverse;
+    
+    .timeline-image {
+      width: 100%;
+      height: 200px;
+      max-width: 300px;
+    }
   }
 
   .timeline-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 10px;
-
-    h2 {
-      margin: 0;
-      font-size: 1.5rem;
-      color: #333;
-    }
-
-    p {
-      margin: 0;
-      color: #666;
-    }
-  }
-
-  .timeline-content {
-    display: flex;
-    align-items: center;
-
-    p {
-      margin: 0;
-      color: #666;
-      line-height: 1.6;
-      flex: 1;
-    }
-
-    .timeline-image {
-      margin-left: 20px;
-      width: 150px;
-      height: auto;
-      border-radius: 8px;
-      
-    }
+    flex-direction: column;
   }
 }

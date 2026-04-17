@@ -1,24 +1,128 @@
-<div class="container">
-    <div class="header">
-        <div class = "container">
-            <h1>Hi! I'm</h1>
-            <h1>Avichai</h1>
+<section class="home-wrapper">
+  <div class="hero">
+    <div class="hero-content">
+      <div class="badge">
+        <span class="pulse"></span>
+        Available for work
+      </div>
+
+      <h1 class="title">
+        Hi, I'm <span class="highlight">Avichai</span>.
+      </h1>
+
+      <h2 class="subtitle">Software Developer</h2>
+
+      <p class="description">
+        I specialize in creating elegant, performant, and scalable applications.
+        Passionate about AI-driven work, automation, UX/UI, and building cool stuff.
+      </p>
+
+      <!-- Call to actions -->
+      <div class="actions">
+        <a routerLink="/projects" [queryParams]="{tab: 'personal'}" class="btn-primary">Personal Works <i
+            class="fas fa-arrow-right"></i></a>
+        <a routerLink="/projects" [queryParams]="{tab: 'academic'}" class="btn-secondary">Academic Works</a>
+      </div>
+
+      <div class="home-social-footer">
+        <a href="https://github.com/avihyb" target="_blank" class="social-icon">
+          <i class="fab fa-github"></i>
+        </a>
+        <a href="https://www.linkedin.com/in/avihyb" target="_blank" class="social-icon">
+          <i class="fab fa-linkedin-in"></i>
+        </a>
+      </div>
+    </div>
+
+    <div class="hero-image-wrapper">
+      <!-- Glitch Profile Architecture -->
+      <div class="glitch-profile">
+        <!-- SVG Filter Maps for Displacement -->
+        <svg style="width:0; height:0; position:absolute;" aria-hidden="true">
+          <defs>
+            <filter id="displacement-jagged">
+              <feTurbulence type="fractalNoise" baseFrequency="0.5 0.9" numOctaves="1" result="static" />
+              <feDisplacementMap in="SourceGraphic" in2="static" scale="12" xChannelSelector="R" yChannelSelector="B" />
+            </filter>
+            <filter id="glitch-pixelate">
+              <feTurbulence type="fractalNoise" baseFrequency="1.5 0.1" numOctaves="1" result="static" />
+              <feDisplacementMap in="SourceGraphic" in2="static" scale="25" />
+            </filter>
+          </defs>
+        </svg>
+
+        <!-- 1. Technical Background -->
+        <div class="background-tech-text">
+          <span class="code-fade code-delay-1">new Matrix();</span>
+          <span class="code-fade code-delay-2">.render();</span>
+          <span class="code-fade code-delay-3">// Memory allocation init...</span>
+        </div>
+
+        <!-- 2. Hexagonal Strokes (1 Static Outline, 6 Broken Layers inside a Master Controller) -->
+        <div class="stroke-layer static-hex"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="hex-polygon" points="50,2 98,25 98,75 50,98 2,75 2,25" /></svg></div>
+        
+        <!-- Vis layer controller -->
+        <div class="stroke-layer glitch-layer">
+          <!-- Text glitch overlay tied to layer visibility -->
+          <div class="glitch-text-overlay">
+            <span>ERR_MEM_ALLOC_0x29A</span>
+            <span>SYS.CORRUPTION // REBOOT</span>
+            <span>01110100 01100101</span>
           </div>
 
-        
+          <!-- Absolute structural children running isolated jitter loops -->
+          <div class="glitch-stroke-1 isolated-stroke"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="hex-polygon" points="50,2 98,25 98,75 50,98 2,75 2,25" /></svg></div>
+          <div class="glitch-stroke-2 isolated-stroke"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="hex-polygon" points="50,2 98,25 98,75 50,98 2,75 2,25" /></svg></div>
+          <div class="glitch-stroke-3 isolated-stroke"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="hex-polygon" points="50,2 98,25 98,75 50,98 2,75 2,25" /></svg></div>
+          <div class="glitch-stroke-4 isolated-stroke"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="hex-polygon" points="50,2 98,25 98,75 50,98 2,75 2,25" /></svg></div>
+          <div class="glitch-stroke-5 isolated-stroke"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="hex-polygon" points="50,2 98,25 98,75 50,98 2,75 2,25" /></svg></div>
+          <div class="glitch-stroke-6 isolated-stroke"><svg viewBox="0 0 100 100" preserveAspectRatio="none"><polygon class="hex-polygon" points="50,2 98,25 98,75 50,98 2,75 2,25" /></svg></div>
+        </div>
+
+        <!-- 3. Portrait Static Mask -->
+        <div class="portrait-mask">
+          <img src="images/profile.jpg" alt="Avichai" onerror="this.src='images/websiteintro.jpeg'" class="portrait-image-glitch" />
+        </div>
+      </div>
     </div>
-    <div class="content">
-        <p>Software Developer</p>
-      
+  </div>
 
-        <button class="button-28" routerLink="/resume">About Me</button>
+  <div class="bottom-features">
+    <!-- Featured / Display section -->
+    <div class="logo-cloud">
+      <p>RECENT WORKS:</p>
+      <div class="logos">
+        <a routerLink="/projects" [queryParams]="{tab: 'personal', project: 'bambi-marketplace'}">
+          <img src="images/bambi.png" class="coop-logo" alt="Bambi Marketplace">
+        </a>
+      </div>
     </div>
 
-
-    <div class="social-icons">
-        <a href="https://www.linkedin.com/in/avihyb"><i class="fab fa-linkedin"></i></a>
-        <a href="https://github.com/avihyb"><i class="fab fa-github"></i></a>
+    <!-- AI Tools Carousel -->
+    <div class="ai-tools-list">
+      <p>TOOLS I USE TO 10X MY WORK:</p>
+      <div class="tools-carousel">
+        <div class="marquee-track">
+          <!-- Copy 1 -->
+          <div class="marquee-content">
+            <div class="tool-badge"><i class="fas fa-magic"></i> Cursor IDE</div>
+            <div class="tool-badge"><i class="fas fa-robot"></i> ChatGPT</div>
+            <div class="tool-badge"><i class="fas fa-brain"></i> Claude 3.5</div>
+            <div class="tool-badge"><i class="fab fa-github"></i> Copilot</div>
+            <div class="tool-badge"><i class="fas fa-search"></i> Perplexity</div>
+            <div class="tool-badge"><i class="fas fa-laptop-code"></i> v0.dev</div>
+          </div>
+          <!-- Copy 2 -->
+          <div class="marquee-content">
+            <div class="tool-badge"><i class="fas fa-magic"></i> Cursor IDE</div>
+            <div class="tool-badge"><i class="fas fa-robot"></i> ChatGPT</div>
+            <div class="tool-badge"><i class="fas fa-brain"></i> Claude 3.5</div>
+            <div class="tool-badge"><i class="fab fa-github"></i> Copilot</div>
+            <div class="tool-badge"><i class="fas fa-search"></i> Perplexity</div>
+            <div class="tool-badge"><i class="fas fa-laptop-code"></i> v0.dev</div>
+          </div>
+        </div>
+      </div>
     </div>
-    
-</div>
-
+  </div>
+</section>

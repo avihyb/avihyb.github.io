@@ -1,212 +1,144 @@
-/* Importing the global Roboto font */
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
-
-body {
-  margin: 0;
-  padding: 0;
-  font-family: 'Roboto', sans-serif; // Ensure Roboto is used
-  background: #f0f0f0; // Optional: Page background color
-}
-
-.nav-container {
-  position: fixed;
-  top: 0;
-  left: 0;
-  right: 0;
-  background: #ffffff;
-  padding: 10px 5%;
-  z-index: 1000; /* Ensure the nav stays on top */
-  display: flex;
-  justify-content: flex-end; /* Align menu items to the right */
-  
-  /* Media query for larger screens */
-  @media screen and (min-width: 768px) {
-    justify-content: flex-end; /* Full menu aligned to the right */
-    .menu {
-      display: flex; /* Show full menu on larger screens */
-    }
-    .menu-toggle {
-      display: none; /* Hide menu toggle on larger screens */
-    }
-  }
-}
-
-.menu-toggle {
-  cursor: pointer;
-  font-size: 24px; /* Adjust size of hamburger and x icons */
-  color: #000; /* Adjust icon color */
-  display: block; /* Show by default */
-}
-
-.menu {
-  list-style-type: none;
-  padding: 0;
-  margin: 0;
-  display: none; /* Hide full menu by default */
-  align-items: center;
-}
-
-.menu li {
-  margin-left: 20px;
-}
-
-.menu a {
-  text-decoration: none;
-  color: #000; /* Adjust link color */
-  font-size: 18px;
-  font-family: 'Roboto';
-  font-weight: bold;
-}
-
-.menu a:hover {
-  color: orange;
-  
-  transition: color 0.2s;
-  
-}
-
-.offcanvas-menu {
-  position: fixed;
-  top: 0;
-  left: -250px; /* Hide off-canvas menu initially */
-  width: 250px;
-  height: 100%;
-  background-color: #fff; /* Adjust background color */
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1); /* Optional: Add shadow */
-  transition: left 0.3s ease; /* Smooth transition effect */
-  z-index: 1000; /* Ensure the menu is on top of other content */
-
-  ul {
-    list-style-type: none;
-    padding: 0;
-    margin: 20px 0;
-  }
-
-  li {
-    margin-bottom: 10px;
-  }
-
-  a {
-    display: block;
-    padding: 10px 20px;
-    text-decoration: none;
-    color: #000; /* Adjust link color */
-    font-size: 18px;
-    transition: background-color 0.3s ease; /* Smooth transition for background */
-    font-family: 'Roboto';
-    font-weight: bold;
-  }
-
-  a:hover {
-    background-color: #f0f0f0; /* Adjust hover background color */
-    
-  }
-  
-
-  &.open {
-    left: 0; /* Slide in the off-canvas menu */
-  }
-}
-
-.component-container {
-  margin-top: 60px; /* Adjust top margin */
-  width: 100%;
-  max-width: 1200px; /* Adjust max-width as needed */
-  padding: 20px;
-  background-color: #ffffff; /* Optional: Background color for content area */
-  border-radius: 8px;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-}
-
-@media screen and (max-width: 768px) {
-  .nav-container {
-    padding: 10px;
-  }
-
-  .menu-toggle {
-    display: block;
-  }
-
-  .menu {
-    display: none; /* Hide full menu on small screens */
-  }
-
-  .offcanvas-menu {
-    left: -250px; /* Hide off-canvas menu by default */
-  }
-}
-
-
-
-/* CSS */
-.button-57 {
+.main-layout {
+  min-height: 100vh;
+  padding-top: 140px; /* Space for dock */
   position: relative;
-  overflow: hidden;
-  border: 2px solid #f7b234;
-  color: #18181a;
-  display: inline-block;
-  font-size: 15px;
-  line-height: 15px;
-  padding: 18px 18px 17px;
-  text-decoration: none;
-  cursor: pointer;
-  background: #fff;
-  user-select: none;
-  -webkit-user-select: none;
-  touch-action: manipulation;
-  border-radius: 15px;
-  font-family: 'Roboto';
-  font-weight: bold;
 }
 
-.button-57 span:first-child {
-  position: relative;
-  transition: color 600ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 10;
+.matrix-bg {
+  position: fixed;
+  top: 0; left: 0; width: 100vw; height: 100vh;
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0.04;
+  background-image: url("data:image/svg+xml,%3Csvg width='600' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-family='monospace' font-size='14' fill='%23ffffff'%3Econst system = new Matrix();%3C/text%3E%3Ctext x='10' y='60' font-family='monospace' font-size='14' fill='%23ffffff'%3Ewhile(true) %7B%3C/text%3E%3Ctext x='30' y='90' font-family='monospace' font-size='14' fill='%23ffffff'%3E await system.render();%3C/text%3E%3Ctext x='10' y='120' font-family='monospace' font-size='14' fill='%23ffffff'%3E%7D%3C/text%3E%3Ctext x='10' y='180' font-family='monospace' font-size='14' fill='%23ffffff'%3E// Memory allocation init...%3C/text%3E%3Ctext x='10' y='210' font-family='monospace' font-size='14' fill='%23ffffff'%3E0x00FF2A4B: process.fork()%3C/text%3E%3Ctext x='10' y='280' font-family='monospace' font-size='14' fill='%23ffffff'%3Easync function scale() %7B%3C/text%3E%3Ctext x='30' y='310' font-family='monospace' font-size='14' fill='%23ffffff'%3E return await cluster.spawn();%3C/text%3E%3Ctext x='10' y='340' font-family='monospace' font-size='14' fill='%23ffffff'%3E%7D%3C/text%3E%3C/svg%3E");
+  background-repeat: repeat;
+  animation: scrollCode 60s linear infinite;
 }
 
-.button-57 span:last-child {
-  color: white;
-  display: block;
-  position: absolute;
-  bottom: 0;
-  transition: all 500ms cubic-bezier(0.48, 0, 0.12, 1);
-  z-index: 100;
-  opacity: 0;
-  top: 50%;
+@keyframes scrollCode {
+  0% { background-position: 0 0; }
+  100% { background-position: 0 -600px; }
+}
+
+.mac-dock {
+  position: fixed;
+  top: 32px;
   left: 50%;
-  transform: translateY(225%) translateX(-50%);
-  height: 14px;
-  line-height: 13px;
+  transform: translateX(-50%);
+  display: flex;
+  gap: 32px;
+  background: rgba(13, 18, 32, 0.65);
+  backdrop-filter: blur(24px);
+  -webkit-backdrop-filter: blur(24px);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 14px 40px;
+  border-radius: 40px;
+  z-index: 1000;
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
-.button-57:after {
-  content: "";
+.dock-item {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 54px;
+  height: 54px;
+  border-radius: 18px;
+  background: rgba(255, 255, 255, 0.04);
+  color: #94a3b8;
+  text-decoration: none;
+  font-size: 22px;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  transform-origin: top center;
+
+  &::after {
+    content: '';
+    position: absolute;
+    bottom: -8px;
+    width: 0;
+    height: 5px;
+    background: var(--accent);
+    border-radius: 4px;
+    transition: width 0.3s, box-shadow 0.3s;
+  }
+
+  &:hover {
+    color: var(--accent);
+    background: rgba(255, 215, 0, 0.1);
+    transform: translateY(12px) scale(1.2);
+    z-index: 2;
+
+    .tooltip {
+      opacity: 1;
+      transform: translateY(24px) scale(1);
+      visibility: visible;
+    }
+  }
+
+  &.active {
+    color: var(--accent);
+    background: rgba(255, 215, 0, 0.15);
+    
+    &::after {
+      width: 24px;
+      box-shadow: 0 0 12px var(--accent-glow);
+    }
+  }
+}
+
+/* ─── Mac Dock Hover Siblings Effect ─── */
+.mac-dock:hover .dock-item:not(:hover) {
+  transform: scale(0.9);
+  opacity: 0.6;
+}
+
+.tooltip {
   position: absolute;
-  bottom: -50%;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-color: rgb(225, 153, 38);
-  transform-origin: bottom center;
-  transition: transform 600ms cubic-bezier(0.48, 0, 0.12, 1);
-  transform: skewY(9.3deg) scaleY(0);
-  z-index: 50;
+  bottom: -46px;
+  background: #1e293b;
+  color: #fff;
+  font-size: 14px;
+  font-weight: 600;
+  padding: 6px 14px;
+  border-radius: 10px;
+  pointer-events: none;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(0) scale(0.9);
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
+  white-space: nowrap;
+
+  &::after {
+    content: '';
+    position: absolute;
+    top: -4px;
+    left: 50%;
+    transform: translateX(-50%) rotate(45deg);
+    width: 10px;
+    height: 10px;
+    background: #1e293b;
+  }
+}
+
+@media (max-width: 640px) {
+  .mac-dock {
+    width: 90%;
+    justify-content: center;
+    padding: 12px 18px;
+    gap: 14px;
+    top: 20px;
+  }
   
+  .dock-item {
+    width: 44px;
+    height: 44px;
+    font-size: 18px;
+  }
+  
+  .tooltip {
+    display: none;
+  }
 }
-
-.button-57:hover:after {
-  transform-origin: bottom center;
-  transform: skewY(9.3deg) scaleY(2);
-}
-
-.button-57:hover span:last-child {
-  transform: translateX(-50%) translateY(-100%);
-  opacity: 1;
-  transition: all 900ms cubic-bezier(0.48, 0, 0.12, 1);
-}
-

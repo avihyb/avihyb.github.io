@@ -1,69 +1,158 @@
-@import url('https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap');
+.contact-page {
+  min-height: calc(100vh - 120px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 20px;
+  position: relative;
+  overflow: hidden;
+  animation: fadeIn 0.8s ease forwards;
+}
 
-form {
-  max-width: 600px;
+@keyframes fadeIn {
+  from { opacity: 0; transform: scale(0.98); }
+  to { opacity: 1; transform: scale(1); }
+}
+
+.glow-orb {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 400px;
+  height: 400px;
+  background: var(--accent-glow);
+  filter: blur(150px);
+  z-index: -1;
+  border-radius: 50%;
+}
+
+.contact-content {
+  text-align: center;
+  max-width: 700px;
   width: 100%;
-  margin: 0 auto;
-  padding: 20px;
-  background-color: #f9f9f9;
-  border: 1px solid #ddd;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  font-family: 'Roboto', sans-serif;
+}
 
-  div {
-    margin-bottom: 15px;
+.headline {
+  font-size: 56px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--text);
+  margin-bottom: 24px;
+  letter-spacing: -1px;
 
-    label {
-      display: block;
-      font-weight: bold;
-      margin-bottom: 5px;
-    }
+  .gradient-text {
+    background: linear-gradient(135deg, var(--accent) 0%, #fff 100%);
+    -webkit-background-clip: text;
+    background-clip: text;
+    -webkit-text-fill-color: transparent;
+  }
+}
 
-    input[type='email'],
-    textarea {
-      width: 90%;
-      padding: 8px;
-      font-size: 14px;
-      border: 1px solid #ccc;
-      border-radius: 4px;
-      
-    }
+.subheadline {
+  font-size: 18px;
+  line-height: 1.6;
+  color: var(--text-dim);
+  max-width: 540px;
+  margin: 0 auto 48px auto;
+}
 
-    textarea {
-      min-height: 120px;
-    }
+.contact-card {
+  background: var(--glass);
+  border: 1px solid var(--glass-border);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  padding: 48px;
+  border-radius: 32px;
+  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.4);
+}
+
+.email-section {
+  margin-bottom: 40px;
+
+  .icon-large {
+    font-size: 48px;
+    color: var(--accent);
+    margin-bottom: 16px;
   }
 
-  button[type='submit'] {
-    display: block;
-    width: 100%;
-    padding: 10px;
-    background-color: #4caf50;
-    color: white;
-    border: none;
-    border-radius: 4px;
-    cursor: pointer;
-    font-size: 16px;
-    transition: background-color 0.3s ease;
+  h3 {
+    font-size: 24px;
+    margin: 0 0 12px 0;
+    color: var(--text);
+  }
+
+  .email-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    font-size: 20px;
+    font-weight: 700;
+    color: var(--text);
+    text-decoration: none;
+    border-bottom: 2px solid transparent;
+    transition: all 0.3s;
+
+    i {
+      font-size: 16px;
+      color: var(--accent);
+      transition: transform 0.3s;
+    }
 
     &:hover {
-      background-color: #45a049;
-    }
-
-    &:disabled {
-      background-color: #cccccc;
-      cursor: not-allowed;
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+      
+      i {
+        transform: translateX(6px);
+      }
     }
   }
 }
 
-.success-message {
-  margin-top: 10px;
-  padding: 10px;
-  background-color: #d4edda;
-  border: 1px solid #c3e6cb;
-  border-radius: 4px;
-  color: #155724;
+.social-links {
+  display: flex;
+  justify-content: center;
+  gap: 16px;
+  flex-wrap: wrap;
+
+  .social-pill {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 12px 24px;
+    border-radius: 100px;
+    font-size: 15px;
+    font-weight: 600;
+    text-decoration: none;
+    transition: all 0.3s;
+
+    &.linkedin {
+      background: rgba(10, 102, 194, 0.1);
+      color: #70b5f9;
+      border: 1px solid rgba(10, 102, 194, 0.3);
+
+      &:hover {
+        background: rgba(10, 102, 194, 0.2);
+        box-shadow: 0 0 20px rgba(10, 102, 194, 0.3);
+      }
+    }
+
+    &.github {
+      background: rgba(255, 255, 255, 0.05);
+      color: #fff;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.1);
+        box-shadow: 0 0 20px rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
 }
 
+@media (max-width: 768px) {
+  .headline { font-size: 40px; }
+  .contact-card { padding: 32px 20px; }
+  .email-section .email-link { font-size: 18px; }
+}
