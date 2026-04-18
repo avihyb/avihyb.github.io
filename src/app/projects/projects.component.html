@@ -2,20 +2,15 @@
   <div class="page-header">
     <h1 class="page-title">My Projects</h1>
     <p class="page-subtitle" *ngIf="activeTab === 'academic'">Recent university coursework and semantic projects.</p>
-    <p class="page-subtitle" *ngIf="activeTab === 'personal'">Deep dives, scalable software, and modern architecture.</p>
-    
+    <p class="page-subtitle" *ngIf="activeTab === 'personal'">Deep dives, scalable software, and modern architecture.
+    </p>
+
     <!-- Tab Switcher -->
     <div class="tab-switcher">
-      <button 
-        class="tab-btn" 
-        [class.active]="activeTab === 'academic'" 
-        (click)="switchTab('academic')">
+      <button class="tab-btn" [class.active]="activeTab === 'academic'" (click)="switchTab('academic')">
         <i class="fas fa-university"></i> Academic
       </button>
-      <button 
-        class="tab-btn" 
-        [class.active]="activeTab === 'personal'" 
-        (click)="switchTab('personal')">
+      <button class="tab-btn" [class.active]="activeTab === 'personal'" (click)="switchTab('personal')">
         <i class="fas fa-laptop-code"></i> Personal
       </button>
     </div>
@@ -26,21 +21,13 @@
     <div class="filter-section">
       <div class="search-box">
         <i class="fas fa-search"></i>
-        <input 
-          type="text" 
-          [(ngModel)]="searchQuery" 
-          (ngModelChange)="onSearchChange()"
-          placeholder="Search academic projects..."
-        >
+        <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()"
+          placeholder="Search academic projects...">
       </div>
-      
+
       <div class="filters">
-        <button 
-          *ngFor="let lang of availableLanguages" 
-          class="filter-btn" 
-          [class.active]="selectedLanguage === lang"
-          (click)="onLanguageSelect(lang)"
-        >
+        <button *ngFor="let lang of availableLanguages" class="filter-btn" [class.active]="selectedLanguage === lang"
+          (click)="onLanguageSelect(lang)">
           {{ lang }}
         </button>
       </div>
@@ -56,22 +43,22 @@
             </a>
           </div>
         </div>
-        
+
         <div class="card-content">
           <h2 class="card-title">{{ project.title }}</h2>
-          
+
           <div class="card-tech">
             <span *ngFor="let language of project.languages" class="tech-badge">
               <i [class]="getLanguageIconClass(language)" class="language-icon"></i>
               {{ language }}
             </span>
           </div>
-          
+
           <div class="card-desc">
             <p *ngIf="!isDescriptionExpanded(project)">{{ project.description | truncate:120 }}</p>
             <p *ngIf="isDescriptionExpanded(project)">{{ project.description }}</p>
           </div>
-          
+
           <div class="card-footer" *ngIf="project.description.length > 120">
             <button class="btn-read-more" (click)="toggleDescription($event, project)">
               {{ isDescriptionExpanded(project) ? 'Show Less' : 'Read More' }}
@@ -80,7 +67,7 @@
         </div>
       </div>
     </div>
-    
+
     <div class="no-results" *ngIf="filteredProjects.length === 0">
       <i class="fas fa-box-open"></i>
       <h3>No projects found</h3>
@@ -90,18 +77,16 @@
 
   <!-- ==================== PERSONAL TAB ==================== -->
   <div class="personal-view" *ngIf="activeTab === 'personal'">
-    
+
     <!-- Level 1: Chips Overview -->
     <div class="chips-container" *ngIf="!selectedPersonalProject">
       <div class="chips-grid">
-        <div 
-          *ngFor="let p of personalProjects" 
-          class="project-chip-compact" 
-          [class.locked-chip]="p.locked"
+        <div *ngFor="let p of personalProjects" class="project-chip-compact" [class.locked-chip]="p.locked"
           (click)="!p.locked && selectPersonalProject(p)">
-          <img *ngIf="!p.locked" [src]="p.logo" alt="{{p.title}} Logo" class="chip-logo" onerror="this.src='images/websiteintro.jpeg'">
+          <img *ngIf="!p.locked" [src]="p.logo" alt="{{p.title}} Logo" class="chip-logo"
+            onerror="this.src='images/websiteintro.jpeg'">
           <div *ngIf="p.locked" class="chip-logo locked-icon"><i class="fas fa-lock"></i></div>
-          
+
           <div class="chip-content">
             <h4>{{ p.title }}</h4>
             <p>{{ p.shortDescription }}</p>
@@ -116,24 +101,27 @@
       <button class="back-btn" (click)="selectPersonalProject(null)">
         <i class="fas fa-arrow-left"></i> Back to the list
       </button>
-      
+
       <div class="detail-header slide-in-top">
         <div class="header-main-content">
           <h1>{{ selectedPersonalProject.title }}</h1>
-          
+
           <ng-container *ngIf="selectedPersonalProject.id === 'bambi-marketplace'">
             <p class="detail-slogan">Book the right barber, anywhere.</p>
-            <p class="intro-description">A marketplace app connecting clients to independent barbers and barbershops — built for three types of users, on one codebase.</p>
-            
+            <p class="intro-description">B2B2C SaaS Cross-platform ecosystem for barbershops and clients. A marketplace
+              app connecting clients to independent barbers and barbershops — built for three types of users, on one
+              codebase.</p>
+
             <div class="detail-tech-stack">
               <span class="tech-badge"><i class="devicon-flutter-plain"></i> Flutter</span>
               <span class="tech-badge"><i class="fas fa-database"></i> Supabase</span>
               <span class="tech-badge"><i class="fas fa-water"></i> Riverpod</span>
-              <span class="tech-badge cross-platform"><i class="fab fa-apple"></i> <i class="fab fa-android"></i> <i class="fas fa-globe"></i></span>
+              <span class="tech-badge cross-platform"><i class="fab fa-apple"></i> <i class="fab fa-android"></i> <i
+                  class="fas fa-globe"></i></span>
               <span class="tech-badge status-badge"><i class="fas fa-tools"></i> In Development</span>
             </div>
           </ng-container>
-          
+
           <ng-container *ngIf="selectedPersonalProject.id !== 'bambi-marketplace'">
             <div class="detail-tech-stack">
               <span class="tech-badge" *ngFor="let tech of selectedPersonalProject.technologies">
@@ -142,27 +130,32 @@
             </div>
           </ng-container>
         </div>
-        
+
         <div class="header-right-col" style="display: flex; flex-direction: column; align-items: flex-end; gap: 16px;">
           <div class="header-social-actions" *ngIf="selectedPersonalProject.id === 'bambi-marketplace'">
-            <a href="https://www.instagram.com/studiobambi" class="btn-social is-instagram" target="_blank"><i class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/company/bambi-studio/" class="btn-social is-linkedin" target="_blank"><i class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.facebook.com/profile.php?id=61581589817963" class="btn-social is-facebook" target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.instagram.com/studiobambi" class="btn-social is-instagram" target="_blank"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/bambi-studio/" class="btn-social is-linkedin" target="_blank"><i
+                class="fab fa-linkedin-in"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61581589817963" class="btn-social is-facebook"
+              target="_blank"><i class="fab fa-facebook-f"></i></a>
           </div>
-          
-          <a *ngIf="selectedPersonalProject.liveDemoUrl" [href]="selectedPersonalProject.liveDemoUrl" target="_blank" class="compact-brand-btn">
+
+          <a *ngIf="selectedPersonalProject.liveDemoUrl" [href]="selectedPersonalProject.liveDemoUrl" target="_blank"
+            class="compact-brand-btn">
             <i class="fas fa-globe"></i> www.studiobambiapp.com
           </a>
         </div>
       </div>
-      
+
       <div class="detail-content-layout">
         <div class="detail-text-content">
 
           <ng-container *ngIf="selectedPersonalProject.id === 'bambi-marketplace'">
             <div class="detail-main custom-bambi-layout">
               <h3><i class="fas fa-layer-group"></i> What It Does</h3>
-              <p>Clients discover and book barbers nearby.<br>Barbers manage their availability and build a profile.<br>Shop owners run a digital storefront and manage their chairs.</p>
+              <p>Clients discover and book barbers nearby.<br>Barbers manage their availability and build a
+                profile.<br>Shop owners run a digital storefront and manage their chairs.</p>
 
               <h3 class="mt-4"><i class="fas fa-puzzle-piece"></i> Platform Features</h3>
               <div class="bento-grid-2">
@@ -197,7 +190,8 @@
               </div>
 
               <div class="bambi-center-image slide-in-fade">
-                 <img src="images/bambi-example-2.png" alt="Bambi App Features Flow" class="bambi-transparent-hero float-infinite">
+                <img src="images/bambi-example-2.png" alt="Bambi App Features Flow"
+                  class="bambi-transparent-hero float-infinite">
               </div>
 
               <div class="coming-soon-banner mt-4">
@@ -217,19 +211,24 @@
                   <h4>Enterprise Security</h4>
                 </div>
                 <div class="sec-right">
-                  <p><i class="fas fa-lock"></i> All data access enforced exclusively at the database layer (Supabase RLS).</p>
-                  <p><i class="fas fa-user-shield"></i> Strict role-based permissions preventing client-side manipulations.</p>
-                  <p><i class="fas fa-server"></i> Account execution runs at high privilege; clients remain heavily stateless.</p>
+                  <p><i class="fas fa-lock"></i> All data access enforced exclusively at the database layer (Supabase
+                    RLS).</p>
+                  <p><i class="fas fa-user-shield"></i> Strict role-based permissions preventing client-side
+                    manipulations.</p>
+                  <p><i class="fas fa-server"></i> Account execution runs at high privilege; clients remain heavily
+                    stateless.</p>
                 </div>
               </div>
 
               <div class="bambi-center-image slide-in-fade">
-                 <img src="images/bambi-example.png" alt="Bambi App Structure" class="bambi-transparent-hero float-infinite">
+                <img src="images/bambi-example.png" alt="Bambi App Structure"
+                  class="bambi-transparent-hero float-infinite">
               </div>
 
               <div class="solo-builder-strip mt-4">
                 <i class="fas fa-user-astronaut"></i>
-                <span><strong>Built Solo:</strong> Conceived, designed, and engineered completely by a single founder without a team. (Pre-seed MVP)</span>
+                <span><strong>Built Solo:</strong> Conceived, designed, and engineered completely by a single founder
+                  without a team. (Pre-seed MVP)</span>
               </div>
             </div>
           </ng-container>
@@ -238,11 +237,12 @@
             <div class="detail-main">
               <h3><i class="fas fa-eye"></i> The Vision</h3>
               <p>{{ selectedPersonalProject.detailedDescription }}</p>
-              
-              <h3 class="mt-4" *ngIf="selectedPersonalProject.architecture"><i class="fas fa-project-diagram"></i> System Architecture</h3>
+
+              <h3 class="mt-4" *ngIf="selectedPersonalProject.architecture"><i class="fas fa-project-diagram"></i>
+                System Architecture</h3>
               <p *ngIf="selectedPersonalProject.architecture">{{ selectedPersonalProject.architecture }}</p>
             </div>
-            
+
             <div class="detail-blocks-grid mt-4">
               <div class="sidebar-block">
                 <h4><i class="fas fa-lightbulb"></i> Inspiration</h4>
@@ -253,22 +253,25 @@
                 <p>{{ selectedPersonalProject.goals }}</p>
               </div>
             </div>
-          </ng-container>  
-            <div class="sidebar-links mt-4">
-              <a *ngIf="selectedPersonalProject.sourceCodeUrl" [href]="selectedPersonalProject.sourceCodeUrl" target="_blank" class="btn-link primary">
-                <i class="fab fa-github"></i> Source Code Repository
-              </a>
-              <button *ngIf="!selectedPersonalProject.sourceCodeUrl" class="btn-link locked-repo-btn" disabled>
-                <i class="fas fa-lock"></i> Private Repository
-              </button>
-            </div>
+          </ng-container>
+          <div class="sidebar-links mt-4">
+            <a *ngIf="selectedPersonalProject.sourceCodeUrl" [href]="selectedPersonalProject.sourceCodeUrl"
+              target="_blank" class="btn-link primary">
+              <i class="fab fa-github"></i> Source Code Repository
+            </a>
+            <button *ngIf="!selectedPersonalProject.sourceCodeUrl" class="btn-link locked-repo-btn" disabled>
+              <i class="fas fa-lock"></i> Private Repository
+            </button>
           </div>
-        
+        </div>
+
         <div class="detail-mockup" [ngClass]="{'multi-phones': selectedPersonalProject.id === 'bambi-marketplace'}">
-          <div class="detail-hero-wrapper wrapper-1" [ngClass]="{'iphone-mockup': selectedPersonalProject.mockupType === 'mobile'}">
-            <img [src]="selectedPersonalProject.image" class="detail-hero-image" onerror="this.src='images/websiteintro.jpeg'">
+          <div class="detail-hero-wrapper wrapper-1"
+            [ngClass]="{'iphone-mockup': selectedPersonalProject.mockupType === 'mobile'}">
+            <img [src]="selectedPersonalProject.image" class="detail-hero-image"
+              onerror="this.src='images/websiteintro.jpeg'">
           </div>
-          
+
           <ng-container *ngIf="selectedPersonalProject.id === 'bambi-marketplace'">
             <div class="detail-hero-wrapper wrapper-2 iphone-mockup">
               <div class="lock-screen-placeholder">

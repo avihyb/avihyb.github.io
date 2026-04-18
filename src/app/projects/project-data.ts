@@ -2,11 +2,18 @@ import { Project, PersonalProject } from './project.model';
 
 export const PROJECTS: Project[] = [
     {
+        title: 'Radio Programming Final Project',
+        description: 'This project provides a deep dive into the Meshtastic device and its underlying algorithms, followed by the execution of a controlled experiment.',
+        image: 'images/lora.png',
+        url: 'https://github.com/avihyb/meshstatic-project',
+        languages: ['Research', 'Experiment']
+    },
+    {
         title: 'Subspace Clustering in High Dimensional Data',
         description: 'Seminar presented about high dimensional challanges, advanced algorithms and PCA demonstration.',
         image: 'https://towardsdatascience.com/wp-content/uploads/2022/02/1QinDfRawRskupf4mU5bYSA.png',
         url: 'https://www.linkedin.com/posts/avihyb_subspace-clustering-of-high-dimensional-data-activity-7286773604476706817-drVh?utm_source=share&utm_medium=member_desktop&rcm=ACoAADFRtMUBDLQSWGE8lekGoSxijuVHfGko5mk',
-        languages: ['Python']
+        languages: ['Python', 'Research']
     },
     {
         title: 'Opearting Systems Final Project',
@@ -16,9 +23,9 @@ export const PROJECTS: Project[] = [
         languages: ['C++']
     },
     {
-        title: 'Frontend Project',
+        title: 'Personal Website & Portfolio',
         description: 'Angular project which demonstrates the use of Angular components, services, and routing. The project also includes a custom Angular service that fetches data from a JSON file and displays it on the page. The project also includes a custom Angular component that displays a list of items and allows the user to add new items to the list. The project also includes a custom Angular component that displays a list of items and allows the user to delete items from the list. The project also includes a custom Angular component that displays a list of items and allows the user to edit items in the list.',
-        image: 'images/websiteintro.jpeg',
+        image: 'images/mu.jpg',
         url: 'https://github.com/avihyb/avihyb.github.io',
         languages: ['Angular', 'TypeScript', 'HTML', 'CSS']
     },
@@ -30,21 +37,21 @@ export const PROJECTS: Project[] = [
         languages: ['Python']
     },
     {
-        title: 'Viking Chess',
+        title: 'Viking Chess Game',
         description: 'A digital version of the ancient game Hnefatafl, also known as Viking Chess. Graphic User Interface (GUI) implemented using JavaFX. The game is played on a 11x11 board with two players: the attackers and the defenders. The attackers win by capturing the king, while the defenders win by moving the king to one of the four corner squares. The game features a custom board design, piece movement, and game logic. The game also includes a custom AI that can play against the player. The AI uses a minimax algorithm with alpha-beta pruning to determine the best move. The game also includes a custom game mode that allows the player to play against another player on the same computer',
         image: 'images/viking.png',
         url: 'https://github.com/avihyb/VikingChess',
-        languages: ['Java', 'JavaFX']
+        languages: ['Java', 'JavaFX', 'Game']
     },
     {
-        title: 'Geometric Shapes',
+        title: 'Geometric Shapes Simulator',
         description: 'The GeoShapes Java Project is a comprehensive application that demonstrates object-oriented programming (OOP) principles, simple algorithms, and graphical user interface (GUI) implementation while focusing on geometric shapes and calculations.',
         image: 'images/geo.png',
         url: 'https://github.com/avihyb/GeoShapes-Java-Project',
         languages: ['Java']
     },
     {
-        title: 'Trees',
+        title: 'Trees Simulator',
         description: 'Tree data structures implemented in C++. GUI, Iterators.',
         image: 'images/trees.png',
         url: 'https://github.com/avihyb/CPP-EX4',

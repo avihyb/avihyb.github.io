@@ -105,7 +105,9 @@ export class ProjectsComponent implements OnInit {
       'NoSQL': 'devicon-mongodb-plain',
       'Node.js': 'devicon-nodejs-plain',
       'Flutter': 'devicon-flutter-plain',
-      'PostgreSQL': 'devicon-postgresql-plain'
+      'PostgreSQL': 'devicon-postgresql-plain',
+      'Research': 'fas fa-microscope',
+      'Experiment': 'fas fa-flask'
     };
     return icons[language] || 'devicon-devicon-plain';
   }
