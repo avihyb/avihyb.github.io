@@ -26,15 +26,15 @@
   left: 50%;
   transform: translateX(-50%);
   display: flex;
-  gap: 32px;
-  background: rgba(13, 18, 32, 0.65);
-  backdrop-filter: blur(24px);
-  -webkit-backdrop-filter: blur(24px);
-  border: 1px solid rgba(255, 255, 255, 0.08);
-  padding: 14px 40px;
-  border-radius: 40px;
+  gap: 36px;
+  background: rgba(10, 15, 25, 0.2); /* Deeply transparent */
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid rgba(255, 255, 255, 0.03); /* Almost invisible edge */
+  padding: 12px 36px;
+  border-radius: 100px; /* Perfectly round pill */
   z-index: 1000;
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.4), inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
   transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
 }
 
@@ -43,31 +43,30 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  width: 54px;
-  height: 54px;
-  border-radius: 18px;
-  background: rgba(255, 255, 255, 0.04);
-  color: #94a3b8;
+  width: 48px;
+  height: 48px;
+  background: transparent; /* No inner boxes */
+  color: var(--text-dim);
   text-decoration: none;
-  font-size: 22px;
+  font-size: 20px;
   transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: top center;
+  transform-origin: center bottom;
 
   &::after {
     content: '';
     position: absolute;
-    bottom: -8px;
+    bottom: 2px;
     width: 0;
-    height: 5px;
+    height: 4px;
     background: var(--accent);
     border-radius: 4px;
     transition: width 0.3s, box-shadow 0.3s;
   }
 
   &:hover {
-    color: var(--accent);
-    background: rgba(255, 215, 0, 0.1);
-    transform: translateY(12px) scale(1.2);
+    color: var(--text);
+    background: transparent; /* Keep boxless */
+    transform: translateY(-4px) scale(1.15); /* Clean upward bounce */
     z-index: 2;
 
     .tooltip {
@@ -79,19 +78,19 @@
 
   &.active {
     color: var(--accent);
-    background: rgba(255, 215, 0, 0.15);
+    background: transparent;
     
     &::after {
-      width: 24px;
-      box-shadow: 0 0 12px var(--accent-glow);
+      width: 16px; /* Elegant underscore */
+      box-shadow: 0 0 10px var(--accent-glow);
     }
   }
 }
 
 /* ─── Mac Dock Hover Siblings Effect ─── */
 .mac-dock:hover .dock-item:not(:hover) {
-  transform: scale(0.9);
-  opacity: 0.6;
+  opacity: 0.5;
+  transform: scale(0.95);
 }
 
 .tooltip {

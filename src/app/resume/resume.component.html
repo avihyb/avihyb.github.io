@@ -1,22 +1,72 @@
 <div class="timeline-page">
   <div class="page-header">
-    <h1 class="page-title">My Journey</h1>
-    <p class="page-subtitle">A timeline of my education and experience.</p>
+    <h1 class="page-title">My Story</h1>
+    <p class="page-subtitle" *ngIf="currentTab === 'timeline'">A progressive timeline of my education and experience.</p>
+    <p class="page-subtitle" *ngIf="currentTab === 'stack'">The tools, languages, and frameworks powering my development.</p>
+
+    <div class="tabs-control">
+      <button class="chip" [class.active]="currentTab === 'timeline'" (click)="setTab('timeline')">Timeline</button>
+      <button class="chip" [class.active]="currentTab === 'stack'" (click)="setTab('stack')">My Stack</button>
+    </div>
   </div>
-  
-  <div class="timeline-container">
-    <div *ngFor="let timeline of timelineData" class="timeline-node" #timelineNode>
-      <div class="timeline-indicator"></div>
-      <div class="timeline-card">
-        <div class="timeline-header">
-          <h2>{{ timeline.title }}</h2>
-          <span class="date-badge">{{ timeline.date }}</span>
-        </div>
-        <div class="timeline-content">
+
+  <div class="timeline-container" *ngIf="currentTab === 'timeline'">
+    <div *ngFor="let timeline of timelineData; let last = last" class="timeline-node" #timelineNode>
+
+      <!-- Line segment above each entry -->
+      <div class="node-line"></div>
+
+      <!-- Entry content -->
+      <div class="node-entry">
+        <img [src]="timeline.image" alt="{{ timeline.title }}" class="timeline-image" onerror="this.src='images/websiteintro.jpeg'" />
+        <span class="date-text">{{ timeline.date }}</span>
+        <h2>{{ timeline.title }}</h2>
+        <div class="timeline-desc-container">
           <p>{{ timeline.description }}</p>
-          <img [src]="timeline.image" alt="{{ timeline.title }}" class="timeline-image" onerror="this.src='images/websiteintro.jpeg'" />
         </div>
       </div>
+
+      <!-- Trailing line after the last entry -->
+      <div class="node-line" *ngIf="last"></div>
+
     </div>
+  </div>
+
+  <div class="stack-container" *ngIf="currentTab === 'stack'">
+     <div class="stack-category">
+       <h3><i class="fas fa-code"></i> Core Languages</h3>
+       <div class="hex-grid">
+         <div class="hex-skill" *ngFor="let item of stackData.languages">
+            <div class="hex-inner">
+               <i [class]="item.icon"></i>
+               <span>{{ item.name }}</span>
+            </div>
+         </div>
+       </div>
+     </div>
+     
+     <div class="stack-category">
+       <h3><i class="fas fa-layer-group"></i> Frameworks</h3>
+       <div class="hex-grid">
+         <div class="hex-skill" *ngFor="let item of stackData.frameworks">
+            <div class="hex-inner">
+               <i [class]="item.icon"></i>
+               <span>{{ item.name }}</span>
+            </div>
+         </div>
+       </div>
+     </div>
+
+     <div class="stack-category">
+       <h3><i class="fas fa-microchip"></i> AI & Design Tools</h3>
+       <div class="hex-grid">
+         <div class="hex-skill" *ngFor="let item of stackData.tools">
+            <div class="hex-inner">
+               <i [class]="item.icon"></i>
+               <span>{{ item.name }}</span>
+            </div>
+         </div>
+       </div>
+     </div>
   </div>
 </div>

@@ -1213,12 +1213,12 @@
 
 @media (max-width: 900px) {
   .detail-content-layout {
-    grid-template-columns: 1.3fr 1fr;
+    grid-template-columns: 1fr;
     gap: 20px;
   }
 
   .chips-grid {
-    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    grid-template-columns: 1fr;
   }
 
   .projects-grid {
@@ -1226,111 +1226,176 @@
   }
 
   .feature-grid-3 {
-    grid-template-columns: 1fr;
-  }
-}
-
-@media (max-width: 600px) {
-  .chips-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Ensure multiple academic projects visible side by side! */
-  .projects-grid {
     grid-template-columns: 1fr 1fr;
-    gap: 12px;
-
-    .card-content {
-      padding: 12px;
-    }
-
-    .card-title {
-      font-size: 13px;
-    }
-
-    .card-desc {
-      font-size: 10px;
-      line-height: 1.3;
-      margin-bottom: 8px;
-    }
-
-    .tech-badge {
-      font-size: 8px;
-      padding: 2px 6px;
-    }
-
-    .btn-read-more {
-      font-size: 10px;
-    }
-  }
-
-  .project-detail-view {
-    padding: 14px;
-    border-radius: 12px;
-  }
-
-  .detail-header {
-    .header-main-content h1 {
-      font-size: 20px;
-    }
-
-    .header-right-col {
-      align-items: flex-start !important;
-      margin-top: 10px;
-    }
-  }
-
-  /* Reset to single vertical flow! */
-  .detail-content-layout {
-    display: block;
-  }
-
-  .bento-grid-2 {
-    grid-template-columns: 1fr;
-  }
-
-  .security-architecture {
-    flex-direction: column;
-  }
-
-  .bambi-center-image img {
-    width: 100%;
-    height: auto;
-  }
-
-  .custom-bambi-layout {
-
-    p,
-    span {
-      font-size: 11px;
-      line-height: 1.4;
-    }
-
-    h3 {
-      font-size: 14px;
-      margin-top: 12px;
-    }
-
-    h4 {
-      font-size: 12px;
-    }
   }
 
   .detail-mockup {
     display: none !important;
   }
+}
 
-  .detail-hero-wrapper {
-    height: auto !important;
+@media (max-width: 600px) {
+  /* ── Page shell ── */
+  .projects-page {
+    padding: 20px 14px 60px;
   }
 
+  .page-header {
+    margin-bottom: 24px;
+
+    .page-title { font-size: 28px; }
+    .page-subtitle { font-size: 14px; margin-bottom: 16px; }
+  }
+
+  .tab-switcher {
+    padding: 4px;
+    .tab-btn { padding: 8px 16px; font-size: 13px; }
+  }
+
+  /* ── Academic grid: single column so cards are readable ── */
+  .projects-grid {
+    grid-template-columns: 1fr;
+    gap: 14px;
+  }
+
+  .project-card {
+    .card-image-wrapper { height: 160px; }
+  }
+
+  .card-content { padding: 14px; }
+  .card-title { font-size: 15px; margin-bottom: 10px; }
+  .card-desc p { font-size: 13px; line-height: 1.5; }
+  .tech-badge { font-size: 10px; padding: 3px 8px; }
+  .btn-read-more { font-size: 12px; }
+
+  /* ── Personal chips ── */
+  .chips-grid {
+    grid-template-columns: 1fr;
+    max-width: 100%;
+  }
+
+  .project-chip-compact {
+    padding: 12px;
+    gap: 12px;
+
+    .chip-logo { width: 40px; height: 40px; border-radius: 10px; }
+    .chip-content h4 { font-size: 14px; }
+    .chip-content p { font-size: 12px; }
+  }
+
+  /* ── Bambi / personal detail view ── */
+  .project-detail-view {
+    padding: 14px 12px;
+    border-radius: 12px;
+  }
+
+  /* Collapse the two-column header into a single column stack */
+  .detail-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 20px;
+
+    .header-main-content h1 { font-size: 22px; letter-spacing: -0.5px; }
+
+    .header-right-col {
+      flex-direction: row !important;
+      align-items: center !important;
+      flex-wrap: wrap;
+      gap: 10px;
+    }
+  }
+
+  .detail-slogan { font-size: 17px; margin-bottom: 6px; }
+  .intro-description { font-size: 13px; margin-bottom: 14px; }
+
+  /* Tech badge row: horizontal scroll, no wrapping */
+  .detail-tech-stack {
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    padding-bottom: 4px;
+    gap: 6px;
+
+    .tech-badge { font-size: 11px; padding: 4px 10px; white-space: nowrap; }
+  }
+
+  /* Main content single column */
+  .detail-content-layout {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+  }
+
+  /* Hide sidebar mockup entirely */
+  .detail-mockup { display: none !important; }
+
+  /* Bambi bento grids → single column */
+  .bento-grid-2 { grid-template-columns: 1fr; gap: 10px; }
+  .bento-card { padding: 14px; gap: 12px; }
+
+  /* feature grid already handled at 900px */
+  .feature-grid-3 { grid-template-columns: 1fr; gap: 12px; }
+  .feature-card { padding: 16px; }
+
+  /* Security block → stack vertically */
+  .security-architecture {
+    flex-direction: column;
+
+    .sec-left { min-width: unset; padding: 16px; border-right: none; border-bottom: 1px solid rgba(255,255,255,0.05); }
+    .sec-right { padding: 16px; }
+    .sec-right p { font-size: 13px; }
+  }
+
+  /* Bambi floating hero images — shrink to fit, no float overflow */
+  .bambi-center-image {
+    margin: 12px 0;
+    img { width: 80%; max-width: 280px; margin-bottom: -20px; margin-top: -20px; }
+  }
+
+  .coming-soon-banner {
+    padding: 14px;
+    .cs-header { font-size: 12px; }
+    .cs-tag { font-size: 11px; padding: 5px 10px; }
+  }
+
+  .solo-builder-strip {
+    padding: 10px 12px;
+    span { font-size: 12px; }
+  }
+
+  .solo-builder-callout {
+    padding: 20px 16px;
+    margin-top: 24px;
+    h4 { font-size: 18px; }
+    p { font-size: 13px; }
+  }
+
+  .sidebar-block { padding: 16px; }
+  .detail-blocks-grid { grid-template-columns: 1fr; }
+
+  .custom-bambi-layout {
+    h3 { font-size: 15px; margin-top: 14px; }
+    h4 { font-size: 13px; }
+    p, span { font-size: 13px; line-height: 1.5; }
+  }
+
+  /* Ensure hero image fills correctly for non-Bambi projects */
+  .detail-hero-wrapper {
+    height: auto !important;
+    border-radius: 12px;
+  }
   .detail-hero-image {
     width: 100%;
     height: auto;
     object-fit: contain;
   }
+  .lock-screen-placeholder { display: none; }
+}
 
-  .lock-screen-placeholder {
-    display: none;
-  }
+/* Very small phones */
+@media (max-width: 380px) {
+  .page-header .page-title { font-size: 24px; }
+  .detail-header .header-main-content h1 { font-size: 19px; }
+  .bambi-center-image img { width: 90%; }
 }
