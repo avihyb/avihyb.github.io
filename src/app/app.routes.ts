@@ -6,16 +6,16 @@ import { ResumeComponent } from './resume/resume.component';
 import { ContactComponent } from './contact/contact.component';
 
 const routes: Routes = [
-  { path: '', redirectTo: 'home', pathMatch: 'full'},
-  { path: 'home', component: HomeComponent },
-  { path: 'projects', component: ProjectsComponent },
-  { path: 'resume', component: ResumeComponent },
-  { path: 'contact', component: ContactComponent }, 
-  { path: '**', redirectTo: ''}
+  { path: '', redirectTo: 'home', pathMatch: 'full' },
+  { path: 'home', component: HomeComponent, title: 'Avichai Ben David | Software Developer' },
+  { path: 'projects', component: ProjectsComponent, title: 'Projects | Avichai Ben David' },
+  { path: 'resume', component: ResumeComponent, title: 'My Story | Avichai Ben David' },
+  { path: 'contact', component: ContactComponent, title: 'Contact | Avichai Ben David' },
+  { path: '**', redirectTo: 'home' }
 ];
 
 @NgModule({
-  imports: [RouterModule.forRoot(routes)],
+  imports: [RouterModule.forRoot(routes, { scrollPositionRestoration: 'top', anchorScrolling: 'enabled' })],
   exports: [RouterModule]
 })
 export class AppRoutingModule { }

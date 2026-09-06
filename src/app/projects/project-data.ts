@@ -3,35 +3,35 @@ import { Project, PersonalProject } from './project.model';
 export const PROJECTS: Project[] = [
     {
         title: 'Radio Programming Final Project',
-        description: 'This project provides a deep dive into the Meshtastic device and its underlying algorithms, followed by the execution of a controlled experiment.',
+        description: 'A deep dive into the Meshtastic LoRa device and its routing algorithms, followed by a controlled range experiment.',
         image: 'images/lora.png',
         url: 'https://github.com/avihyb/meshstatic-project',
         languages: ['Research', 'Experiment']
     },
     {
         title: 'Subspace Clustering in High Dimensional Data',
-        description: 'Seminar presented about high dimensional challanges, advanced algorithms and PCA demonstration.',
+        description: 'Seminar on the challenges of high-dimensional data, subspace clustering algorithms, and a PCA demonstration.',
         image: 'https://towardsdatascience.com/wp-content/uploads/2022/02/1QinDfRawRskupf4mU5bYSA.png',
         url: 'https://www.linkedin.com/posts/avihyb_subspace-clustering-of-high-dimensional-data-activity-7286773604476706817-drVh?utm_source=share&utm_medium=member_desktop&rcm=ACoAADFRtMUBDLQSWGE8lekGoSxijuVHfGko5mk',
         languages: ['Python', 'Research']
     },
     {
-        title: 'Opearting Systems Final Project',
-        description: 'MST in Graphs, Algorithms. Factory, Stratetgy, Pipeline (Active Object), Thread-Pool, Leader-Follower.',
+        title: 'Operating Systems Final Project',
+        description: 'Minimum spanning tree algorithms served over a socket, built with the Factory, Strategy, Pipeline (Active Object), Thread Pool, and Leader-Follower patterns.',
         image: 'images/mst.png',
         url: 'https://github.com/avihyb/OS_Final_Project',
         languages: ['C++']
     },
     {
         title: 'Personal Website & Portfolio',
-        description: 'Angular project which demonstrates the use of Angular components, services, and routing. The project also includes a custom Angular service that fetches data from a JSON file and displays it on the page. The project also includes a custom Angular component that displays a list of items and allows the user to add new items to the list. The project also includes a custom Angular component that displays a list of items and allows the user to delete items from the list. The project also includes a custom Angular component that displays a list of items and allows the user to edit items in the list.',
+        description: 'This site. An Angular app with routed pages, data-driven project and timeline content, and a hand-built design system, deployed to GitHub Pages.',
         image: 'images/mu.jpg',
         url: 'https://github.com/avihyb/avihyb.github.io',
         languages: ['Angular', 'TypeScript', 'HTML', 'CSS']
     },
     {
         title: 'Communication Networks Final Project',
-        description: 'QUIC Protocol: Python implemention of multiplexing.',
+        description: 'A Python implementation of QUIC-style stream multiplexing over UDP.',
         image: 'images/network.jpeg',
         url: 'https://github.com/avihyb/final-project-network',
         languages: ['Python']
@@ -52,7 +52,7 @@ export const PROJECTS: Project[] = [
     },
     {
         title: 'Trees Simulator',
-        description: 'Tree data structures implemented in C++. GUI, Iterators.',
+        description: 'Tree data structures in C++ with custom iterators and a graphical view.',
         image: 'images/trees.png',
         url: 'https://github.com/avihyb/CPP-EX4',
         languages: ['C++']
@@ -91,26 +91,42 @@ async function confirmBooking(intentId) {
 }`,
         mockupType: 'mobile',
         sourceCodeUrl: '',
-        liveDemoUrl: 'https://studiobambiapp.com'
+        liveDemoUrl: 'https://studiobambiapp.com',
+        displayUrl: 'www.studiobambiapp.com',
+        customLayout: true
     },
     {
-        id: 'locked-1',
-        title: 'Project Nebula',
-        shortDescription: 'Stealth mode AI task engine. Details under NDA.',
-        logo: 'images/lock.png',
-        image: '',
-        technologies: ['React', 'Python', 'LLM'],
-        inspiration: '', goals: '', detailedDescription: '', architecture: '', sourceCodeUrl: '', liveDemoUrl: '',
-        locked: true
+        id: 'filmingitall',
+        title: 'Filming It All',
+        shortDescription: 'Cinematic production & photography studio. A faceless brand with a black-and-yellow storefront and a booking funnel.',
+        logo: 'images/filmingitall.png',
+        image: 'images/filmingitall-site.webp',
+        technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
+        inspiration: 'A production studio should feel like a film, not a brochure. The site opens on a single black frame with the handwritten wordmark and nothing else, then routes visitors to the work, the services, or a private session.',
+        goals: 'Ship a brand and a storefront in one codebase: a category-filtered portfolio, business production tiers, private cinematic sessions, and a shop with a cart ready for prints and merch.',
+        detailedDescription: 'Filming It All is the public face of a cinematic production and photography studio. The gateway page sets the tone; the portfolio filters work by category (reels, business, private, family, travel, vlog, documentary); the studio page sells three production tiers to businesses; the sessions page offers private bookings for couples, solo travelers, and individuals.',
+        architecture: 'Next.js 16 app router with React 19 and Tailwind CSS 4. Framer Motion drives the hero and page transitions, Zustand holds the cart state behind a slide-in drawer, and media is served from S3. Static generation with sitemap and robots routes for SEO.',
+        mockupType: 'desktop',
+        sourceCodeUrl: '',
+        liveDemoUrl: 'https://www.filmingitall.com',
+        displayUrl: 'www.filmingitall.com',
+        customLayout: true
     },
     {
-        id: 'locked-2',
-        title: 'Aurora OS',
-        shortDescription: 'Experimental low-level distributed environment.',
-        logo: 'images/lock.png',
-        image: '',
-        technologies: ['Rust', 'WebAssembly'],
-        inspiration: '', goals: '', detailedDescription: '', architecture: '', sourceCodeUrl: '', liveDemoUrl: '',
-        locked: true
+        id: 'climate-support',
+        title: 'Climate Support',
+        shortDescription: 'Landing site and partner platform for a food-tech company that lab-verifies nutrient density and seals every batch with a QR code.',
+        logo: 'images/climate-support.png',
+        image: 'images/climate-support-site.webp',
+        technologies: ['Next.js', 'React', 'Supabase', 'TypeScript'],
+        inspiration: 'Food quality is claimed, rarely proven. Climate Support makes it measurable: a harvest is sampled, a lab measures its nutrient density, and the result travels with the produce as a QR code anyone can scan.',
+        goals: 'Give shoppers proof they can check themselves, give farmers premium pricing without the cost of organic certification, and give farms, labs, packagers, and shops one shared chain to work in.',
+        detailedDescription: 'Two connected products. The landing site at climate-support.org explains the idea and routes farmers, shops, shoppers, and investors to their own path. The partner platform at app.climate-support.org is where the work happens: farms apply and log harvests, labs test and grade, packagers seal batches to QR codes, and retailers source verified produce.',
+        architecture: 'Both products are Next.js apps. The platform runs on Supabase with role-based access for farmers, labs, packagers, retailers, and admins.',
+        mockupType: 'desktop',
+        sourceCodeUrl: '',
+        liveDemoUrl: 'https://climate-support.org',
+        displayUrl: 'www.climate-support.org',
+        customLayout: true
     }
 ];

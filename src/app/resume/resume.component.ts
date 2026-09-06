@@ -1,49 +1,77 @@
-import { Component, ViewChildren, QueryList, ElementRef } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { Timeline } from './timeline.model';
 import { TIMELINE_DATA } from './timeline-data';
+
+interface StackItem { name: string; icon: string; }
+interface StackGroup { id: string; title: string; icon: string; items: StackItem[]; }
 
 @Component({
   selector: 'app-resume',
   templateUrl: './resume.component.html',
   styleUrls: ['./resume.component.scss']
 })
-export class ResumeComponent {
+export class ResumeComponent implements OnInit, OnDestroy {
   timelineData: Timeline[] = TIMELINE_DATA;
+
+  private paramsSub?: Subscription;
+
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   currentTab: 'timeline' | 'stack' = 'timeline';
 
-  stackData = {
-    languages: [
-      { name: 'TypeScript', icon: 'fab fa-js' },
-      { name: 'Python', icon: 'fab fa-python' },
-      { name: 'Java', icon: 'fab fa-java' },
-      { name: 'C++', icon: 'fas fa-code' },
-      { name: 'SQL', icon: 'fas fa-database' }
-    ],
-    frameworks: [
-      { name: 'Angular', icon: 'fab fa-angular' },
-      { name: 'Flutter', icon: 'fas fa-mobile-alt' },
-      { name: 'Node.js', icon: 'fab fa-node-js' }
-    ],
-    tools: [
-      { name: 'Cursor IDE', icon: 'fas fa-magic' },
-      { name: 'Claude', icon: 'fas fa-brain' },
-      { name: 'ChatGPT', icon: 'fas fa-robot' },
-      { name: 'Figma', icon: 'fab fa-figma' },
-      { name: 'v0.dev', icon: 'fas fa-laptop-code' }
-    ]
-  };
+  stackGroups: StackGroup[] = [
+    {
+      id: 'stack-languages',
+      title: 'Core Languages',
+      icon: 'fas fa-code',
+      items: [
+        { name: 'TypeScript', icon: 'devicon-typescript-plain' },
+        { name: 'Python', icon: 'devicon-python-plain' },
+        { name: 'Java', icon: 'devicon-java-plain' },
+        { name: 'C++', icon: 'devicon-cplusplus-plain' },
+        { name: 'SQL', icon: 'devicon-postgresql-plain' }
+      ]
+    },
+    {
+      id: 'stack-frameworks',
+      title: 'Frameworks',
+      icon: 'fas fa-layer-group',
+      items: [
+        { name: 'Angular', icon: 'devicon-angularjs-plain' },
+        { name: 'Next.js', icon: 'devicon-nextjs-original' },
+        { name: 'Flutter', icon: 'devicon-flutter-plain' },
+        { name: 'Node.js', icon: 'devicon-nodejs-plain' }
+      ]
+    },
+    {
+      id: 'stack-tools',
+      title: 'AI & Design Tools',
+      icon: 'fas fa-microchip',
+      items: [
+        { name: 'Claude Code', icon: 'fas fa-terminal' },
+        { name: 'Cursor', icon: 'fas fa-mouse-pointer' },
+        { name: 'Codex', icon: 'fas fa-code' },
+        { name: 'Copilot', icon: 'fab fa-github' },
+        { name: 'Figma', icon: 'devicon-figma-plain' },
+        { name: 'n8n', icon: 'fas fa-project-diagram' }
+      ]
+    }
+  ];
 
-  @ViewChildren('timelineNode') timelineNodes!: QueryList<ElementRef>;
-
-  setTab(tab: 'timeline' | 'stack') {
-    this.currentTab = tab;
+  ngOnInit(): void {
+    // The URL is the source of truth for the tab, so the header menu and sharing work.
+    this.paramsSub = this.route.queryParams.subscribe(params => {
+      this.currentTab = params['tab'] === 'stack' ? 'stack' : 'timeline';
+    });
   }
 
-  jumpToToday() {
-    if (this.timelineNodes && this.timelineNodes.length > 0) {
-      const lastNode = this.timelineNodes.last.nativeElement;
-      lastNode.scrollIntoView({ behavior: 'smooth', block: 'center' });
-    }
+  ngOnDestroy(): void {
+    this.paramsSub?.unsubscribe();
+  }
+
+  setTab(tab: 'timeline' | 'stack') {
+    this.router.navigate([], { relativeTo: this.route, queryParams: { tab }, queryParamsHandling: 'merge' });
   }
 }

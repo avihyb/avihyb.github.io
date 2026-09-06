@@ -1,25 +1,35 @@
 <div class="main-layout">
-  <div class="matrix-bg"></div>
-  <div class="content-area">
-    <router-outlet></router-outlet>
-  </div>
+  <a class="skip-link" href="#main">Skip to content</a>
 
-  <nav class="mac-dock">
-    <a class="dock-item" routerLink="/home" routerLinkActive="active">
-      <i class="fas fa-home"></i>
-      <span class="tooltip">Home</span>
-    </a>
-    <a class="dock-item" routerLink="/projects" routerLinkActive="active">
-      <i class="fas fa-code-branch"></i>
-      <span class="tooltip">Projects</span>
-    </a>
-    <a class="dock-item" routerLink="/resume" routerLinkActive="active">
-      <i class="fas fa-route"></i>
-      <span class="tooltip">About</span>
-    </a>
-    <a class="dock-item" routerLink="/contact" routerLinkActive="active">
-      <i class="fas fa-paper-plane"></i>
-      <span class="tooltip">Contact</span>
-    </a>
-  </nav>
+  <header class="site-header" [class.scrolled]="scrolled">
+    <a class="brand" routerLink="/home" aria-label="Avichai Ben David, home">Avichai<span class="brand-dot">.</span></a>
+    <nav class="site-nav" aria-label="Primary">
+      <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
+
+      <div class="nav-item">
+        <a class="nav-link" routerLink="/projects" routerLinkActive="active" aria-haspopup="true">Projects</a>
+        <div class="menu" role="group" aria-label="Projects">
+          <a routerLink="/projects" [queryParams]="{tab: 'personal', project: 'bambi-marketplace'}">Bambi</a>
+          <a routerLink="/projects" [queryParams]="{tab: 'personal', project: 'filmingitall'}">Filming It All</a>
+          <a routerLink="/projects" [queryParams]="{tab: 'personal', project: 'climate-support'}">Climate Support</a>
+          <span class="menu-rule" aria-hidden="true"></span>
+          <a routerLink="/projects" [queryParams]="{tab: 'academic'}">Academic work</a>
+        </div>
+      </div>
+
+      <div class="nav-item">
+        <a class="nav-link" routerLink="/resume" routerLinkActive="active" aria-haspopup="true">Story</a>
+        <div class="menu" role="group" aria-label="Story">
+          <a routerLink="/resume" [queryParams]="{tab: 'timeline'}">Timeline</a>
+          <a routerLink="/resume" [queryParams]="{tab: 'stack'}">My Stack</a>
+        </div>
+      </div>
+
+      <a class="nav-link" routerLink="/contact" routerLinkActive="active">Contact</a>
+    </nav>
+  </header>
+
+  <main id="main" class="content-area" tabindex="-1">
+    <router-outlet></router-outlet>
+  </main>
 </div>

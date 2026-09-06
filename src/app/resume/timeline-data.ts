@@ -2,21 +2,21 @@ import { Timeline } from './timeline.model';
 
 export const TIMELINE_DATA: Timeline[] = [
    {
-      title: 'BSc. Computer Science Student',
+      title: 'BSc in Computer Science, Ariel University',
       date: 'March 2022 - June 2026',
-      description: 'BS.c in Computer Science at Ariel University. Courses include: Data Structures, Algorithms, Operating Systems, Computer Networks, and more.',
+      description: 'Coursework includes data structures, algorithms, operating systems, and computer networks, with final projects in radio programming, operating systems, and communication networks.',
       image: 'images/ariel-university-logo.jpg'
    },
    {
       title: 'Software Programming Instructor',
       date: 'August 2024 - August 2025',
-      description: 'Teaching honors students the fundamentals of object-oriented programming (OOP), multithreading, algorithms, and project management principles, equipping them with advanced skills for future academic and professional success. Their classes emphasize practical applications and problem-solving techniques, preparing students to tackle complex projects with confidence.',
+      description: 'Taught honors students the fundamentals of object-oriented programming, multithreading, algorithms, and project management, with an emphasis on practical problem solving and building complex projects with confidence.',
       image: 'images/cyber-education-center-logo.jpg'
    },
    {
-      title: 'Software Developer',
+      title: 'Software Developer, Bambi',
       date: 'March 2026 - Present',
-      description: 'Software Developer at Bambi Marketplace. Working on building a new marketplace platform for Bambi Marketplace.',
+      description: 'Building Bambi, a marketplace app that connects clients with independent barbers and barbershops, from the booking engine to the mobile experience.',
       image: 'images/bambi.png'
    }
 ];

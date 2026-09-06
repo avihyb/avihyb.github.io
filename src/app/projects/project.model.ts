@@ -21,5 +21,9 @@ export interface PersonalProject {
   mockupType?: 'mobile' | 'desktop';
   sourceCodeUrl: string;
   liveDemoUrl: string;
+  /** Short label shown on the website pill, e.g. www.example.com */
+  displayUrl?: string;
+  /** True when projects.component.html has a bespoke section for this id */
+  customLayout?: boolean;
   locked?: boolean;
 }

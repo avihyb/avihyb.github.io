@@ -1,143 +1,196 @@
 .main-layout {
   min-height: 100vh;
-  padding-top: 140px; /* Space for dock */
+  padding-top: 96px; /* clears the fixed header */
   position: relative;
-}
-
-.matrix-bg {
-  position: fixed;
-  top: 0; left: 0; width: 100vw; height: 100vh;
-  z-index: -1;
-  pointer-events: none;
-  opacity: 0.04;
-  background-image: url("data:image/svg+xml,%3Csvg width='600' height='600' xmlns='http://www.w3.org/2000/svg'%3E%3Ctext x='10' y='30' font-family='monospace' font-size='14' fill='%23ffffff'%3Econst system = new Matrix();%3C/text%3E%3Ctext x='10' y='60' font-family='monospace' font-size='14' fill='%23ffffff'%3Ewhile(true) %7B%3C/text%3E%3Ctext x='30' y='90' font-family='monospace' font-size='14' fill='%23ffffff'%3E await system.render();%3C/text%3E%3Ctext x='10' y='120' font-family='monospace' font-size='14' fill='%23ffffff'%3E%7D%3C/text%3E%3Ctext x='10' y='180' font-family='monospace' font-size='14' fill='%23ffffff'%3E// Memory allocation init...%3C/text%3E%3Ctext x='10' y='210' font-family='monospace' font-size='14' fill='%23ffffff'%3E0x00FF2A4B: process.fork()%3C/text%3E%3Ctext x='10' y='280' font-family='monospace' font-size='14' fill='%23ffffff'%3Easync function scale() %7B%3C/text%3E%3Ctext x='30' y='310' font-family='monospace' font-size='14' fill='%23ffffff'%3E return await cluster.spawn();%3C/text%3E%3Ctext x='10' y='340' font-family='monospace' font-size='14' fill='%23ffffff'%3E%7D%3C/text%3E%3C/svg%3E");
-  background-repeat: repeat;
-  animation: scrollCode 60s linear infinite;
-}
-
-@keyframes scrollCode {
-  0% { background-position: 0 0; }
-  100% { background-position: 0 -600px; }
-}
-
-.mac-dock {
-  position: fixed;
-  top: 32px;
-  left: 50%;
-  transform: translateX(-50%);
   display: flex;
-  gap: 36px;
-  background: rgba(10, 15, 25, 0.2); /* Deeply transparent */
-  backdrop-filter: blur(12px);
-  -webkit-backdrop-filter: blur(12px);
-  border: 1px solid rgba(255, 255, 255, 0.03); /* Almost invisible edge */
-  padding: 12px 36px;
-  border-radius: 100px; /* Perfectly round pill */
-  z-index: 1000;
-  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.15);
-  transition: all 0.3s cubic-bezier(0.25, 1, 0.5, 1);
+  flex-direction: column;
 }
 
-.dock-item {
-  position: relative;
+.content-area {
+  flex: 1;
+  outline: none;
+}
+
+.skip-link {
+  position: absolute;
+  top: 12px;
+  left: 12px;
+  z-index: 2000;
+  padding: 10px 16px;
+  background: var(--accent);
+  color: var(--bg);
+  font-weight: 700;
+  border-radius: 8px;
+  transform: translateY(-200%);
+  transition: transform 0.2s var(--ease-out);
+
+  &:focus {
+    transform: translateY(0);
+  }
+}
+
+/* ─── Header: wordmark left, text nav right ─── */
+.site-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+  height: 64px;
   display: flex;
   align-items: center;
-  justify-content: center;
-  width: 48px;
-  height: 48px;
-  background: transparent; /* No inner boxes */
-  color: var(--text-dim);
-  text-decoration: none;
-  font-size: 20px;
-  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
-  transform-origin: center bottom;
+  justify-content: space-between;
+  padding: 0 clamp(20px, 5vw, 72px);
+  background: rgba(11, 16, 32, 0.72);
+  backdrop-filter: blur(14px);
+  -webkit-backdrop-filter: blur(14px);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.04);
+  transition: border-color 0.3s var(--ease-out), background 0.3s var(--ease-out);
 
-  &::after {
-    content: '';
-    position: absolute;
-    bottom: 2px;
-    width: 0;
-    height: 4px;
-    background: var(--accent);
-    border-radius: 4px;
-    transition: width 0.3s, box-shadow 0.3s;
+  &.scrolled {
+    border-bottom-color: rgba(255, 255, 255, 0.1);
+    background: rgba(11, 16, 32, 0.86);
+  }
+}
+
+.brand {
+  font-size: 18px;
+  font-weight: 800;
+  letter-spacing: -0.5px;
+  color: var(--text);
+  line-height: 1;
+  padding: 8px 0;
+  transition: color 0.2s var(--ease-out);
+
+  .brand-dot {
+    color: var(--accent);
   }
 
   &:hover {
-    color: var(--text);
-    background: transparent; /* Keep boxless */
-    transform: translateY(-4px) scale(1.15); /* Clean upward bounce */
-    z-index: 2;
-
-    .tooltip {
-      opacity: 1;
-      transform: translateY(24px) scale(1);
-      visibility: visible;
-    }
-  }
-
-  &.active {
     color: var(--accent);
-    background: transparent;
-    
-    &::after {
-      width: 16px; /* Elegant underscore */
-      box-shadow: 0 0 10px var(--accent-glow);
+  }
+}
+
+.site-nav {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+
+  .nav-link {
+    position: relative;
+    display: inline-flex;
+    align-items: center;
+    height: 40px;
+    padding: 0 14px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+    border-radius: 8px;
+    transition: color 0.2s var(--ease-out);
+
+    &:hover {
+      color: var(--text);
+    }
+
+    &.active {
+      color: var(--text);
+      font-weight: 600;
     }
   }
 }
 
-/* ─── Mac Dock Hover Siblings Effect ─── */
-.mac-dock:hover .dock-item:not(:hover) {
-  opacity: 0.5;
-  transform: scale(0.95);
+/* Hover menus under Projects and Story. The item keeps the menu open while the pointer
+   travels down to it; focus-within opens it for keyboard users. Touch layouts get no menu. */
+.nav-item {
+  position: relative;
+
+  &:hover .nav-link,
+  &:focus-within .nav-link {
+    color: var(--text);
+  }
+
+  &:hover .menu,
+  &:focus-within .menu {
+    opacity: 1;
+    visibility: visible;
+    transform: translateY(0);
+    transition-delay: 0s, 0s, 0s;
+  }
 }
 
-.tooltip {
+.menu {
   position: absolute;
-  bottom: -46px;
-  background: #1e293b;
-  color: #fff;
-  font-size: 14px;
-  font-weight: 600;
-  padding: 6px 14px;
-  border-radius: 10px;
-  pointer-events: none;
+  top: calc(100% + 6px);
+  left: 0;
+  min-width: 188px;
+  padding: 6px;
+  display: flex;
+  flex-direction: column;
+  background: rgba(17, 26, 46, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid var(--glass-border);
+  border-radius: 12px;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.45);
   opacity: 0;
   visibility: hidden;
-  transform: translateY(0) scale(0.9);
-  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
-  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.3);
-  white-space: nowrap;
+  transform: translateY(-6px);
+  transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out), visibility 0s linear 0.2s;
 
-  &::after {
+  /* invisible bridge so the pointer can cross the gap without closing the menu */
+  &::before {
     content: '';
     position: absolute;
-    top: -4px;
-    left: 50%;
-    transform: translateX(-50%) rotate(45deg);
-    width: 10px;
-    height: 10px;
-    background: #1e293b;
+    left: 0;
+    right: 0;
+    top: -8px;
+    height: 8px;
+  }
+
+  a {
+    display: flex;
+    align-items: center;
+    height: 36px;
+    padding: 0 12px;
+    border-radius: 8px;
+    font-size: 13px;
+    font-weight: 500;
+    color: var(--text-dim);
+    white-space: nowrap;
+    transition: color 0.15s var(--ease-out), background 0.15s var(--ease-out);
+
+    &:hover,
+    &:focus-visible {
+      color: var(--text);
+      background: rgba(255, 255, 255, 0.06);
+    }
+  }
+
+  .menu-rule {
+    height: 1px;
+    margin: 6px 8px;
+    background: var(--glass-border);
   }
 }
 
 @media (max-width: 640px) {
-  .mac-dock {
-    width: 90%;
-    justify-content: center;
-    padding: 12px 18px;
-    gap: 14px;
-    top: 20px;
+  .main-layout {
+    padding-top: 80px;
   }
-  
-  .dock-item {
-    width: 44px;
-    height: 44px;
-    font-size: 18px;
+
+  .site-header {
+    height: 56px;
+    padding: 0 16px;
   }
-  
-  .tooltip {
-    display: none;
+
+
+  .site-nav {
+    gap: 0;
+
+    .nav-link {
+      padding: 0 9px;
+    }
   }
+
+  .menu { display: none; }
 }

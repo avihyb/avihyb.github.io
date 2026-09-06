@@ -1,81 +1,87 @@
-import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { Component, OnDestroy, OnInit } from '@angular/core';
+import { ActivatedRoute, Router } from '@angular/router';
+import { Subscription } from 'rxjs';
 import { PROJECTS, PERSONAL_PROJECTS } from './project-data';
 import { Project, PersonalProject } from './project.model';
+
+/** Tags that describe the kind of work rather than a language. */
+const TYPE_TAGS = ['Research', 'Experiment', 'Game'];
 
 @Component({
   selector: 'app-projects',
   templateUrl: './projects.component.html',
   styleUrls: ['./projects.component.scss']
 })
-export class ProjectsComponent implements OnInit {
-  // Tabs State
-  activeTab: 'academic' | 'personal' = 'academic';
-  
-  // Academic State
+export class ProjectsComponent implements OnInit, OnDestroy {
+  activeTab: 'academic' | 'personal' = 'personal';
+
+  // Academic
   projects: Project[] = PROJECTS;
   filteredProjects: Project[] = PROJECTS;
-  searchQuery: string = '';
-  selectedLanguage: string = 'All';
+  searchQuery = '';
+  selectedType = 'All';
+  selectedLanguage = 'All';
+  availableTypes: string[] = ['All'];
   availableLanguages: string[] = ['All'];
-  expandedDescriptions: { [key: string]: boolean } = {};
 
-  // Personal State
+  // Personal
   personalProjects: PersonalProject[] = PERSONAL_PROJECTS;
   selectedPersonalProject: PersonalProject | null = null;
 
-  constructor(private route: ActivatedRoute) {}
+  private paramsSub?: Subscription;
+
+  constructor(private route: ActivatedRoute, private router: Router) {}
 
   ngOnInit(): void {
-    // Parse query params to set initial tab
-    this.route.queryParams.subscribe(params => {
-      if (params['tab'] === 'personal' || params['tab'] === 'academic') {
-        this.activeTab = params['tab'];
-      }
-      
-      // Load specific personal project if requested
-      if (params['project']) {
-        const found = this.personalProjects.find(p => p.id === params['project']);
-        if (found) {
-          this.selectedPersonalProject = found;
-          setTimeout(() => window.scrollTo(0, 0), 100);
-        }
-      }
-    });
+    const types = new Set<string>();
     const languages = new Set<string>();
-    this.projects.forEach(p => {
-      if (p.languages) {
-        p.languages.forEach(l => languages.add(l));
-      }
-    });
+    this.projects.forEach(p => (p.languages || []).forEach(tag => (TYPE_TAGS.includes(tag) ? types : languages).add(tag)));
+    this.availableTypes = ['All', ...Array.from(types).sort()];
     this.availableLanguages = ['All', ...Array.from(languages).sort()];
+
+    // The URL is the source of truth for the tab and the open project, so Back and sharing work.
+    this.paramsSub = this.route.queryParams.subscribe(params => {
+      this.activeTab = params['tab'] === 'academic' ? 'academic' : 'personal';
+      const id = params['project'];
+      this.selectedPersonalProject = id ? (this.personalProjects.find(p => p.id === id) ?? null) : null;
+    });
   }
 
-  /* ====== Tab Logic ====== */
+  ngOnDestroy(): void {
+    this.paramsSub?.unsubscribe();
+  }
+
+  /* ====== Tabs ====== */
   switchTab(tab: 'academic' | 'personal'): void {
-    this.activeTab = tab;
-    // Reset selections on tab switch
-    if (tab === 'personal') {
-      this.selectedPersonalProject = null;
-    }
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab, project: null },
+      queryParamsHandling: 'merge'
+    });
   }
 
-  /* ====== Personal Projects Logic ====== */
+  /* ====== Personal ====== */
   selectPersonalProject(project: PersonalProject | null): void {
-    this.selectedPersonalProject = project;
-    // Scroll to top when opening a sub-page
-    if (project) {
-      window.scrollTo({ top: 0, behavior: 'smooth' });
-    }
+    this.router.navigate([], {
+      relativeTo: this.route,
+      queryParams: { tab: 'personal', project: project ? project.id : null },
+      queryParamsHandling: 'merge'
+    });
   }
 
-  /* ====== Academic Projects Logic ====== */
+  /* ====== Academic filters ====== */
+  get hasActiveFilters(): boolean {
+    return this.searchQuery.trim() !== '' || this.selectedType !== 'All' || this.selectedLanguage !== 'All';
+  }
+
   filterProjects(): void {
+    const q = this.searchQuery.trim().toLowerCase();
     this.filteredProjects = this.projects.filter(project => {
-      const matchesSearch = project.title.toLowerCase().includes(this.searchQuery.toLowerCase()) || 
-                            project.description.toLowerCase().includes(this.searchQuery.toLowerCase());
-      const matchesLang = this.selectedLanguage === 'All' || (project.languages && project.languages.includes(this.selectedLanguage));
-      return matchesSearch && matchesLang;
+      const tags = project.languages || [];
+      const matchesSearch = !q || project.title.toLowerCase().includes(q) || project.description.toLowerCase().includes(q);
+      const matchesType = this.selectedType === 'All' || tags.includes(this.selectedType);
+      const matchesLang = this.selectedLanguage === 'All' || tags.includes(this.selectedLanguage);
+      return matchesSearch && matchesType && matchesLang;
     });
   }
 
@@ -83,8 +89,20 @@ export class ProjectsComponent implements OnInit {
     this.filterProjects();
   }
 
+  onTypeSelect(type: string): void {
+    this.selectedType = type;
+    this.filterProjects();
+  }
+
   onLanguageSelect(lang: string): void {
     this.selectedLanguage = lang;
+    this.filterProjects();
+  }
+
+  clearFilters(): void {
+    this.searchQuery = '';
+    this.selectedType = 'All';
+    this.selectedLanguage = 'All';
     this.filterProjects();
   }
 
@@ -106,18 +124,17 @@ export class ProjectsComponent implements OnInit {
       'Node.js': 'devicon-nodejs-plain',
       'Flutter': 'devicon-flutter-plain',
       'PostgreSQL': 'devicon-postgresql-plain',
+      'Next.js': 'devicon-nextjs-original',
+      'React': 'devicon-react-original',
+      'Tailwind CSS': 'devicon-tailwindcss-plain',
+      'Framer Motion': 'fas fa-film',
+      'D3': 'devicon-d3js-plain',
+      'Nodemailer': 'fas fa-envelope',
+      'Supabase': 'fas fa-database',
       'Research': 'fas fa-microscope',
-      'Experiment': 'fas fa-flask'
+      'Experiment': 'fas fa-flask',
+      'Game': 'fas fa-gamepad'
     };
     return icons[language] || 'devicon-devicon-plain';
-  }
-
-  toggleDescription(event: Event, project: Project): void {
-    event.preventDefault();
-    this.expandedDescriptions[project.title] = !this.expandedDescriptions[project.title];
-  }
-
-  isDescriptionExpanded(project: Project): boolean {
-    return this.expandedDescriptions[project.title];
   }
 }

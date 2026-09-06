@@ -1,17 +1,18 @@
 <div class="projects-page">
   <div class="page-header">
     <h1 class="page-title">My Projects</h1>
-    <p class="page-subtitle" *ngIf="activeTab === 'academic'">Recent university coursework and semantic projects.</p>
-    <p class="page-subtitle" *ngIf="activeTab === 'personal'">Deep dives, scalable software, and modern architecture.
-    </p>
+    <p class="page-subtitle" *ngIf="activeTab === 'academic'">Coursework, seminars, and final projects from my degree.</p>
+    <p class="page-subtitle" *ngIf="activeTab === 'personal'">Products I design and build end to end.</p>
 
     <!-- Tab Switcher -->
     <div class="tab-switcher">
-      <button class="tab-btn" [class.active]="activeTab === 'academic'" (click)="switchTab('academic')">
-        <i class="fas fa-university"></i> Academic
+      <button type="button" class="tab-btn" [class.active]="activeTab === 'personal'"
+        [attr.aria-pressed]="activeTab === 'personal'" (click)="switchTab('personal')">
+        <i class="fas fa-laptop-code" aria-hidden="true"></i> Personal
       </button>
-      <button class="tab-btn" [class.active]="activeTab === 'personal'" (click)="switchTab('personal')">
-        <i class="fas fa-laptop-code"></i> Personal
+      <button type="button" class="tab-btn" [class.active]="activeTab === 'academic'"
+        [attr.aria-pressed]="activeTab === 'academic'" (click)="switchTab('academic')">
+        <i class="fas fa-university" aria-hidden="true"></i> Academic
       </button>
     </div>
   </div>
@@ -20,26 +21,34 @@
   <div class="academic-view" *ngIf="activeTab === 'academic'">
     <div class="filter-section">
       <div class="search-box">
-        <i class="fas fa-search"></i>
-        <input type="text" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()"
-          placeholder="Search academic projects...">
+        <i class="fas fa-search" aria-hidden="true"></i>
+        <input type="search" [(ngModel)]="searchQuery" (ngModelChange)="onSearchChange()"
+          placeholder="Search academic projects" aria-label="Search academic projects">
       </div>
 
       <div class="filters">
-        <button *ngFor="let lang of availableLanguages" class="filter-btn" [class.active]="selectedLanguage === lang"
-          (click)="onLanguageSelect(lang)">
-          {{ lang }}
-        </button>
+        <div class="filter-group" role="group" aria-label="Project type">
+          <span class="filter-label">Type</span>
+          <button *ngFor="let type of availableTypes" type="button" class="filter-btn"
+            [class.active]="selectedType === type" [attr.aria-pressed]="selectedType === type"
+            (click)="onTypeSelect(type)">{{ type }}</button>
+        </div>
+        <div class="filter-group" role="group" aria-label="Language">
+          <span class="filter-label">Language</span>
+          <button *ngFor="let lang of availableLanguages" type="button" class="filter-btn"
+            [class.active]="selectedLanguage === lang" [attr.aria-pressed]="selectedLanguage === lang"
+            (click)="onLanguageSelect(lang)">{{ lang }}</button>
+        </div>
       </div>
     </div>
 
     <div class="projects-grid">
-      <div *ngFor="let project of filteredProjects" class="project-card">
+      <div *ngFor="let project of filteredProjects; let i = index" class="project-card spot" appSpotlight [appReveal]="i + 1">
         <div class="card-image-wrapper">
-          <img [src]="project.image" [alt]="project.title" onerror="this.src='images/websiteintro.jpeg'">
+          <img [src]="project.image" alt="" loading="lazy" onerror="this.src='images/websiteintro.jpeg'">
           <div class="card-overlay">
-            <a *ngIf="project.url" [href]="project.url" target="_blank" class="github-link">
-              <i class="fab fa-github"></i> View App
+            <a *ngIf="project.url" [href]="project.url" target="_blank" rel="noopener" class="github-link">
+              <i class="fab fa-github" aria-hidden="true"></i> View project
             </a>
           </div>
         </div>
@@ -55,23 +64,17 @@
           </div>
 
           <div class="card-desc">
-            <p *ngIf="!isDescriptionExpanded(project)">{{ project.description | truncate:120 }}</p>
-            <p *ngIf="isDescriptionExpanded(project)">{{ project.description }}</p>
-          </div>
-
-          <div class="card-footer" *ngIf="project.description.length > 120">
-            <button class="btn-read-more" (click)="toggleDescription($event, project)">
-              {{ isDescriptionExpanded(project) ? 'Show Less' : 'Read More' }}
-            </button>
+            <p>{{ project.description }}</p>
           </div>
         </div>
       </div>
     </div>
 
-    <div class="no-results" *ngIf="filteredProjects.length === 0">
-      <i class="fas fa-box-open"></i>
-      <h3>No projects found</h3>
-      <p>Try adjusting your search or filters.</p>
+    <div class="no-results" *ngIf="filteredProjects.length === 0" role="status">
+      <i class="fas fa-box-open" aria-hidden="true"></i>
+      <h3>No projects match</h3>
+      <p>Nothing matches that search and filter combination.</p>
+      <button type="button" class="btn-clear-filters" (click)="clearFilters()">Clear search and filters</button>
     </div>
   </div>
 
@@ -81,30 +84,27 @@
     <!-- Level 1: Chips Overview -->
     <div class="chips-container" *ngIf="!selectedPersonalProject">
       <div class="chips-grid">
-        <div *ngFor="let p of personalProjects" class="project-chip-compact" [class.locked-chip]="p.locked"
-          (click)="!p.locked && selectPersonalProject(p)">
-          <img *ngIf="!p.locked" [src]="p.logo" alt="{{p.title}} Logo" class="chip-logo"
-            onerror="this.src='images/websiteintro.jpeg'">
-          <div *ngIf="p.locked" class="chip-logo locked-icon"><i class="fas fa-lock"></i></div>
-
-          <div class="chip-content">
-            <h4>{{ p.title }}</h4>
-            <p>{{ p.shortDescription }}</p>
-          </div>
-          <div class="chip-arrow"><i class="fas fa-arrow-right"></i></div>
-        </div>
+        <button *ngFor="let p of personalProjects; let i = index" type="button" class="project-chip-compact spot"
+          appSpotlight [appReveal]="i + 1" (click)="selectPersonalProject(p)">
+          <img [src]="p.logo" alt="" class="chip-logo" width="48" height="48">
+          <span class="chip-content">
+            <span class="chip-title">{{ p.title }}</span>
+            <span class="chip-desc">{{ p.shortDescription }}</span>
+          </span>
+          <span class="chip-arrow" aria-hidden="true"><i class="fas fa-arrow-right"></i></span>
+        </button>
       </div>
     </div>
 
     <!-- Level 2: Detailed Project Page -->
     <div class="project-detail-view" *ngIf="selectedPersonalProject">
-      <button class="back-btn" (click)="selectPersonalProject(null)">
-        <i class="fas fa-arrow-left"></i> Back to the list
+      <button type="button" class="back-btn" (click)="selectPersonalProject(null)">
+        <i class="fas fa-arrow-left" aria-hidden="true"></i> Back to the list
       </button>
 
       <div class="detail-header slide-in-top">
         <div class="header-main-content">
-          <h1>{{ selectedPersonalProject.title }}</h1>
+          <h2 class="detail-title">{{ selectedPersonalProject.title }}</h2>
 
           <ng-container *ngIf="selectedPersonalProject.id === 'bambi-marketplace'">
             <p class="detail-slogan">Book the right barber, anywhere.</p>
@@ -122,7 +122,38 @@
             </div>
           </ng-container>
 
-          <ng-container *ngIf="selectedPersonalProject.id !== 'bambi-marketplace'">
+          <ng-container *ngIf="selectedPersonalProject.id === 'filmingitall'">
+            <p class="detail-slogan">Turning daily life into pure cinematic moments.</p>
+            <p class="intro-description">The faceless brand behind the lens. A cinematic production and photography
+              studio with its own storefront: a category-filtered portfolio, production tiers for businesses, private
+              sessions for individuals, and a shop with a cart, all on one Next.js codebase.</p>
+
+            <div class="detail-tech-stack">
+              <span class="tech-badge"><i class="devicon-nextjs-original"></i> Next.js</span>
+              <span class="tech-badge"><i class="devicon-react-original"></i> React</span>
+              <span class="tech-badge"><i class="devicon-tailwindcss-plain"></i> Tailwind</span>
+              <span class="tech-badge"><i class="fas fa-film"></i> Framer Motion</span>
+              <span class="tech-badge"><i class="fas fa-shopping-bag"></i> Zustand Cart</span>
+              <span class="tech-badge status-badge is-live"><i class="fas fa-circle"></i> Live</span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedPersonalProject.id === 'climate-support'">
+            <p class="detail-slogan">Measured proof of quality.</p>
+            <p class="intro-description">A food-tech company that measures the nutrient density of produce in a lab and
+              seals the result to a QR code on the package. Two connected products: a public landing site that tells the
+              story, and the partner platform where farms, labs, packagers, and shops run the verification chain.</p>
+
+            <div class="detail-tech-stack">
+              <span class="tech-badge"><i class="fas fa-globe"></i> Landing Site</span>
+              <span class="tech-badge"><i class="fas fa-th-large"></i> Partner Platform</span>
+              <span class="tech-badge"><i class="devicon-nextjs-original"></i> Next.js</span>
+              <span class="tech-badge"><i class="fas fa-database"></i> Supabase</span>
+              <span class="tech-badge status-badge is-live"><i class="fas fa-circle"></i> Live</span>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="!selectedPersonalProject.customLayout">
             <div class="detail-tech-stack">
               <span class="tech-badge" *ngFor="let tech of selectedPersonalProject.technologies">
                 <i [class]="getLanguageIconClass(tech)"></i> {{ tech }}
@@ -133,17 +164,37 @@
 
         <div class="header-right-col" style="display: flex; flex-direction: column; align-items: flex-end; gap: 16px;">
           <div class="header-social-actions" *ngIf="selectedPersonalProject.id === 'bambi-marketplace'">
-            <a href="https://www.instagram.com/studiobambi" class="btn-social is-instagram" target="_blank"><i
+            <a href="https://www.instagram.com/studiobambi" class="btn-social is-instagram" aria-label="Instagram" target="_blank" rel="noopener"><i
                 class="fab fa-instagram"></i></a>
-            <a href="https://www.linkedin.com/company/bambi-studio/" class="btn-social is-linkedin" target="_blank"><i
+            <a href="https://www.linkedin.com/company/bambi-studio/" class="btn-social is-linkedin" aria-label="LinkedIn" target="_blank" rel="noopener"><i
                 class="fab fa-linkedin-in"></i></a>
-            <a href="https://www.facebook.com/profile.php?id=61581589817963" class="btn-social is-facebook"
-              target="_blank"><i class="fab fa-facebook-f"></i></a>
+            <a href="https://www.facebook.com/profile.php?id=61581589817963" class="btn-social is-facebook" aria-label="Facebook"
+              target="_blank" rel="noopener"><i class="fab fa-facebook-f"></i></a>
           </div>
 
-          <a *ngIf="selectedPersonalProject.liveDemoUrl" [href]="selectedPersonalProject.liveDemoUrl" target="_blank"
+          <div class="header-social-actions" *ngIf="selectedPersonalProject.id === 'filmingitall'">
+            <a href="https://instagram.com/imfilmingitall" class="btn-social is-instagram" aria-label="Instagram" target="_blank" rel="noopener"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://youtube.com/@filmingitall" class="btn-social is-youtube" aria-label="YouTube" target="_blank" rel="noopener"><i
+                class="fab fa-youtube"></i></a>
+            <a href="https://vt.tiktok.com/ZSC6ugxPs" class="btn-social is-tiktok" aria-label="TikTok" target="_blank" rel="noopener"><i
+                class="fab fa-tiktok"></i></a>
+          </div>
+
+          <div class="header-social-actions" *ngIf="selectedPersonalProject.id === 'climate-support'">
+            <a href="https://www.instagram.com/climate.support/" class="btn-social is-instagram" aria-label="Instagram" target="_blank" rel="noopener"><i
+                class="fab fa-instagram"></i></a>
+            <a href="https://www.linkedin.com/company/climate-support/" class="btn-social is-linkedin" aria-label="LinkedIn"
+              target="_blank" rel="noopener"><i class="fab fa-linkedin-in"></i></a>
+          </div>
+
+          <a *ngIf="selectedPersonalProject.liveDemoUrl" [href]="selectedPersonalProject.liveDemoUrl" target="_blank" rel="noopener"
             class="compact-brand-btn">
-            <i class="fas fa-globe"></i> www.studiobambiapp.com
+            <i class="fas fa-globe"></i> {{ selectedPersonalProject.displayUrl || selectedPersonalProject.liveDemoUrl }}
+          </a>
+          <a *ngIf="selectedPersonalProject.id === 'climate-support'" href="https://app.climate-support.org"
+            target="_blank" rel="noopener" class="compact-brand-btn">
+            <i class="fas fa-th-large"></i> app.climate-support.org
           </a>
         </div>
       </div>
@@ -190,7 +241,7 @@
               </div>
 
               <div class="bambi-center-image slide-in-fade">
-                <img src="images/bambi-example-2.png" alt="Bambi App Features Flow"
+                <img src="images/bambi-example-2.webp" loading="lazy" alt="Bambi App Features Flow"
                   class="bambi-transparent-hero float-infinite">
               </div>
 
@@ -221,7 +272,7 @@
               </div>
 
               <div class="bambi-center-image slide-in-fade">
-                <img src="images/bambi-example.png" alt="Bambi App Structure"
+                <img src="images/bambi-example.webp" loading="lazy" alt="Bambi App Structure"
                   class="bambi-transparent-hero float-infinite">
               </div>
 
@@ -233,7 +284,189 @@
             </div>
           </ng-container>
 
-          <ng-container *ngIf="selectedPersonalProject.id !== 'bambi-marketplace'">
+          <ng-container *ngIf="selectedPersonalProject.id === 'filmingitall'">
+            <div class="detail-main custom-bambi-layout">
+              <h3><i class="fas fa-layer-group"></i> What It Does</h3>
+              <p>A gateway page that sets the tone in a single frame.<br>A portfolio filtered by category.<br>A studio
+                page that sells production tiers to businesses, and a sessions page for private cinematic bookings.</p>
+
+              <h3 class="mt-4"><i class="fas fa-puzzle-piece"></i> Site Features</h3>
+              <div class="bento-grid-2">
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-video"></i></div>
+                  <div class="card-text">
+                    <strong>Cinematic Gateway</strong>
+                    <span>Full-screen black hero, handwritten wordmark, two routes: Our Work and Services.</span>
+                  </div>
+                </div>
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-th-large"></i></div>
+                  <div class="card-text">
+                    <strong>Category Portfolio</strong>
+                    <span>Reels, business, private, family, travel, vlog, and documentary filters over S3 media.</span>
+                  </div>
+                </div>
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-briefcase"></i></div>
+                  <div class="card-text">
+                    <strong>Production Tiers</strong>
+                    <span>Essential, Production, and Retainer packages for businesses with clear deliverables.</span>
+                  </div>
+                </div>
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-heart"></i></div>
+                  <div class="card-text">
+                    <strong>Private Sessions</strong>
+                    <span>Cinematic documentation for couples, solo travelers, and individuals, priced per package.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bambi-center-image site-gallery slide-in-fade">
+                <img src="images/filmingitall-studio.webp" loading="lazy" alt="Filming It All studio page with production tiers"
+                  class="site-shot" width="1200" height="750">
+              </div>
+
+              <div class="coming-soon-banner mt-4">
+                <div class="cs-header"><i class="fas fa-forward"></i> Incoming Pipelines</div>
+                <div class="cs-tags">
+                  <span class="cs-tag"><i class="fas fa-shopping-bag"></i> Prints &amp; Merch Shop</span>
+                  <span class="cs-tag"><i class="fas fa-credit-card"></i> Cart Checkout</span>
+                  <span class="cs-tag"><i class="fas fa-play-circle"></i> Video Portfolio Player</span>
+                  <span class="cs-tag"><i class="fas fa-calendar-alt"></i> Online Booking</span>
+                </div>
+              </div>
+
+              <div class="security-architecture mt-4">
+                <div class="sec-left">
+                  <i class="fas fa-palette"></i>
+                  <h4>Brand System</h4>
+                </div>
+                <div class="sec-right">
+                  <p><i class="fas fa-adjust"></i> One canvas (black), one accent (brand yellow), nothing else competes
+                    with the work.</p>
+                  <p><i class="fas fa-pen-nib"></i> Handwritten wordmark with the yellow asterisk as the recurring mark.
+                  </p>
+                  <p><i class="fas fa-text-width"></i> Tracked uppercase labels and thin rules carry the hierarchy
+                    without boxes.</p>
+                </div>
+              </div>
+
+              <div class="bambi-center-image site-gallery slide-in-fade">
+                <img src="images/filmingitall-sessions.webp" loading="lazy" alt="Filming It All private sessions page" class="site-shot" width="1200" height="750">
+              </div>
+
+              <div class="solo-builder-strip mt-4">
+                <i class="fas fa-user-astronaut"></i>
+                <span><strong>Built Solo:</strong> Brand, site, and content pipeline designed and shipped by one
+                  person.</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="selectedPersonalProject.id === 'climate-support'">
+            <div class="detail-main custom-bambi-layout">
+              <h3><i class="fas fa-lightbulb"></i> The Idea</h3>
+              <p>Food quality is usually claimed, rarely proven. Climate Support makes it measurable: a harvest is
+                sampled, a lab measures its nutrient density, and that result travels with the produce as a QR code
+                anyone can scan.<br>Farmers earn premium pricing without organic certification. Shops source produce
+                they can vouch for. Shoppers get proof instead of promises.</p>
+
+              <h3 class="mt-4"><i class="fas fa-project-diagram"></i> Two Products, One Chain</h3>
+              <div class="bento-grid-2">
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-globe"></i></div>
+                  <div class="card-text">
+                    <strong>Landing Site</strong>
+                    <span>climate-support.org tells the story and routes farmers, shops, shoppers, and investors to
+                      their own path, then hands partners into the platform.</span>
+                  </div>
+                </div>
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-th-large"></i></div>
+                  <div class="card-text">
+                    <strong>Partner Platform</strong>
+                    <span>app.climate-support.org is where the work happens: farms apply and log harvests, labs test
+                      and grade, packagers seal batches, retailers source.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="bambi-center-image site-gallery slide-in-fade">
+                <img src="images/climate-support-app.webp" loading="lazy" alt="Climate Support partner platform home" class="site-shot" width="1200" height="750">
+              </div>
+
+              <h3 class="mt-4"><i class="fas fa-qrcode"></i> How Verification Works</h3>
+              <div class="bento-grid-2">
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-seedling"></i></div>
+                  <div class="card-text">
+                    <strong>1. Farm</strong>
+                    <span>A vetted farm logs a harvest and a sample is taken.</span>
+                  </div>
+                </div>
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-flask"></i></div>
+                  <div class="card-text">
+                    <strong>2. Lab</strong>
+                    <span>The lab measures nutrient density and grades the batch.</span>
+                  </div>
+                </div>
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-box"></i></div>
+                  <div class="card-text">
+                    <strong>3. Packager</strong>
+                    <span>The result is sealed to a QR code printed on the packaging.</span>
+                  </div>
+                </div>
+                <div class="bento-card">
+                  <div class="card-icon"><i class="fas fa-mobile-alt"></i></div>
+                  <div class="card-text">
+                    <strong>4. Shelf</strong>
+                    <span>A shopper scans the code and checks the proof themselves.</span>
+                  </div>
+                </div>
+              </div>
+
+              <div class="security-architecture mt-4">
+                <div class="sec-left">
+                  <i class="fas fa-bullseye"></i>
+                  <h4>Goals of the System</h4>
+                </div>
+                <div class="sec-right">
+                  <p><i class="fas fa-check-circle"></i> Proof a shopper can verify independently, not a label they
+                    have to trust.</p>
+                  <p><i class="fas fa-tractor"></i> A fair premium for farmers who grow nutrient-dense food, without
+                    the cost of certification.</p>
+                  <p><i class="fas fa-link"></i> One shared chain where farms, labs, packagers, and shops each do
+                    their own job and see the same batch.</p>
+                </div>
+              </div>
+
+              <div class="bambi-center-image site-gallery slide-in-fade">
+                <img src="images/climate-support-app-join.webp" loading="lazy" alt="Join Climate Support: choose your role"
+                  class="site-shot" width="1200" height="750">
+              </div>
+
+              <div class="coming-soon-banner mt-4">
+                <div class="cs-header"><i class="fas fa-forward"></i> Where It's Heading</div>
+                <div class="cs-tags">
+                  <span class="cs-tag"><i class="fas fa-magic"></i> Automated Grading</span>
+                  <span class="cs-tag"><i class="fas fa-store"></i> Retail Marketplace</span>
+                  <span class="cs-tag"><i class="fas fa-chart-line"></i> Impact Numbers</span>
+                  <span class="cs-tag"><i class="fas fa-globe-americas"></i> Export Batches</span>
+                </div>
+              </div>
+
+              <div class="solo-builder-strip mt-4">
+                <i class="fas fa-drafting-compass"></i>
+                <span><strong>My Role:</strong> Designed and built both the landing site and the partner platform, from
+                  the first idea to two live products.</span>
+              </div>
+            </div>
+          </ng-container>
+
+          <ng-container *ngIf="!selectedPersonalProject.customLayout">
             <div class="detail-main">
               <h3><i class="fas fa-eye"></i> The Vision</h3>
               <p>{{ selectedPersonalProject.detailedDescription }}</p>
@@ -256,7 +489,7 @@
           </ng-container>
           <div class="sidebar-links mt-4">
             <a *ngIf="selectedPersonalProject.sourceCodeUrl" [href]="selectedPersonalProject.sourceCodeUrl"
-              target="_blank" class="btn-link primary">
+              target="_blank" rel="noopener" class="btn-link primary">
               <i class="fab fa-github"></i> Source Code Repository
             </a>
             <button *ngIf="!selectedPersonalProject.sourceCodeUrl" class="btn-link locked-repo-btn" disabled>
@@ -267,8 +500,8 @@
 
         <div class="detail-mockup" [ngClass]="{'multi-phones': selectedPersonalProject.id === 'bambi-marketplace'}">
           <div class="detail-hero-wrapper wrapper-1"
-            [ngClass]="{'iphone-mockup': selectedPersonalProject.mockupType === 'mobile'}">
-            <img [src]="selectedPersonalProject.image" class="detail-hero-image"
+            [ngClass]="{'iphone-mockup': selectedPersonalProject.mockupType === 'mobile', 'desktop-mockup': selectedPersonalProject.mockupType === 'desktop'}">
+            <img [src]="selectedPersonalProject.image" alt="" loading="lazy" class="detail-hero-image"
               onerror="this.src='images/websiteintro.jpeg'">
           </div>
 

@@ -1,27 +1,31 @@
 <div class="contact-page">
   <div class="contact-content">
-    <div class="glow-orb"></div>
-    
-    <h1 class="headline">Let's build something <br><span class="gradient-text">extraordinary.</span></h1>
-    
+    <h1 class="headline">Let's build something <br><span class="highlight">extraordinary.</span></h1>
+
     <p class="subheadline">
-      Whether you're looking for a dedicated software developer, seeking collaboration on an AI or low-level computing project, or simply want to chat tech—I'm always open to connecting.
+      Looking for a software developer, want to collaborate on an AI or low-level project, or just want to talk tech?
+      Write to me.
     </p>
 
-    <div class="contact-card">
-      <div class="email-section">
-        <i class="fas fa-envelope-open-text icon-large"></i>
-        <h3>Drop me a line</h3>
-        <!-- Update this to your actual email if needed -->
-        <a href="mailto:avihyb@gmail.com" class="email-link">avihyb&#64;gmail.com <i class="fas fa-arrow-right"></i></a>
+    <div class="contact-card" appReveal>
+      <div class="email-block">
+        <span class="email-label">Email</span>
+        <div class="email-row">
+          <a href="mailto:avihyb@gmail.com" class="email-link">avihyb&#64;gmail.com</a>
+          <button type="button" class="copy-btn" (click)="copyEmail()"
+            [attr.aria-label]="copied ? 'Email address copied' : 'Copy email address'">
+            <i class="fas" [class.fa-copy]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
+            <span>{{ copied ? 'Copied' : 'Copy' }}</span>
+          </button>
+        </div>
       </div>
-      
+
       <div class="social-links">
-        <a href="https://www.linkedin.com/in/avihyb" target="_blank" class="social-pill linkedin">
-          <i class="fab fa-linkedin"></i> LinkedIn
+        <a href="https://www.linkedin.com/in/avihyb" target="_blank" rel="noopener" class="social-pill linkedin">
+          <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
         </a>
-        <a href="https://github.com/avihyb" target="_blank" class="social-pill github">
-          <i class="fab fa-github"></i> GitHub
+        <a href="https://github.com/avihyb" target="_blank" rel="noopener" class="social-pill github">
+          <i class="fab fa-github" aria-hidden="true"></i> GitHub
         </a>
       </div>
     </div>

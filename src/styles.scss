@@ -1,19 +1,20 @@
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap');
-
 :root {
-  --bg: #070b14;
-  --bg-2: #0d1220;
+  --bg: #0b1020;
+  --bg-2: #111a2e;
   --glass: rgba(255, 255, 255, 0.04);
   --glass-border: rgba(255, 255, 255, 0.08);
   --glass-hover: rgba(255, 255, 255, 0.07);
   --text: #f1f5f9;
-  --text-dim: #64748b;
-  --text-muted: #334155;
+  /* Body copy. About 7.5:1 on --bg, cool-tinted to sit on the navy surface. */
+  --text-dim: #a3afc2;
+  /* Ornament, rules, and labels that are not read as body copy. */
+  --text-muted: #64748b;
   --accent: #ffd700;
   --accent-soft: rgba(255, 215, 0, 0.12);
   --accent-glow: rgba(255, 215, 0, 0.3);
   --radius: 16px;
   --radius-sm: 10px;
+  --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
 *, *::before, *::after {
@@ -28,14 +29,16 @@ html, body {
   margin: 0;
   padding: 0;
   width: 100%;
-  height: 100%;
+  min-height: 100%;
 }
 
 body {
-  background: linear-gradient(135deg, #0f172a 0%, #1e1b4b 25%, #064e3b 50%, #0f172a 75%, #312e81 100%);
-  background-size: 400% 400%;
-  background-attachment: fixed;
-  animation: livingGradient 20s ease infinite alternate;
+  background-color: var(--bg);
+  /* A still surface: a warm wash where the hero sits and a cool one at the foot. */
+  background-image:
+    radial-gradient(900px 520px at 12% -6%, rgba(255, 215, 0, 0.07), transparent 62%),
+    radial-gradient(820px 520px at 100% 100%, rgba(16, 185, 129, 0.10), transparent 62%);
+  background-repeat: no-repeat;
   color: var(--text);
   font-family: 'Inter', -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
@@ -44,24 +47,88 @@ body {
   overflow-x: hidden;
 }
 
-@keyframes livingGradient {
-  0% { background-position: 0% 50%; }
-  100% { background-position: 100% 50%; }
-}
-
 a {
   color: inherit;
   text-decoration: none;
 }
 
+button {
+  font-family: inherit;
+}
+
+/* Browser surfaces carry the palette too. */
+::selection {
+  background: var(--accent);
+  color: var(--bg);
+}
+
+:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 3px;
+  border-radius: 6px;
+}
+
 ::-webkit-scrollbar {
-  width: 5px;
+  width: 6px;
 }
 ::-webkit-scrollbar-track {
   background: var(--bg);
 }
 ::-webkit-scrollbar-thumb {
-  background: #1e293b;
+  background: #273249;
   border-radius: 4px;
   &:hover { background: var(--accent); }
+}
+
+/* Inputs at 16px so iOS Safari does not zoom on focus. */
+input, textarea, select {
+  font-family: inherit;
+  font-size: 16px;
+}
+
+/* ─── Shared motion grammar ─── */
+/* Scroll reveal: rise 18px, one ease, staggered by --i */
+.reveal {
+  opacity: 0;
+  transform: translateY(18px);
+  transition: opacity 0.7s var(--ease-out), transform 0.7s var(--ease-out);
+  transition-delay: calc(var(--i, 0) * 70ms);
+
+  &.in {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Pointer spotlight: paint a soft gold light where the pointer is */
+.spot {
+  position: relative;
+  overflow: hidden;
+
+  &::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+    background: radial-gradient(160px circle at var(--mx, 50%) var(--my, 50%), rgba(255, 215, 0, 0.16), transparent 62%);
+    opacity: 0;
+    transition: opacity 0.35s var(--ease-out);
+  }
+
+  &:hover::after {
+    opacity: 1;
+  }
+}
+
+/* Motion off switch: entrances land on their final state, loops stop, transitions become instant. */
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    animation-delay: 0ms !important;
+    transition-duration: 0.01ms !important;
+  }
+  html {
+    scroll-behavior: auto;
+  }
 }

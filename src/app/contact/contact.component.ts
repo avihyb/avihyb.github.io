@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
-import { NgForm } from '@angular/forms';
+
+const EMAIL = 'avihyb@gmail.com';
 
 @Component({
   selector: 'app-contact',
@@ -7,39 +8,18 @@ import { NgForm } from '@angular/forms';
   styleUrls: ['./contact.component.scss']
 })
 export class ContactComponent {
-  successMessage: string = '';
+  copied = false;
+  private copiedTimer?: ReturnType<typeof setTimeout>;
 
-  onSubmit(form: NgForm) {
-    if (form.valid) {
-      // Create a new FormData object to hold the form data
-      const formData = new FormData();
-      formData.append('email', form.value.email);
-      formData.append('message', form.value.message);
-      
-      // Use fetch API to submit the form data to Formspree
-      fetch('https://formspree.io/f/mgvwwdvj', {
-        method: 'POST',
-        body: formData,
-        headers: {
-          'Accept': 'application/json'
-        }
-      })
-      .then(response => response.json())
-      .then(data => {
-        if (data.ok) {
-          console.log('Form submitted successfully', data);
-          this.successMessage = 'Your message has been sent successfully.';
-          // Optionally, reset the form
-          form.resetForm();
-        } else {
-          console.error('Form submission error', data);
-          // Optionally, show an error message to the user
-        }
-      })
-      .catch(error => {
-        console.error('Form submission error', error);
-        // Optionally, show an error message to the user
-      });
+  async copyEmail(): Promise<void> {
+    try {
+      await navigator.clipboard.writeText(EMAIL);
+      this.copied = true;
+      clearTimeout(this.copiedTimer);
+      this.copiedTimer = setTimeout(() => (this.copied = false), 2000);
+    } catch {
+      // Clipboard unavailable: fall back to the mail client.
+      window.location.href = `mailto:${EMAIL}`;
     }
   }
 }
