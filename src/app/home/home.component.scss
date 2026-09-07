@@ -8,6 +8,12 @@
   --hero-w: calc(var(--portrait) + var(--hero-gap) + 4.9 * var(--display));
   width: 100%;
   overflow-x: clip;
+  /* the hero and the strip sit as one block, centered in the space under the header */
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  min-height: calc(100vh - 96px);
+  padding-bottom: 40px;
 }
 
 /* ───────────────── Act one: the statement ───────────────── */
@@ -20,7 +26,7 @@
   gap: var(--hero-gap);
   width: min(1180px, 100% - 10vw);
   margin: 0 auto;
-  padding: 40px 0 72px;
+  padding: 0 0 72px;
 }
 
 .statement {
@@ -29,7 +35,7 @@
 }
 
 .name {
-  margin: 0 0 24px;
+  margin: 0 0 28px;
   font-size: var(--display);
   font-weight: 800;
   line-height: 0.94;
@@ -43,14 +49,34 @@
     margin-bottom: -0.06em;
   }
 
+  /* Intro splash: each word is painted by its background, white with a solid gold disc.
+     The disc is centered on the signature dot at the end of line two, starts large enough to
+     cover every letter, and shrinks to nothing, so the gold drains into the dot. The dot keeps
+     its own color and is all that stays gold. Both words are full-width blocks, so the same
+     right-edge offset lands on the dot for both lines. */
   .word {
-    display: inline-block;
+    display: block;
     transform: translateY(110%);
-    animation: riseIn 0.9s var(--ease-out) forwards;
+    color: transparent;
+    --s: 14em;
+    background-color: var(--text);
+    background-image: radial-gradient(circle closest-side, var(--accent) 0 99.5%, transparent 100%);
+    background-repeat: no-repeat;
+    background-size: var(--s) var(--s);
+    background-position: calc(100% - 0.11em + var(--s) / 2) calc(0% + var(--cy) - var(--s) / 2);
+    -webkit-background-clip: text;
+    background-clip: text;
+    animation:
+      riseIn 0.9s var(--ease-out) forwards,
+      splash 1.6s cubic-bezier(0.7, 0, 0.3, 1) 0.5s forwards;
   }
 
+  /* dot center: about 0.76em below the top of line two; line one adds its own height */
+  .line:nth-child(1) .word { --cy: 1.7em; }
+
   .line:nth-child(2) .word {
-    animation-delay: 0.12s;
+    --cy: 0.76em;
+    animation-delay: 0.12s, 0.5s;
   }
 
   .dot {
@@ -62,15 +88,11 @@
   to { transform: translateY(0); }
 }
 
-.role {
-  max-width: 44ch;
-  margin: 0 0 28px;
-  font-size: 13px;
-  line-height: 1.5;
-  color: var(--text-dim);
-  opacity: 0;
-  animation: fadeUp 0.8s var(--ease-out) 0.45s forwards;
+@keyframes splash {
+  from { --s: 14em; }
+  to { --s: 0px; }
 }
+
 
 .actions {
   display: flex;
@@ -89,7 +111,7 @@
     border-radius: 10px;
     font-size: 13px;
     font-weight: 600;
-    transition: transform 0.25s var(--ease-out), background 0.25s var(--ease-out), box-shadow 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
+    transition: transform 0.25s var(--ease-out), background 0.25s var(--ease-out), border-color 0.25s var(--ease-out);
   }
 
   .btn-primary {
@@ -100,8 +122,7 @@
 
     &:hover {
       transform: translateY(-2px);
-      box-shadow: 0 12px 28px rgba(255, 215, 0, 0.22);
-      i { transform: translateY(2px); }
+      i { transform: translateX(3px); }
     }
   }
 
@@ -222,17 +243,8 @@
   gap: 0 32px;
   /* 20% wider than the hero group, never wider than the page */
   width: min(calc(1.2 * var(--hero-w)), 100% - 10vw);
-  margin: 0 auto 40px;
+  margin: 0 auto;
   padding: 0;
-
-  .section-label {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    color: var(--text-muted);
-    margin: 0 0 14px 0;
-    text-transform: uppercase;
-  }
 }
 
 .strip-divider {
@@ -243,7 +255,7 @@
 .works-head {
   display: flex;
   align-items: baseline;
-  justify-content: space-between;
+  justify-content: flex-end;
   gap: 20px;
 
   .all-link {
@@ -335,44 +347,81 @@
 .tile.spot { overflow: visible; }
 .tile.spot::after { border-radius: 12px; }
 
+/* Marks only; the name appears under the mark on hover or focus. Two sets take turns:
+   the row flips the current marks out with a stagger, swaps the data, and the new marks flip in. */
 .tools-row {
   list-style: none;
   margin: 0;
   padding: 0;
   display: flex;
   flex-wrap: wrap;
-  gap: 4px 16px;
+  align-content: flex-start;
+  gap: 8px 10px;
+  min-height: 76px; /* two rows, so the strip does not jump between sets */
+  perspective: 600px;
 }
 
 .tool {
-  display: inline-flex;
+  position: relative;
+  display: flex;
   align-items: center;
-  gap: 8px;
-  height: 30px;
-  padding: 0 4px;
+  justify-content: center;
+  width: 34px;
+  height: 34px;
   border-radius: 8px;
-  font-size: 13px;
-  font-weight: 500;
-  color: var(--text-dim);
   cursor: default;
-  transition: color 0.25s var(--ease-out), transform 0.25s var(--ease-out);
+  transform-style: preserve-3d;
+  animation: toolIn 0.5s var(--ease-out) both;
+  animation-delay: calc(var(--i, 0) * 40ms);
 
   .tool-logo {
-    width: 15px;
-    height: 15px;
-    flex-shrink: 0;
-    background: currentColor;
+    width: 20px;
+    height: 20px;
+    background: var(--text-dim);
     -webkit-mask: var(--logo) center / contain no-repeat;
     mask: var(--logo) center / contain no-repeat;
-    transition: background 0.25s var(--ease-out);
+    transition: background 0.25s var(--ease-out), transform 0.25s var(--ease-out);
   }
 
-  &:hover {
+  .tool-name {
+    position: absolute;
+    top: calc(100% + 6px);
+    left: 50%;
+    translate: -50% 0;
+    padding: 5px 10px;
+    border-radius: 8px;
+    background: #1a2238;
     color: var(--text);
-    transform: translateY(-1px);
-
-    .tool-logo { background: var(--accent); }
+    font-size: 11px;
+    font-weight: 600;
+    white-space: nowrap;
+    pointer-events: none;
+    opacity: 0;
+    transform: translateY(-4px);
+    transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+    z-index: 3;
   }
+
+  /* the hovered mark rises above its neighbours so its name is never covered by the row below */
+  &:hover, &:focus-visible {
+    z-index: 5;
+    .tool-logo { background: var(--accent); transform: scale(1.12); }
+    .tool-name { opacity: 1; transform: translateY(0); }
+  }
+}
+
+.tools-row.swapping .tool {
+  animation: toolOut 0.4s cubic-bezier(0.5, 0, 0.75, 0) both;
+  animation-delay: calc(var(--i, 0) * 25ms);
+}
+
+@keyframes toolIn {
+  from { opacity: 0; transform: translateY(6px) rotateX(-80deg); }
+  to { opacity: 1; transform: translateY(0) rotateX(0); }
+}
+
+@keyframes toolOut {
+  to { opacity: 0; transform: translateY(-6px) rotateX(80deg); }
 }
 
 /* ───────────────── Responsive ─────────────────
@@ -385,19 +434,20 @@
     --display: clamp(32px, 7.2vw, 70px);
   }
 
-  .stage { padding: 24px 0 56px; }
+  .stage { padding: 0 0 56px; }
 }
 
 @media (max-width: 640px) {
   .home {
+    min-height: calc(100vh - 80px);
+    padding-bottom: 32px;
     --portrait: 84px;
     --hero-gap: 18px;
     --display: clamp(27px, 8.4vw, 45px);
   }
 
   .stage { width: calc(100% - 32px); }
-  .name { margin-bottom: 14px; }
-  .role { margin-bottom: 18px; }
+  .name { margin-bottom: 20px; }
 
   .actions {
     gap: 8px;

@@ -17,6 +17,13 @@
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
 }
 
+/* Registered so the home splash disc can animate its size smoothly. */
+@property --s {
+  syntax: '<length>';
+  inherits: true;
+  initial-value: 0px;
+}
+
 *, *::before, *::after {
   box-sizing: border-box;
 }

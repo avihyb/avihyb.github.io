@@ -6,12 +6,11 @@
         <span class="line"><span class="word">Avichai</span></span>
         <span class="line"><span class="word">Ben David<span class="dot">.</span></span></span>
       </h1>
-      <p class="role">I&#8217;m a software developer, and I take products from first sketch to production.</p>
       <div class="actions">
-        <a href="#work" class="btn-primary" (click)="scrollToWork($event)">
-          See the work <i class="fas fa-arrow-down" aria-hidden="true"></i>
+        <a routerLink="/projects" class="btn-primary">
+          Explore my work <i class="fas fa-arrow-right" aria-hidden="true"></i>
         </a>
-        <a routerLink="/contact" class="btn-secondary">Get in touch</a>
+        <a routerLink="/contact" class="btn-secondary">Contact</a>
         <span class="socials">
           <a href="https://github.com/avihyb" target="_blank" rel="noopener" aria-label="GitHub"><i
               class="fab fa-github" aria-hidden="true"></i></a>
@@ -33,9 +32,8 @@
 
   <!-- Act two: the strip -->
   <div id="work" class="strip" appReveal>
-    <section class="works" aria-labelledby="work-heading">
+    <section class="works" aria-label="Selected work">
       <div class="works-head">
-        <h2 id="work-heading" class="section-label">Selected work</h2>
         <a routerLink="/projects" [queryParams]="{tab: 'personal'}" class="all-link">
           All projects <i class="fas fa-arrow-right" aria-hidden="true"></i>
         </a>
@@ -66,18 +64,16 @@
 
     <div class="strip-divider" aria-hidden="true"></div>
 
-    <section class="tools" aria-labelledby="tools-heading">
-      <h2 id="tools-heading" class="section-label">Tools I work with</h2>
-      <ul class="tools-row">
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/claude.svg)"></span>Claude Code</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/cursor.svg)"></span>Cursor</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/openai.svg)"></span>Codex</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/githubcopilot.svg)"></span>GitHub Copilot</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/googlegemini.svg)"></span>Gemini</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/perplexity.svg)"></span>Perplexity</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/v0.svg)"></span>v0</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/figma.svg)"></span>Figma</li>
-        <li class="tool spot" appSpotlight><span class="tool-logo" style="--logo: url(images/tools/n8n.svg)"></span>n8n</li>
+    <section class="tools" [attr.aria-label]="toolSets[activeSet].label"
+      (mouseenter)="pauseTools()" (mouseleave)="resumeTools()">
+      <ul class="tools-row" [class.swapping]="swapping">
+        @for (tool of toolSets[activeSet].items; track tool.icon; let i = $index) {
+          <li class="tool" [style.--i]="i" tabindex="0">
+            <span class="tool-logo" [style.--logo]="'url(images/tools/' + tool.icon + '.svg)'" role="img"
+              [attr.aria-label]="tool.name"></span>
+            <span class="tool-name" aria-hidden="true">{{ tool.name }}</span>
+          </li>
+        }
       </ul>
     </section>
   </div>

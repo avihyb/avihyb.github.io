@@ -82,9 +82,11 @@
     align-items: center;
     height: 40px;
     padding: 0 14px;
-    font-size: 13px;
-    font-weight: 500;
-    color: var(--text-dim);
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: rgba(241, 245, 249, 0.78);
     border-radius: 8px;
     transition: color 0.2s var(--ease-out);
 
@@ -94,12 +96,11 @@
 
     &.active {
       color: var(--text);
-      font-weight: 600;
     }
   }
 }
 
-/* Hover menus under Projects and Story. The item keeps the menu open while the pointer
+/* Hover menu under Projects. The item keeps the menu open while the pointer
    travels down to it; focus-within opens it for keyboard users. Touch layouts get no menu. */
 .nav-item {
   position: relative;
@@ -154,7 +155,8 @@
     padding: 0 12px;
     border-radius: 8px;
     font-size: 13px;
-    font-weight: 500;
+    font-weight: 600;
+    letter-spacing: 0.01em;
     color: var(--text-dim);
     white-space: nowrap;
     transition: color 0.15s var(--ease-out), background 0.15s var(--ease-out);

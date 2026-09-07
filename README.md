@@ -22,5 +22,4 @@ The build writes to `docs/`, copies `index.html` to `404.html` so deep links wor
 ## Content
 
 - Personal and academic projects: `src/app/projects/project-data.ts`
-- Timeline: `src/app/resume/timeline-data.ts`
 - Images: `public/images`

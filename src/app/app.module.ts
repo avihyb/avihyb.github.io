@@ -4,7 +4,6 @@ import { FormsModule } from '@angular/forms';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app.routes';
 import { HomeComponent } from './home/home.component';
-import { ResumeComponent } from './resume/resume.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ContactComponent } from './contact/contact.component';
 import { RevealDirective } from './shared/reveal.directive';
@@ -15,7 +14,6 @@ import { MagnetDirective } from './shared/magnet.directive';
   declarations: [
     AppComponent,
     ProjectsComponent,
-    ResumeComponent,
     ContactComponent
   ],
   imports: [

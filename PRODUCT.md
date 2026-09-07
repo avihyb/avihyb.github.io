@@ -23,8 +23,8 @@ A developer who ships whole products, not tickets: a booking marketplace (Bambi,
 ## Operating Context
 
 - Angular 18 single-page app deployed to GitHub Pages from `docs/`; a `404.html` fallback makes deep links work.
-- Routes: Home, Projects (Personal and Academic tabs, project id in the query string), Story (timeline and stack), Contact (email, GitHub, LinkedIn; no form).
-- All content is data-driven in `src/app/projects/project-data.ts` and `src/app/resume/timeline-data.ts`.
+- Routes: Home, Projects (Personal and Academic tabs, project id in the query string), Contact (email, GitHub, LinkedIn; no form).
+- All content is data-driven in `src/app/projects/project-data.ts` and the tool sets in `src/app/home/home.component.ts`.
 
 ## Capabilities and Constraints
 
