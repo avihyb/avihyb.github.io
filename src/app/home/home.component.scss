@@ -66,9 +66,13 @@
     background-position: calc(100% - 0.11em + var(--s) / 2) calc(0% + var(--cy) - var(--s) / 2);
     -webkit-background-clip: text;
     background-clip: text;
-    animation:
-      riseIn 0.9s var(--ease-out) forwards,
-      splash 1.6s cubic-bezier(0.7, 0, 0.3, 1) 0.5s forwards;
+    /* longhands on purpose: in the production build Angular scopes only the first keyframe
+       name inside an "animation" shorthand list, which left "splash" pointing at nothing */
+    animation-name: riseIn, splash;
+    animation-duration: 0.9s, 1.6s;
+    animation-timing-function: var(--ease-out), var(--ease-in-out);
+    animation-delay: 0s, 0.5s;
+    animation-fill-mode: forwards, forwards;
   }
 
   /* dot center: about 0.76em below the top of line two; line one adds its own height */
