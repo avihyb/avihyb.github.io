@@ -69,9 +69,9 @@
     /* longhands on purpose: in the production build Angular scopes only the first keyframe
        name inside an "animation" shorthand list, which left "splash" pointing at nothing */
     animation-name: riseIn, splash;
-    animation-duration: 0.9s, 1.6s;
-    animation-timing-function: var(--ease-out), var(--ease-in-out);
-    animation-delay: 0s, 0.5s;
+    animation-duration: 0.9s, 1.8s;
+    animation-timing-function: var(--ease-out), var(--ease-out);
+    animation-delay: 0s, 0s;
     animation-fill-mode: forwards, forwards;
   }
 
@@ -80,7 +80,7 @@
 
   .line:nth-child(2) .word {
     --cy: 0.76em;
-    animation-delay: 0.12s, 0.5s;
+    animation-delay: 0.12s, 0s;
   }
 
   .dot {

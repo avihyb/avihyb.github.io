@@ -1,9 +1,10 @@
+/* Centered in the space under the fixed header. */
 .contact-page {
-  min-height: calc(100vh - 220px);
+  min-height: calc(100vh - 96px);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 24px 20px 40px;
+  padding: 0 20px 40px;
   animation: fadeIn 0.6s var(--ease-out) forwards;
 }
 
@@ -14,7 +15,7 @@
 
 .contact-content {
   text-align: center;
-  max-width: 640px;
+  max-width: 720px;
   width: 100%;
 }
 
@@ -23,133 +24,184 @@
   font-weight: 800;
   line-height: 1.1;
   color: var(--text);
-  margin: 0 0 20px;
+  margin: 0;
   letter-spacing: -1px;
 
+  /* Galiver Sans, one regular weight, on its own line at twice the headline size, capped by
+     the viewport so it never overflows on phones. */
   .highlight {
+    display: block;
+    width: fit-content;
+    /* wider than the column, so it is pinned to the column's midpoint rather than auto-margined:
+       an overflowing block cannot center itself with auto margins */
+    position: relative;
+    left: 50%;
+    translate: -50% 0;
+    margin: 0.05em 0 0;
     color: var(--accent);
+    font-family: 'Galiver Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-synthesis: none;
+    font-size: min(2.16em, 12.5vw);
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
   }
 }
 
-.subheadline {
-  font-size: 17px;
-  line-height: 1.6;
-  color: var(--text-dim);
-  max-width: 520px;
-  margin: 0 auto 36px auto;
-}
-
-.contact-card {
-  background: var(--glass);
-  border: 1px solid var(--glass-border);
-  padding: 36px;
-  border-radius: 24px;
-  box-shadow: 0 24px 48px rgba(0, 0, 0, 0.35);
+/* ─── Ways to reach me ─── */
+.reach {
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 28px;
+  gap: 22px;
+  margin-top: 64px;
 }
 
-.email-block {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  gap: 10px;
+/* A gold arrow pointing at the address: the stem draws down once, then the whole arrow drifts. */
+.reach-arrow {
+  width: 12px;
+  height: 32px;
+  margin-bottom: 18px; /* on top of the row gap, so the arrow floats clear of the address */
+  overflow: visible;
+  animation: arrowDrift 1.6s ease-in-out 1.2s infinite alternate;
+
+  path {
+    fill: none;
+    stroke: var(--accent);
+    stroke-width: 1.6;
+    stroke-linecap: round;
+    stroke-linejoin: round;
+  }
+
+  .stem {
+    stroke-dasharray: 1;
+    stroke-dashoffset: 1;
+    animation: drawStem 0.7s var(--ease-out) 0.3s forwards;
+  }
+
+  .head {
+    opacity: 0;
+    animation: headIn 0.3s var(--ease-out) 0.85s forwards;
+  }
 }
 
-.email-label {
-  font-size: 11px;
-  font-weight: 700;
-  letter-spacing: 2px;
-  text-transform: uppercase;
-  color: var(--text-muted);
+@keyframes drawStem { to { stroke-dashoffset: 0; } }
+@keyframes headIn { to { opacity: 1; } }
+@keyframes arrowDrift {
+  from { transform: translateY(0); }
+  to { transform: translateY(5px); }
 }
 
+/* The address itself is what gets centered under the arrow; the copy icon hangs off its right
+   edge without taking part in the centering. */
 .email-row {
+  position: relative;
   display: inline-flex;
   align-items: center;
-  gap: 12px;
-  flex-wrap: wrap;
+}
+
+.email-link {
+  font-size: clamp(8.6px, 1.22vw, 12.2px);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--text);
+  text-decoration: underline;
+  text-decoration-color: rgba(255, 215, 0, 0.35);
+  text-decoration-thickness: 2px;
+  text-underline-offset: 4px;
+  transition: text-decoration-color 0.25s var(--ease-out), color 0.25s var(--ease-out);
+
+  &:hover {
+    color: var(--accent);
+    text-decoration-color: var(--accent);
+  }
+}
+
+/* A quiet icon beside the address; "Copied" appears above it for a moment. */
+.copy-btn {
+  position: absolute;
+  left: 100%;
+  top: 50%;
+  translate: 6px -50%;
+  display: inline-flex;
+  align-items: center;
   justify-content: center;
+  width: 38px;
+  height: 38px;
+  border: 0;
+  border-radius: 10px;
+  background: transparent;
+  color: var(--text-muted);
+  font-size: 15px;
+  cursor: pointer;
+  transition: color 0.2s var(--ease-out), background 0.2s var(--ease-out);
 
-  .email-link {
-    font-size: 24px;
-    font-weight: 700;
+  &:hover {
     color: var(--text);
-    border-bottom: 2px solid transparent;
-    transition: color 0.2s var(--ease-out), border-color 0.2s var(--ease-out);
-    padding: 8px 0;
-    letter-spacing: -0.3px;
-
-    &:hover {
-      color: var(--accent);
-      border-bottom-color: var(--accent);
-    }
+    background: rgba(255, 255, 255, 0.06);
   }
 
-  .copy-btn {
-    display: inline-flex;
-    align-items: center;
-    gap: 6px;
-    min-height: 40px;
-    padding: 0 14px;
-    border-radius: 100px;
-    background: var(--glass);
-    border: 1px solid var(--glass-border);
-    color: var(--text-dim);
-    font-size: 13px;
+  &.done { color: var(--accent); }
+
+  .copy-tip {
+    position: absolute;
+    bottom: calc(100% + 6px);
+    left: 50%;
+    translate: -50% 0;
+    padding: 4px 8px;
+    border-radius: 6px;
+    background: #1a2238;
+    color: var(--text);
+    font-size: 11px;
     font-weight: 600;
-    cursor: pointer;
-    transition: background 0.2s var(--ease-out), color 0.2s var(--ease-out);
+    white-space: nowrap;
+    opacity: 0;
+    transform: translateY(4px);
+    transition: opacity 0.2s var(--ease-out), transform 0.2s var(--ease-out);
+    pointer-events: none;
+  }
 
-    &:hover {
-      background: var(--glass-hover);
-      color: var(--text);
-    }
-
-    .fa-check { color: #22c55e; }
+  &.done .copy-tip {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
 .social-links {
   display: flex;
   justify-content: center;
-  gap: 12px;
-  flex-wrap: wrap;
+  gap: 28px;
+}
 
-  .social-pill {
-    display: inline-flex;
-    align-items: center;
-    gap: 10px;
-    min-height: 44px;
-    padding: 0 20px;
-    border-radius: 100px;
-    font-size: 14px;
-    font-weight: 600;
-    transition: background 0.2s var(--ease-out);
+.social-link {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 13px;
+  font-weight: 600;
+  letter-spacing: 0.01em;
+  color: var(--text-dim);
+  transition: color 0.2s var(--ease-out);
 
-    &.linkedin {
-      background: rgba(10, 102, 194, 0.12);
-      color: #8cc4ff;
-      border: 1px solid rgba(10, 102, 194, 0.35);
+  .fab { font-size: 15px; }
 
-      &:hover { background: rgba(10, 102, 194, 0.22); }
-    }
+  .out {
+    font-size: 10px;
+    transform: rotate(-45deg);
+    transition: transform 0.25s var(--ease-out);
+  }
 
-    &.github {
-      background: rgba(255, 255, 255, 0.05);
-      color: #fff;
-      border: 1px solid rgba(255, 255, 255, 0.12);
-
-      &:hover { background: rgba(255, 255, 255, 0.1); }
-    }
+  &:hover {
+    color: var(--text);
+    .out { transform: rotate(-45deg) translateX(3px); }
   }
 }
 
 @media (max-width: 768px) {
+  .contact-page { min-height: calc(100vh - 80px); }
   .headline { font-size: 36px; }
-  .subheadline { font-size: 15px; margin-bottom: 28px; }
-  .contact-card { padding: 28px 18px; border-radius: 18px; }
-  .email-row .email-link { font-size: 19px; }
+  .reach { margin-top: 48px; gap: 18px; }
+  .reach-arrow { margin-bottom: 12px; }
+  .social-links { gap: 20px; }
 }

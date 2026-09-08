@@ -9,6 +9,8 @@ import { ContactComponent } from './contact/contact.component';
 import { RevealDirective } from './shared/reveal.directive';
 import { SpotlightDirective } from './shared/spotlight.directive';
 import { MagnetDirective } from './shared/magnet.directive';
+import { RouteReuseStrategy } from '@angular/router';
+import { ReloadRouteReuseStrategy } from './shared/reload-route-reuse.strategy';
 
 @NgModule({
   declarations: [
@@ -25,6 +27,7 @@ import { MagnetDirective } from './shared/magnet.directive';
     SpotlightDirective,
     MagnetDirective
   ],
+  providers: [{ provide: RouteReuseStrategy, useExisting: ReloadRouteReuseStrategy }],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -1,8 +1,14 @@
 <div class="main-layout">
+  <!-- Route-change loader: the wordmark, with the dot bouncing while the next page arrives. -->
+  <div class="loader" [class.on]="loading" aria-live="polite" [attr.aria-hidden]="!loading">
+    <span class="loader-mark" aria-hidden="true">Avichai<span class="loader-dot"></span></span>
+    @if (loading) { <span class="sr-only">Loading</span> }
+  </div>
+
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header" [class.scrolled]="scrolled">
-    <a class="brand" routerLink="/home" aria-label="Avichai Ben David, home">Avichai<span class="brand-dot">.</span></a>
+    <a class="brand" href="/home" (click)="onBrandClick($event)" aria-label="Avichai Ben David, home">Avichai<span class="brand-dot">.</span></a>
     <nav class="site-nav" aria-label="Primary">
       <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
 

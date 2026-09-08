@@ -29,6 +29,65 @@
   }
 }
 
+/* ─── Route-change loader ─── */
+.loader {
+  position: fixed;
+  inset: 0;
+  z-index: 2000;
+  display: grid;
+  place-items: center;
+  background: var(--bg);
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.35s var(--ease-out), visibility 0s linear 0.35s;
+
+  /* snaps in, eases out */
+  &.on {
+    opacity: 1;
+    visibility: visible;
+    transition: opacity 0.12s var(--ease-out), visibility 0s;
+  }
+}
+
+.loader-mark {
+  position: relative;
+  font-size: clamp(34px, 5vw, 56px);
+  font-weight: 800;
+  letter-spacing: -0.04em;
+  color: var(--text);
+  line-height: 1;
+  padding-right: 0.32em; /* room for the dot */
+}
+
+/* the dot sits where the wordmark's period would be and bounces while the loader is up */
+.loader-dot {
+  position: absolute;
+  right: 0;
+  bottom: 0.06em;
+  width: 0.22em;
+  height: 0.22em;
+  border-radius: 50%;
+  background: var(--accent);
+}
+
+.loader.on .loader-dot {
+  animation: dotBounce 0.7s cubic-bezier(0.3, 0, 0.2, 1) infinite alternate;
+}
+
+@keyframes dotBounce {
+  from { transform: translateY(0) scale(1, 0.9); }
+  to { transform: translateY(-0.6em) scale(0.92, 1.08); }
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
 /* ─── Header: wordmark left, text nav right ─── */
 .site-header {
   position: fixed;
@@ -82,11 +141,13 @@
     align-items: center;
     height: 40px;
     padding: 0 14px;
-    font-size: 12px;
-    font-weight: 700;
+    font-family: 'Galiver Sans', 'Inter', sans-serif;
+    font-size: 10.4px;
+    font-weight: 400; /* the face ships in one weight; no synthetic bold */
+    font-synthesis: none;
     letter-spacing: 0.14em;
     text-transform: uppercase;
-    color: rgba(241, 245, 249, 0.78);
+    color: rgba(241, 245, 249, 0.82);
     border-radius: 8px;
     transition: color 0.2s var(--ease-out);
 

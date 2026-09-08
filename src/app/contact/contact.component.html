@@ -1,33 +1,31 @@
 <div class="contact-page">
   <div class="contact-content">
-    <h1 class="headline">Let's build something <br><span class="highlight">extraordinary.</span></h1>
+    <h1 class="headline">Let's build something <span class="highlight">extraordinary.</span></h1>
 
-    <p class="subheadline">
-      Looking for a software developer, want to collaborate on an AI or low-level project, or just want to talk tech?
-      Write to me.
-    </p>
+    <!-- The ways to reach me, set as open typography rather than a card. -->
+    <div class="reach" appReveal>
+      <svg class="reach-arrow" viewBox="0 0 12 32" aria-hidden="true">
+        <path class="stem" pathLength="1" d="M6 1v27" />
+        <path class="head" d="M1.5 23.5 6 28l4.5-4.5" />
+      </svg>
 
-    <div class="contact-card" appReveal>
-      <div class="email-block">
-        <span class="email-label">Email</span>
-        <div class="email-row">
-          <a href="mailto:avihyb@gmail.com" class="email-link">avihyb&#64;gmail.com</a>
-          <button type="button" class="copy-btn" (click)="copyEmail()"
-            [attr.aria-label]="copied ? 'Email address copied' : 'Copy email address'">
-            <i class="fas" [class.fa-copy]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
-            <span>{{ copied ? 'Copied' : 'Copy' }}</span>
-          </button>
-        </div>
+      <div class="email-row">
+        <a href="mailto:avihyb@gmail.com" class="email-link">avihyb&#64;gmail.com</a>
+        <button type="button" class="copy-btn" (click)="copyEmail()" [class.done]="copied"
+          [attr.aria-label]="copied ? 'Email address copied' : 'Copy email address'">
+          <i class="fas" [class.fa-copy]="!copied" [class.fa-check]="copied" aria-hidden="true"></i>
+          <span class="copy-tip" aria-hidden="true">Copied</span>
+        </button>
       </div>
 
-      <div class="social-links">
-        <a href="https://www.linkedin.com/in/avihyb" target="_blank" rel="noopener" class="social-pill linkedin">
-          <i class="fab fa-linkedin" aria-hidden="true"></i> LinkedIn
+      <nav class="social-links" aria-label="Profiles">
+        <a href="https://www.linkedin.com/in/avihyb" target="_blank" rel="noopener" class="social-link">
+          <i class="fab fa-linkedin-in" aria-hidden="true"></i>LinkedIn<i class="fas fa-arrow-right out" aria-hidden="true"></i>
         </a>
-        <a href="https://github.com/avihyb" target="_blank" rel="noopener" class="social-pill github">
-          <i class="fab fa-github" aria-hidden="true"></i> GitHub
+        <a href="https://github.com/avihyb" target="_blank" rel="noopener" class="social-link">
+          <i class="fab fa-github" aria-hidden="true"></i>GitHub<i class="fas fa-arrow-right out" aria-hidden="true"></i>
         </a>
-      </div>
+      </nav>
     </div>
   </div>
 </div>

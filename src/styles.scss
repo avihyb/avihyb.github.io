@@ -18,6 +18,15 @@
   --ease-in-out: cubic-bezier(0.7, 0, 0.3, 1);
 }
 
+/* Galiver Sans, self-hosted, one weight: used for the header navigation only. */
+@font-face {
+  font-family: 'Galiver Sans';
+  src: url('/fonts/GaliverSans.woff2') format('woff2');
+  font-weight: 400;
+  font-style: normal;
+  font-display: swap;
+}
+
 /* Registered so the home splash disc can animate its size smoothly. */
 @property --s {
   syntax: '<length>';
