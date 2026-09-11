@@ -11,7 +11,7 @@ export const PROJECTS: Project[] = [
     {
         title: 'Subspace Clustering in High Dimensional Data',
         description: 'Seminar on the challenges of high-dimensional data, subspace clustering algorithms, and a PCA demonstration.',
-        image: 'https://towardsdatascience.com/wp-content/uploads/2022/02/1QinDfRawRskupf4mU5bYSA.png',
+        image: 'images/subspace-clustering.svg',
         url: 'https://www.linkedin.com/posts/avihyb_subspace-clustering-of-high-dimensional-data-activity-7286773604476706817-drVh?utm_source=share&utm_medium=member_desktop&rcm=ACoAADFRtMUBDLQSWGE8lekGoSxijuVHfGko5mk',
         languages: ['Python', 'Research']
     },
