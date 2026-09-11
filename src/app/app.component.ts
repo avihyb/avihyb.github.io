@@ -17,6 +17,9 @@ export class AppComponent implements OnInit, OnDestroy {
   /** Route-change loader: the wordmark with its dot bouncing, shown between pages. */
   loading = false;
 
+  /** Projects menu: a click closes it until the pointer leaves the item, so it never hangs over the page just opened. */
+  menuDismissed = false;
+
   private static readonly MIN_LOADER_MS = 700;
   private loaderShownAt = 0;
   private hideTimer?: ReturnType<typeof setTimeout>;

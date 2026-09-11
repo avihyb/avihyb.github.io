@@ -12,7 +12,7 @@
     <nav class="site-nav" aria-label="Primary">
       <a class="nav-link" routerLink="/home" routerLinkActive="active">Home</a>
 
-      <div class="nav-item">
+      <div class="nav-item" [class.dismissed]="menuDismissed" (mouseleave)="menuDismissed = false" (click)="menuDismissed = true">
         <a class="nav-link" routerLink="/projects" routerLinkActive="active" aria-haspopup="true">Projects</a>
         <div class="menu" role="group" aria-label="Projects">
           <a routerLink="/projects" [queryParams]="{tab: 'personal', project: 'bambi-marketplace'}">Bambi</a>

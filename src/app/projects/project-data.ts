@@ -63,70 +63,152 @@ export const PERSONAL_PROJECTS: PersonalProject[] = [
     {
         id: 'bambi-marketplace',
         title: 'Bambi',
-        shortDescription: 'B2B2C SaaS cross-platform marketplace and network that redefines that barbering world.',
+        tagline: 'Book the right barber, anywhere.',
         logo: 'images/bambi.png',
-        image: 'images/bambimockup.svg',
-        technologies: ['Flutter', 'Dart', 'Supabase', 'Stripe'],
-        inspiration: 'The barbering industry lacks high-end, seamless software. By bringing a luxury SaaS aesthetic directly into a complex multi-sided booking market, Bambi eliminates friction for top-tier barbers and their clientele.',
-        goals: 'Build a fully idempotent SQL booking state machine. Establish a robust 2-party handshake payment system integrating Stripe. Deliver a flawless, swipeable UX mimicking an ultra-premium brand.',
-        detailedDescription: 'Bambi is not just a marketplace; it is an integrated SaaS that manages the lifecycle of appointments. I architected the backend to use complex state machines, ensuring every appointment transitions correctly between Pending, Accepted, Canceled, and Completed. The mobile UX features a bespoke dark theme and complex smooth routing logic passing state seamlessly across screens.',
-        architecture: 'The system uses an Event-Driven architecture powered by a PostgreSQL state engine. Node.js manages webhooks and payment lifecycles through Stripe, ensuring 100% financial consistency with two-phase commits. The client app runs on Flutter with Riverpod for robust, reactive offline-first state management.',
-        technicalDetails: `// Bambi Idempotent Payment Handshake
-async function confirmBooking(intentId) {
-  const tx = await db.transaction();
-  try {
-     const status = await stripe.verify(intentId);
-     if(status === 'succeeded') {
-        await tx.execute(
-          'UPDATE bookings SET status = $1 WHERE intent_id = $2', 
-          ['CONFIRMED', intentId]
-        );
-     }
-     await tx.commit();
-     return { success: true };
-  } catch (err) {
-     await tx.rollback();
-     throw new PaymentDisputeError(err);
-  }
-}`,
-        mockupType: 'mobile',
-        sourceCodeUrl: '',
-        liveDemoUrl: 'https://studiobambiapp.com',
-        displayUrl: 'www.studiobambiapp.com',
-        customLayout: true
+        links: [{ label: 'studiobambiapp.com', url: 'https://studiobambiapp.com' }],
+        socials: [
+            { label: 'Instagram', url: 'https://www.instagram.com/studiobambi', icon: 'fab fa-instagram' },
+            { label: 'LinkedIn', url: 'https://www.linkedin.com/company/bambi-studio/', icon: 'fab fa-linkedin-in' },
+            { label: 'Facebook', url: 'https://www.facebook.com/profile.php?id=61581589817963', icon: 'fab fa-facebook-f' }
+        ],
+        chapters: [
+            {
+                id: 'idea',
+                heading: 'The idea',
+                lead: 'Barbering is a loyal, appointment-driven trade that still runs on DMs and paper books. Bambi gives it one marketplace.',
+                body: [
+                    'Clients want a trusted barber nearby and a slot that fits. Barbers want a full chair without a suite of tools. Shop owners want to run their chairs like a business. Today that is stitched together from Instagram, WhatsApp, and a notebook.',
+                    'Bambi puts all three roles in one app: clients discover and book, barbers manage availability, owners run a storefront with every chair inside. Revenue comes from payments through the platform, with Stripe payouts and dynamic pricing next. A pre-seed MVP, built by one founder.'
+                ],
+                image: { src: 'images/bambi-example-2.webp', alt: 'A barber chair beside a phone running Bambi', side: 'right' }
+            },
+            {
+                id: 'build',
+                heading: 'How it\'s built',
+                lead: 'One Flutter codebase, three roles, and a database that refuses to let a booking land in the wrong state.',
+                body: [
+                    'Authorization lives entirely in Postgres row-level security. The client ships no access rules, and the privileged paths run server-side, so a compromised app build still cannot read another shop\'s chairs or move a booking it does not own.',
+                    'The booking lifecycle is a state machine in SQL with idempotent transitions, so a retried or duplicated payment confirmation cannot double-book a chair or double-charge a client. Three roles share one account and one Flutter codebase; the role is a permission, not a separate app.'
+                ],
+                facts: [
+                    { label: 'Stack', text: 'Flutter, Riverpod, Supabase' },
+                    { label: 'Platforms', text: 'iOS, Android, and web from one codebase' },
+                    { label: 'Status', text: 'Pre-seed MVP, in development' }
+                ],
+                image: { src: 'images/bambi-example.webp', alt: 'Clippers beside a phone running Bambi', side: 'left' }
+            },
+            {
+                id: 'next',
+                heading: 'What\'s next',
+                lead: 'The booking loop works. The next releases turn it into a business.',
+                body: [],
+                items: [
+                    { title: 'Stripe payouts', text: 'Paid through the platform, confirmed only against a verified payment.' },
+                    { title: 'Dynamic pricing', text: 'Prices that follow demand and the calendar.' },
+                    { title: 'Push notifications', text: 'Requests, confirmations, reminders.' },
+                    { title: 'Reviews', text: 'After every completed booking.' },
+                    { title: 'Analytics for owners', text: 'Chairs, bookings, and revenue in one view.' }
+                ]
+            }
+        ]
     },
     {
         id: 'filmingitall',
         title: 'Filming It All',
-        shortDescription: 'Cinematic production & photography studio. A faceless brand with a black-and-yellow storefront and a booking funnel.',
+        tagline: 'Turning daily life into pure cinematic moments.',
         logo: 'images/filmingitall.png',
-        image: 'images/filmingitall-site.webp',
-        technologies: ['Next.js', 'React', 'TypeScript', 'Tailwind CSS', 'Framer Motion'],
-        inspiration: 'A production studio should feel like a film, not a brochure. The site opens on a single black frame with the handwritten wordmark and nothing else, then routes visitors to the work, the services, or a private session.',
-        goals: 'Ship a brand and a storefront in one codebase: a category-filtered portfolio, business production tiers, private cinematic sessions, and a shop with a cart ready for prints and merch.',
-        detailedDescription: 'Filming It All is the public face of a cinematic production and photography studio. The gateway page sets the tone; the portfolio filters work by category (reels, business, private, family, travel, vlog, documentary); the studio page sells three production tiers to businesses; the sessions page offers private bookings for couples, solo travelers, and individuals.',
-        architecture: 'Next.js 16 app router with React 19 and Tailwind CSS 4. Framer Motion drives the hero and page transitions, Zustand holds the cart state behind a slide-in drawer, and media is served from S3. Static generation with sitemap and robots routes for SEO.',
-        mockupType: 'desktop',
-        sourceCodeUrl: '',
-        liveDemoUrl: 'https://www.filmingitall.com',
-        displayUrl: 'www.filmingitall.com',
-        customLayout: true
+        links: [{ label: 'filmingitall.com', url: 'https://www.filmingitall.com' }],
+        socials: [
+            { label: 'Instagram', url: 'https://instagram.com/imfilmingitall', icon: 'fab fa-instagram' },
+            { label: 'YouTube', url: 'https://youtube.com/@filmingitall', icon: 'fab fa-youtube' },
+            { label: 'TikTok', url: 'https://vt.tiktok.com/ZSC6ugxPs', icon: 'fab fa-tiktok' }
+        ],
+        chapters: [
+            {
+                id: 'idea',
+                heading: 'The idea',
+                lead: 'A production studio should feel like a film, not a brochure. Filming It All is a faceless cinematic brand with a storefront built to sell three things.',
+                body: [
+                    'Businesses buy production tiers: Essential, Production, Retainer. Individuals buy private cinematic sessions. A shop for prints and merch is the third line, with the cart already built.',
+                    'The brand is the product: one black frame, a handwritten wordmark, a yellow asterisk, and a portfolio filtered by category. Every path ends in a booking or an order.'
+                ]
+            },
+            {
+                id: 'build',
+                heading: 'How it\'s built',
+                lead: 'One Next.js codebase carries the brand, the portfolio, the storefront, and the cart.',
+                body: [
+                    'The whole storefront is statically generated, so nothing sits between the visitor and the footage at request time. The only client state is the cart, held in a Zustand store outside the React tree so it survives route changes without a provider.',
+                    'Framer Motion runs the route transitions on the app router, which is what lets the black frame hold between pages instead of flashing to a new document.'
+                ],
+                facts: [
+                    { label: 'Stack', text: 'Next.js 16, React 19, Tailwind CSS 4, Framer Motion, Zustand' },
+                    { label: 'Status', text: 'Live at filmingitall.com' }
+                ]
+            },
+            {
+                id: 'next',
+                heading: 'What\'s next',
+                lead: 'The storefront is built. The next releases open the shop and let people book without sending a message.',
+                body: [],
+                items: [
+                    { title: 'Prints and merch shop', text: 'The third revenue line, from the same storefront.' },
+                    { title: 'Cart checkout', text: 'Payment on the cart that already holds the order.' },
+                    { title: 'Video portfolio player', text: 'Reels playing inside the portfolio.' },
+                    { title: 'Online booking', text: 'Sessions and tiers booked from the page.' }
+                ]
+            }
+        ]
     },
     {
         id: 'climate-support',
         title: 'Climate Support',
-        shortDescription: 'Landing site and partner platform for a food-tech company that lab-verifies nutrient density and seals every batch with a QR code.',
+        tagline: 'Measured proof of quality.',
         logo: 'images/climate-support.png',
-        image: 'images/climate-support-site.webp',
-        technologies: ['Next.js', 'React', 'Supabase', 'TypeScript'],
-        inspiration: 'Food quality is claimed, rarely proven. Climate Support makes it measurable: a harvest is sampled, a lab measures its nutrient density, and the result travels with the produce as a QR code anyone can scan.',
-        goals: 'Give shoppers proof they can check themselves, give farmers premium pricing without the cost of organic certification, and give farms, labs, packagers, and shops one shared chain to work in.',
-        detailedDescription: 'Two connected products. The landing site at climate-support.org explains the idea and routes farmers, shops, shoppers, and investors to their own path. The partner platform at app.climate-support.org is where the work happens: farms apply and log harvests, labs test and grade, packagers seal batches to QR codes, and retailers source verified produce.',
-        architecture: 'Both products are Next.js apps. The platform runs on Supabase with role-based access for farmers, labs, packagers, retailers, and admins.',
-        mockupType: 'desktop',
-        sourceCodeUrl: '',
-        liveDemoUrl: 'https://climate-support.org',
-        displayUrl: 'www.climate-support.org',
-        customLayout: true
+        links: [
+            { label: 'climate-support.org', url: 'https://climate-support.org' },
+            { label: 'app.climate-support.org', url: 'https://app.climate-support.org' }
+        ],
+        socials: [
+            { label: 'Instagram', url: 'https://www.instagram.com/climate.support/', icon: 'fab fa-instagram' },
+            { label: 'LinkedIn', url: 'https://www.linkedin.com/company/climate-support/', icon: 'fab fa-linkedin-in' }
+        ],
+        chapters: [
+            {
+                id: 'idea',
+                heading: 'The idea',
+                lead: 'Food quality is claimed on the label and rarely proven. Climate Support makes it measurable, and turns the proof into a price.',
+                body: [
+                    'A harvest is sampled, a lab measures its nutrient density, and the result is sealed to a QR code on the package. Farmers earn a premium without organic certification. Shops source produce they can vouch for. Shoppers get proof instead of promises.',
+                    'Two connected products, both live: the landing site tells the story and routes each visitor to their path; the partner platform is where farms, labs, packagers, and retailers run the chain.'
+                ]
+            },
+            {
+                id: 'build',
+                heading: 'How it\'s built',
+                lead: 'Two Next.js apps on one Supabase backend, with a role for every hand the produce passes through.',
+                body: [
+                    'A batch is one row that moves through four states, harvested, graded, sealed, on shelf, and each transition is written by a different role. Row-level security keyed on that role means farms, labs, packagers, and retailers query the same table and each sees only its own step.',
+                    'The QR code resolves to the batch\'s verification record, so the proof is checked against the database, not printed on the label. The landing site is a separate Next.js app on the same Supabase project, so it deploys on its own without touching the platform.'
+                ],
+                facts: [
+                    { label: 'Stack', text: 'Next.js, React, TypeScript, Supabase' },
+                    { label: 'Roles', text: 'Farmer, lab, packager, retailer, admin' },
+                    { label: 'Status', text: 'Both products live' }
+                ]
+            },
+            {
+                id: 'next',
+                heading: 'What\'s next',
+                lead: 'The chain is running. The next releases make it faster, wider, and visible.',
+                body: [],
+                items: [
+                    { title: 'Automated grading', text: 'Results scored without a manual step.' },
+                    { title: 'Retail marketplace', text: 'Verified batches listed for shops.' },
+                    { title: 'Impact numbers', text: 'What the chain has verified, made public.' },
+                    { title: 'Export batches', text: 'Verified batches prepared for export.' }
+                ]
+            }
+        ]
     }
 ];

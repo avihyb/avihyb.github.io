@@ -2,7 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core';
 import { ActivatedRoute, Router } from '@angular/router';
 import { Subscription } from 'rxjs';
 import { PROJECTS, PERSONAL_PROJECTS } from './project-data';
-import { Project, PersonalProject } from './project.model';
+import { Chapter, Project, PersonalProject } from './project.model';
 
 /** Tags that describe the kind of work rather than a language. */
 const TYPE_TAGS = ['Research', 'Experiment', 'Game'];
@@ -15,14 +15,17 @@ const TYPE_TAGS = ['Research', 'Experiment', 'Game'];
 export class ProjectsComponent implements OnInit, OnDestroy {
   activeTab: 'academic' | 'personal' = 'personal';
 
+  readonly personalCount = PERSONAL_PROJECTS.length;
+  readonly academicCount = PROJECTS.length;
+
   // Academic
   projects: Project[] = PROJECTS;
   filteredProjects: Project[] = PROJECTS;
   searchQuery = '';
   selectedType = 'All';
   selectedLanguage = 'All';
-  availableTypes: string[] = ['All'];
-  availableLanguages: string[] = ['All'];
+  availableTypes: string[] = [];
+  availableLanguages: string[] = [];
 
   // Personal
   personalProjects: PersonalProject[] = PERSONAL_PROJECTS;
@@ -36,14 +39,15 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     const types = new Set<string>();
     const languages = new Set<string>();
     this.projects.forEach(p => (p.languages || []).forEach(tag => (TYPE_TAGS.includes(tag) ? types : languages).add(tag)));
-    this.availableTypes = ['All', ...Array.from(types).sort()];
-    this.availableLanguages = ['All', ...Array.from(languages).sort()];
+    this.availableTypes = Array.from(types).sort();
+    this.availableLanguages = Array.from(languages).sort();
 
     // The URL is the source of truth for the tab and the open project, so Back and sharing work.
     this.paramsSub = this.route.queryParams.subscribe(params => {
       this.activeTab = params['tab'] === 'academic' ? 'academic' : 'personal';
       const id = params['project'];
       this.selectedPersonalProject = id ? (this.personalProjects.find(p => p.id === id) ?? null) : null;
+
     });
   }
 
@@ -61,6 +65,27 @@ export class ProjectsComponent implements OnInit, OnDestroy {
   }
 
   /* ====== Personal ====== */
+  trackById(_: number, project: PersonalProject): string {
+    return project.id;
+  }
+
+  /** The product `offset` steps from the open one, wrapping at the ends. */
+  neighbour(offset: number): PersonalProject {
+    const count = this.personalProjects.length;
+    const index = this.personalProjects.findIndex(p => p.id === this.selectedPersonalProject?.id);
+    return this.personalProjects[(index + offset + count) % count];
+  }
+
+  stepProduct(offset: number): void {
+    if (this.selectedPersonalProject) {
+      this.selectPersonalProject(this.neighbour(offset));
+    }
+  }
+
+  trackByChapter(_: number, chapter: Chapter): string {
+    return chapter.id;
+  }
+
   selectPersonalProject(project: PersonalProject | null): void {
     this.router.navigate([], {
       relativeTo: this.route,
@@ -89,13 +114,14 @@ export class ProjectsComponent implements OnInit, OnDestroy {
     this.filterProjects();
   }
 
+  /** A token toggles: picking the active one again clears that facet. */
   onTypeSelect(type: string): void {
-    this.selectedType = type;
+    this.selectedType = this.selectedType === type ? 'All' : type;
     this.filterProjects();
   }
 
   onLanguageSelect(lang: string): void {
-    this.selectedLanguage = lang;
+    this.selectedLanguage = this.selectedLanguage === lang ? 'All' : lang;
     this.filterProjects();
   }
 

@@ -6,24 +6,45 @@ export interface Project {
   languages: string[];
 }
 
+/** One chapter of a product page: a heading, a lead sentence, prose, and optional structured content. */
+export interface Chapter {
+  id: 'idea' | 'build' | 'next';
+  /** Short heading, without the trailing period (the template adds a gold one). */
+  heading: string;
+  lead: string;
+  body: string[];
+  /** Spec rows for the build chapter: a label and its value. */
+  facts?: { label: string; text: string }[];
+  /** Roadmap entries for the next chapter. */
+  items?: { title: string; text: string }[];
+  image?: ProductImage;
+}
+
+/** A transparent cut-out that sits inside the chapter's text, on one side, with the prose wrapping around it. */
+export interface ProductImage {
+  src: string;
+  alt: string;
+  side: 'left' | 'right';
+}
+
+export interface ProductLink {
+  label: string;
+  url: string;
+}
+
+export interface SocialLink extends ProductLink {
+  /** Font Awesome brand class, e.g. "fab fa-instagram". */
+  icon: string;
+}
+
 export interface PersonalProject {
   id: string;
   title: string;
-  shortDescription: string;
+  /** One line under the name, in the product's own voice. */
+  tagline: string;
   logo: string;
-  image: string;
-  technologies: string[];
-  inspiration: string;
-  goals: string;
-  detailedDescription: string;
-  architecture: string;
-  technicalDetails?: string;
-  mockupType?: 'mobile' | 'desktop';
-  sourceCodeUrl: string;
-  liveDemoUrl: string;
-  /** Short label shown on the website pill, e.g. www.example.com */
-  displayUrl?: string;
-  /** True when projects.component.html has a bespoke section for this id */
-  customLayout?: boolean;
-  locked?: boolean;
+  /** The first link is the live product and gets the gold button. */
+  links: ProductLink[];
+  socials: SocialLink[];
+  chapters: Chapter[];
 }

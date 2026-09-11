@@ -190,23 +190,32 @@
 }
 
 /* Hover menu under Projects. The item keeps the menu open while the pointer
-   travels down to it; focus-within opens it for keyboard users. Touch layouts get no menu. */
+   travels down to it; a keyboard focus ring opens it too (a mouse click leaves no focus ring,
+   so the menu does not hang open after navigating). A click dismisses it until the pointer
+   leaves. Touch layouts get no menu. */
 .nav-item {
   position: relative;
 
   &:hover .nav-link,
-  &:focus-within .nav-link {
+  &:has(:focus-visible) .nav-link {
     color: var(--text);
   }
 
   &:hover .menu,
-  &:focus-within .menu {
+  &:has(:focus-visible) .menu {
     opacity: 1;
     visibility: visible;
     transform: translateY(0);
     transition-delay: 0s, 0s, 0s;
   }
+
+  &.dismissed .menu {
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-6px);
+  }
 }
+
 
 .menu {
   position: absolute;
