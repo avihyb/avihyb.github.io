@@ -11,6 +11,34 @@
   outline: none;
 }
 
+/* Quiet footer: a rule, the copyright, and the legal link. */
+.site-footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 26px 40px;
+  border-top: 1px solid var(--glass-border);
+  font-size: 13px;
+  color: var(--text-muted);
+
+  .copyright { margin: 0; }
+
+  .footer-nav {
+    display: flex;
+    gap: 22px;
+  }
+
+  a {
+    color: var(--text-muted);
+    text-decoration: none;
+    letter-spacing: 0.04em;
+    transition: color 0.2s var(--ease-out);
+
+    &:hover, &.active { color: var(--text); }
+  }
+}
+
 .skip-link {
   position: absolute;
   top: 12px;
@@ -237,6 +265,8 @@
 }
 
 @media (max-width: 640px) {
+  .site-footer { padding: 22px 20px; }
+
   .main-layout {
     padding-top: 80px;
   }

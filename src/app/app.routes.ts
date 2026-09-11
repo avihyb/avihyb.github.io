@@ -3,12 +3,14 @@ import { RouterModule, Routes } from '@angular/router';
 import { HomeComponent } from './home/home.component';
 import { ProjectsComponent } from './projects/projects.component';
 import { ContactComponent } from './contact/contact.component';
+import { PrivacyComponent } from './privacy/privacy.component';
 
 const routes: Routes = [
   { path: '', redirectTo: 'home', pathMatch: 'full' },
   { path: 'home', component: HomeComponent, title: 'Avichai Ben David | Software Developer' },
   { path: 'projects', component: ProjectsComponent, title: 'Projects | Avichai Ben David' },
   { path: 'contact', component: ContactComponent, title: 'Contact | Avichai Ben David' },
+  { path: 'privacy', component: PrivacyComponent, title: 'Privacy | Avichai Ben David' },
   { path: '**', redirectTo: 'home' }
 ];
 

@@ -1,0 +1,111 @@
+/* A single reading column under the fixed header, set in the same voice as the Contact page. */
+.privacy-page {
+  display: flex;
+  justify-content: center;
+  padding: 24px 20px 96px;
+  animation: fadeIn 0.6s var(--ease-out) forwards;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0; transform: translateY(12px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.privacy-content {
+  width: 100%;
+  max-width: 680px;
+}
+
+.privacy-head {
+  margin-bottom: 56px;
+}
+
+.eyebrow {
+  margin: 0 0 14px;
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.22em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.headline {
+  font-size: 48px;
+  font-weight: 800;
+  line-height: 1.08;
+  letter-spacing: -1px;
+  color: var(--text);
+  margin: 0;
+
+  .highlight {
+    display: block;
+    width: fit-content;
+    margin-top: 0.05em;
+    color: var(--accent);
+    font-family: 'Galiver Sans', 'Inter', sans-serif;
+    font-weight: 400;
+    font-synthesis: none;
+    font-size: min(1.9em, 14vw);
+    line-height: 1;
+    letter-spacing: 0;
+    white-space: nowrap;
+  }
+}
+
+.lede {
+  margin: 28px 0 0;
+  font-size: 19px;
+  line-height: 1.6;
+  color: var(--text-dim);
+}
+
+.updated {
+  margin: 18px 0 0;
+  font-size: 13px;
+  color: var(--text-muted);
+}
+
+.block {
+  padding: 28px 0;
+  border-top: 1px solid var(--glass-border);
+
+  h2 {
+    margin: 0 0 14px;
+    font-size: 13px;
+    font-weight: 600;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+  }
+
+  p, li {
+    margin: 0;
+    font-size: 17px;
+    line-height: 1.7;
+    color: var(--text-dim);
+  }
+
+  ul {
+    margin: 0;
+    padding-left: 22px;
+    display: grid;
+    gap: 8px;
+  }
+
+  a {
+    color: var(--text);
+    text-decoration: underline;
+    text-decoration-color: var(--accent);
+    text-underline-offset: 3px;
+    transition: color 0.2s var(--ease-out);
+
+    &:hover { color: var(--accent); }
+  }
+}
+
+@media (max-width: 640px) {
+  .privacy-page { padding-top: 8px; }
+  .headline { font-size: 38px; }
+  .lede { font-size: 17px; }
+  .block p, .block li { font-size: 16px; }
+}

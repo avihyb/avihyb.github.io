@@ -11,6 +11,9 @@ import { ReloadRouteReuseStrategy } from './shared/reload-route-reuse.strategy';
 export class AppComponent implements OnInit, OnDestroy {
   scrolled = false;
 
+  /** Footer copyright year, taken from the visitor's clock so it never goes stale. */
+  readonly year = new Date().getFullYear();
+
   /** Route-change loader: the wordmark with its dot bouncing, shown between pages. */
   loading = false;
 
