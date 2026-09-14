@@ -29,7 +29,6 @@ export class HomeComponent implements OnInit, OnDestroy {
         { name: 'Angular', icon: 'angular' },
         { name: 'Flutter', icon: 'flutter' },
         { name: 'Node.js', icon: 'nodedotjs' },
-        { name: 'Supabase', icon: 'supabase' },
         { name: 'PostgreSQL', icon: 'postgresql' },
         { name: 'Stripe', icon: 'stripe' },
         { name: 'Tailwind CSS', icon: 'tailwindcss' },

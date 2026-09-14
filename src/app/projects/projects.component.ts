@@ -156,7 +156,6 @@ export class ProjectsComponent implements OnInit, OnDestroy {
       'Framer Motion': 'fas fa-film',
       'D3': 'devicon-d3js-plain',
       'Nodemailer': 'fas fa-envelope',
-      'Supabase': 'fas fa-database',
       'Research': 'fas fa-microscope',
       'Experiment': 'fas fa-flask',
       'Game': 'fas fa-gamepad'

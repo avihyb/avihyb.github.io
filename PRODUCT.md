@@ -18,7 +18,7 @@ Personal portfolio of Avichai Ben David, a software developer. Its job is to get
 
 ## Positioning
 
-A developer who ships whole products, not tickets: a booking marketplace (Bambi, Flutter and Supabase), a cinematic studio storefront (Filming It All, Next.js), and a food-tech landing site plus partner platform (Climate Support, Next.js and Supabase). The work is the proof; the portfolio should let the work lead.
+A developer who ships whole products, not tickets: a booking marketplace (Bambi, Flutter), a cinematic studio storefront (Filming It All, Next.js), and a food-tech landing site plus partner platform (Climate Support, Next.js). The work is the proof; the portfolio should let the work lead.
 
 ## Operating Context
 

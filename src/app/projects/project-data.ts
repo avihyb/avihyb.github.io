@@ -85,14 +85,14 @@ export const PERSONAL_PROJECTS: PersonalProject[] = [
             {
                 id: 'build',
                 heading: 'How it\'s built',
-                lead: 'One Flutter codebase, three roles, and a database that refuses to let a booking land in the wrong state.',
+                lead: 'Three roles, one codebase, one account model.',
                 body: [
-                    'Authorization lives entirely in Postgres row-level security. The client ships no access rules, and the privileged paths run server-side, so a compromised app build still cannot read another shop\'s chairs or move a booking it does not own.',
-                    'The booking lifecycle is a state machine in SQL with idempotent transitions, so a retried or duplicated payment confirmation cannot double-book a chair or double-charge a client. Three roles share one account and one Flutter codebase; the role is a permission, not a separate app.'
+                    'The app is multi-tenant: many shops share one system. Each shop is isolated at the data layer, not in the interface, so access rules hold no matter which client sends the request.',
+                    'Bookings are a state machine with idempotent transitions, so a retried or duplicated event lands on a single valid outcome. Roles are permissions on one account rather than separate apps, which keeps a single release process for three user types on iOS, Android and web.'
                 ],
                 facts: [
-                    { label: 'Stack', text: 'Flutter, Riverpod, Supabase' },
-                    { label: 'Platforms', text: 'iOS, Android, and web from one codebase' },
+                    { label: 'Stack', text: 'Flutter' },
+                    { label: 'Platforms', text: 'iOS, Android, web' },
                     { label: 'Status', text: 'Pre-seed MVP, in development' }
                 ],
                 image: { src: 'images/bambi-example.webp', alt: 'Clippers beside a phone running Bambi', side: 'left' }
@@ -136,14 +136,14 @@ export const PERSONAL_PROJECTS: PersonalProject[] = [
             {
                 id: 'build',
                 heading: 'How it\'s built',
-                lead: 'One Next.js codebase carries the brand, the portfolio, the storefront, and the cart.',
+                lead: 'A statically generated storefront with exactly one piece of client state.',
                 body: [
-                    'The whole storefront is statically generated, so nothing sits between the visitor and the footage at request time. The only client state is the cart, held in a Zustand store outside the React tree so it survives route changes without a provider.',
-                    'Framer Motion runs the route transitions on the app router, which is what lets the black frame hold between pages instead of flashing to a new document.'
+                    'Every page is rendered at build time, so no server work runs on each request. The cart is the only client state. It lives in one store outside the component tree, so it survives navigation without extra wrappers.',
+                    'Transitions live in the shared layout, so the frame stays on screen across routes instead of reloading with each page.'
                 ],
                 facts: [
-                    { label: 'Stack', text: 'Next.js 16, React 19, Tailwind CSS 4, Framer Motion, Zustand' },
-                    { label: 'Status', text: 'Live at filmingitall.com' }
+                    { label: 'Stack', text: 'Next.js, React, Tailwind CSS' },
+                    { label: 'Status', text: 'Live' }
                 ]
             },
             {
@@ -186,15 +186,15 @@ export const PERSONAL_PROJECTS: PersonalProject[] = [
             {
                 id: 'build',
                 heading: 'How it\'s built',
-                lead: 'Two Next.js apps on one Supabase backend, with a role for every hand the produce passes through.',
+                lead: 'A chain of custody across four kinds of organization, modeled as one record and four permissions.',
                 body: [
-                    'A batch is one row that moves through four states, harvested, graded, sealed, on shelf, and each transition is written by a different role. Row-level security keyed on that role means farms, labs, packagers, and retailers query the same table and each sees only its own step.',
-                    'The QR code resolves to the batch\'s verification record, so the proof is checked against the database, not printed on the label. The landing site is a separate Next.js app on the same Supabase project, so it deploys on its own without touching the platform.'
+                    'A batch moves through four states: harvested, graded, sealed, on shelf. Each transition belongs to exactly one role, and each role can read only the records at its own step. Isolation is enforced below the application, so the same rules hold for every client.',
+                    'Scanning the QR code on a package fetches the stored record at that moment, so a label can\'t claim a result the record doesn\'t hold. The public site and the partner platform deploy separately against the same backend.'
                 ],
                 facts: [
-                    { label: 'Stack', text: 'Next.js, React, TypeScript, Supabase' },
-                    { label: 'Roles', text: 'Farmer, lab, packager, retailer, admin' },
-                    { label: 'Status', text: 'Both products live' }
+                    { label: 'Stack', text: 'Next.js, TypeScript' },
+                    { label: 'Roles', text: 'Farmer, lab, packager, retailer' },
+                    { label: 'Status', text: 'Both applications live' }
                 ]
             },
             {
