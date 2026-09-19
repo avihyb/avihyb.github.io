@@ -1,80 +1,74 @@
 <section class="home">
-  <!-- Act one: the statement -->
+  <!-- Act one: the statement, inside a slowly turning halo of the tools it was made with -->
   <div class="stage" (mousemove)="onStageMove($event)" (mouseleave)="onStageLeave()">
-    <div class="statement">
-      <h1 class="name">
-        <span class="line"><span class="word">Avichai</span></span>
-        <span class="line"><span class="word">Ben David<span class="dot">.</span></span></span>
-      </h1>
-      <div class="actions">
-        <a routerLink="/projects" class="btn-primary">
-          Explore my work <i class="fas fa-arrow-right" aria-hidden="true"></i>
-        </a>
-        <a routerLink="/contact" class="btn-secondary">Contact</a>
-        <span class="socials">
-          <a href="https://github.com/avihyb" target="_blank" rel="noopener" aria-label="GitHub"><i
-              class="fab fa-github" aria-hidden="true"></i></a>
-          <a href="https://www.linkedin.com/in/avihyb" target="_blank" rel="noopener" aria-label="LinkedIn"><i
-              class="fab fa-linkedin-in" aria-hidden="true"></i></a>
-        </span>
+
+    <!-- The two faces of the box: the statement and the portrait, hinged at the seam between
+         them. On landing they swing open from edge-on into one flat plane. -->
+    <div class="fold">
+      <div class="statement">
+        <h1 class="name">
+          <span class="line"><span class="word">Avichai</span></span>
+          <span class="line"><span class="word">Ben David<span class="dot">.</span></span></span>
+        </h1>
+        <div class="actions">
+          <a routerLink="/projects" class="btn-primary">
+            Explore my work <i class="fas fa-arrow-right" aria-hidden="true"></i>
+          </a>
+          <span class="socials">
+            <a href="https://github.com/avihyb" target="_blank" rel="noopener" aria-label="GitHub"><i
+                class="fab fa-github" aria-hidden="true"></i></a>
+            <a href="https://www.linkedin.com/in/avihyb" target="_blank" rel="noopener" aria-label="LinkedIn"><i
+                class="fab fa-linkedin-in" aria-hidden="true"></i></a>
+          </span>
+        </div>
+      </div>
+
+      <!-- Portrait: the subject stands in front of the gold hexagon and rises past its top,
+           so the mark reads as something he steps out of rather than a window he sits behind. -->
+      <div class="portrait">
+        <div class="mark" aria-hidden="true"><span class="mark-face"></span></div>
+        <div class="figure">
+          <img src="images/portrait.webp" alt="Avichai Ben David" width="800" height="800" fetchpriority="high">
+        </div>
       </div>
     </div>
 
-    <!-- Portrait: the subject stands in front of the gold hexagon and rises past its top,
-         so the mark reads as something he steps out of rather than a window he sits behind. -->
-    <div class="portrait" [style.transform]="portraitTransform">
-      <div class="mark" aria-hidden="true"><span class="mark-face"></span></div>
-      <div class="figure">
-        <img src="images/portrait.webp" alt="Avichai Ben David" width="800" height="800" fetchpriority="high">
-      </div>
-    </div>
-  </div>
-
-  <!-- Act two: the strip -->
-  <div id="work" class="strip" appReveal>
-    <section class="works" aria-label="Selected work">
-      <div class="works-head">
-        <a routerLink="/projects" [queryParams]="{tab: 'personal'}" class="all-link">
-          All projects <i class="fas fa-arrow-right" aria-hidden="true"></i>
-        </a>
-      </div>
-      <div class="tiles">
-        <a class="tile spot" appSpotlight appMagnet routerLink="/projects"
-          [queryParams]="{tab: 'personal', project: 'bambi-marketplace'}" aria-label="Bambi">
-          <img src="images/bambi.png" alt="" width="44" height="44">
-          <span class="tile-name" aria-hidden="true">Bambi</span>
-        </a>
-        <a class="tile spot" appSpotlight appMagnet routerLink="/projects"
-          [queryParams]="{tab: 'personal', project: 'climate-support'}" aria-label="Climate Support">
-          <img src="images/climate-support.png" alt="" width="44" height="44">
-          <span class="tile-name" aria-hidden="true">Climate Support</span>
-        </a>
-        <a class="tile spot" appSpotlight appMagnet routerLink="/projects"
-          [queryParams]="{tab: 'personal', project: 'filmingitall'}" aria-label="Filming It All">
-          <img src="images/filmingitall.png" alt="" width="44" height="44">
-          <span class="tile-name" aria-hidden="true">Filming It All</span>
-        </a>
-        <a class="tile tile-more spot" appSpotlight appMagnet routerLink="/projects"
-          [queryParams]="{tab: 'academic'}" aria-label="Academic work, eight projects">
-          <span class="tile-count">08</span>
-          <span class="tile-name" aria-hidden="true">Academic work</span>
-        </a>
-      </div>
-    </section>
-
-    <div class="strip-divider" aria-hidden="true"></div>
-
-    <section class="tools" [attr.aria-label]="toolSets[activeSet].label"
-      (mouseenter)="pauseTools()" (mouseleave)="resumeTools()">
-      <ul class="tools-row" [class.swapping]="swapping">
-        @for (tool of toolSets[activeSet].items; track tool.icon; let i = $index) {
-          <li class="tool" [style.--i]="i" tabindex="0">
-            <span class="tool-logo" [style.--logo]="'url(images/tools/' + tool.icon + '.svg)'" role="img"
-              [attr.aria-label]="tool.name"></span>
-            <span class="tool-name" aria-hidden="true">{{ tool.name }}</span>
+    <!-- The halo: one flat ring of tool marks circling the whole hero, each wired to its
+         neighbours and a few reaching across. The marks travel the ring once every three minutes
+         and drift off it on their own clocks, so the web breathes instead of spinning as a wheel.
+         It sits behind the statement and the portrait, and holds still while a mark is read. -->
+    <div class="halo" #halo [style.transform]="haloTransform"
+      (mouseover)="pauseHalo()" (mouseout)="resumeHalo()"
+      (focusin)="pauseHalo()" (focusout)="resumeHalo()">
+      <svg class="halo-web" #web viewBox="0 0 100 100" preserveAspectRatio="none" aria-hidden="true">
+        @for (link of links; track $index) {
+          <line #lineEl [class.far]="link.far" vector-effect="non-scaling-stroke" />
+        }
+      </svg>
+      <ul class="halo-nodes" aria-label="Stack and tools">
+        @for (node of nodes; track node.icon) {
+          <li class="node" #nodeEl tabindex="0">
+            <span class="node-logo" [style.--logo]="'url(images/tools/' + node.icon + '.svg)'" role="img"
+              [attr.aria-label]="node.name"></span>
+            <span class="node-name" aria-hidden="true">{{ node.name }}</span>
           </li>
         }
       </ul>
-    </section>
+    </div>
+
+  </div>
+
+  <!-- Act two: the products, set the way a company sets the logos it works with -->
+  <div id="work" class="strip">
+    <ul class="band" aria-label="Projects">
+      @for (partner of partners; track partner.name) {
+        <li class="partner" [style.--i]="$index">
+          <a routerLink="/projects" [queryParams]="partner.params">
+            <img [src]="partner.logo" alt="" width="30" height="30">
+            <span class="partner-name">{{ partner.name }}</span>
+          </a>
+        </li>
+      }
+    </ul>
   </div>
 </section>

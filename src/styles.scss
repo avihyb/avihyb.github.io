@@ -16,6 +16,10 @@
   --radius-sm: 10px;
   --ease-out: cubic-bezier(0.22, 1, 0.36, 1);
   --ease-in-out: cubic-bezier(0.7, 0, 0.3, 1);
+  /* a face swinging open on a hinge: quick away from the fold, easing as it lies flat */
+  --ease-unfold: cubic-bezier(0.32, 1.12, 0.36, 1);
+  /* a mark landing with a little bounce */
+  --ease-pop: cubic-bezier(0.34, 1.56, 0.64, 1);
 }
 
 /* Galiver Sans, self-hosted, one weight: the display voice (nav, gold headline words, small tracked labels). */
